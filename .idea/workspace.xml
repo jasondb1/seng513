@@ -2,20 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0d6689fa-93cc-4625-a8ac-66240fc155c9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/doc/ui_mockup/admin.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/ui_mockup/assets/css/custom.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/ui_mockup/assets/js/nav_aids.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/ui_mockup/invoices.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/ui_mockup/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/doc/ui_mockup/projects.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/socket.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/project.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/project.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/ui_mockup/assets/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/doc/ui_mockup/assets/css/custom.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/ui_mockup/assets/js/nav_aids.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/ui_mockup/assets/js/nav_aids.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/ui_mockup/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/ui_mockup/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/ui_mockup/invoices.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/ui_mockup/invoices.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/ui_mockup/projects.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/ui_mockup/projects.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -49,8 +40,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/doc/ui_mockup/assets/css/custom.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="711">
-              <caret line="265" column="17" lean-forward="true" selection-start-line="264" selection-end-line="265" selection-end-column="17" />
+            <state relative-caret-position="18">
+              <caret line="242" column="13" selection-start-line="242" selection-start-column="13" selection-end-line="242" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -67,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/doc/ui_mockup/invoices.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3927">
-              <caret line="231" column="14" selection-start-line="231" selection-start-column="14" selection-end-line="231" selection-end-column="14" />
+            <state relative-caret-position="371">
+              <caret line="254" column="16" selection-start-line="254" selection-start-column="16" selection-end-line="254" selection-end-column="16" />
               <folding>
                 <element signature="n#style#0;n#button#1;n#div#2;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#div#2;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -80,16 +71,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/doc/ui_mockup/dashboard.html">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-496">
+              <caret line="182" column="35" selection-start-line="182" selection-start-column="35" selection-end-line="182" selection-end-column="35" />
+              <folding>
+                <element signature="n#style#0;n#span#0;n#div#2;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/doc/ui_mockup/assets/js/nav_aids.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+            <state relative-caret-position="221">
+              <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -97,10 +95,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/doc/ui_mockup/projects.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="152" column="10" selection-start-line="152" selection-start-column="10" selection-end-line="152" selection-end-column="10" />
+            <state relative-caret-position="68">
+              <caret line="181" column="31" lean-forward="true" selection-start-line="181" selection-start-column="31" selection-end-line="181" selection-end-column="31" />
               <folding>
-                <element signature="n#style#0;n#span#0;n#div#2;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#1;n#div#2;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -113,9 +110,13 @@
     <findStrings>
       <find>projects</find>
       <find>status</find>
+      <find>Invoice</find>
+      <find>chat</find>
     </findStrings>
     <replaceStrings>
       <replace>invoices</replace>
+      <replace>WorkOrder</replace>
+      <replace>PO</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -155,15 +156,16 @@
         <option value="$PROJECT_DIR$/doc/ui_mockup/index.html" />
         <option value="$PROJECT_DIR$/doc/ui_mockup/assets/login.html" />
         <option value="$PROJECT_DIR$/doc/ui_mockup/login.html" />
-        <option value="$PROJECT_DIR$/doc/ui_mockup/projects.html" />
         <option value="$PROJECT_DIR$/doc/ui_mockup/admin.html" />
+        <option value="$PROJECT_DIR$/doc/ui_mockup/projects.html" />
+        <option value="$PROJECT_DIR$/doc/ui_mockup/dashboard.html" />
         <option value="$PROJECT_DIR$/doc/ui_mockup/assets/js/nav_aids.js" />
-        <option value="$PROJECT_DIR$/doc/ui_mockup/invoices.html" />
         <option value="$PROJECT_DIR$/doc/ui_mockup/assets/css/custom.css" />
+        <option value="$PROJECT_DIR$/doc/ui_mockup/invoices.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="80" />
     <option name="width" value="1155" />
     <option name="height" value="1052" />
@@ -275,15 +277,16 @@
       <option name="presentableId" value="Default" />
       <updated>1551123188953</updated>
       <workItem from="1551123190428" duration="51447000" />
-      <workItem from="1551286666735" duration="28821000" />
+      <workItem from="1551286666735" duration="35666000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80268000" />
+    <option name="totallyTimeSpent" value="87113000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1052" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
@@ -519,12 +522,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/doc/ui_mockup/projects.html">
+    <entry file="file://$PROJECT_DIR$/doc/ui_mockup/dashboard.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="152" column="10" selection-start-line="152" selection-start-column="10" selection-end-line="152" selection-end-column="10" />
+        <state relative-caret-position="-496">
+          <caret line="182" column="35" selection-start-line="182" selection-start-column="35" selection-end-line="182" selection-end-column="35" />
           <folding>
             <element signature="n#style#0;n#span#0;n#div#2;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/ui_mockup/projects.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="181" column="31" lean-forward="true" selection-start-line="181" selection-start-column="31" selection-end-line="181" selection-end-column="31" />
+          <folding>
             <element signature="n#style#0;n#span#1;n#div#2;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -542,31 +554,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/doc/ui_mockup/assets/js/nav_aids.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        <state relative-caret-position="221">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/doc/ui_mockup/assets/css/custom.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="711">
-          <caret line="265" column="17" lean-forward="true" selection-start-line="264" selection-end-line="265" selection-end-column="17" />
+        <state relative-caret-position="18">
+          <caret line="242" column="13" selection-start-line="242" selection-start-column="13" selection-end-line="242" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/doc/ui_mockup/invoices.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3927">
-          <caret line="231" column="14" selection-start-line="231" selection-start-column="14" selection-end-line="231" selection-end-column="14" />
+        <state relative-caret-position="371">
+          <caret line="254" column="16" selection-start-line="254" selection-start-column="16" selection-end-line="254" selection-end-column="16" />
           <folding>
             <element signature="n#style#0;n#button#1;n#div#2;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#div#2;n#nav#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/ui_mockup/dashboard.html">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

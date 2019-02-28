@@ -206,7 +206,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="table-light">
+                        <tr>
                             <th scope="row">10001</th>
                             <td>Invoice #1</td>
                             <td>Column content</td>
@@ -226,7 +226,7 @@
                             <td><a href="#" onclick="return confirm('Confirm Delete?')"><span style="color:#f00;"><i
                                     class="fa fa-trash-alt fa-fw"></i></span></a></td>
                         </tr>
-                        <tr class="table-light">
+                        <tr>
                             <th scope="row">10003</th>
                             <td>Invoice #3</td>
                             <td>Column content</td>
@@ -252,7 +252,7 @@
             </section>
 
             <!-- Chat Area -->
-            <section class="col-3" id="chat">
+            <div class="col-3" id="chat">
                 <h2>Notes/Discussion</h2>
                 <a class="closebtn" href="javascript:void(0)" onclick="closeChat()">&times</a>
                 <div id="messages">
@@ -263,13 +263,13 @@
                 <form class="form-row" id="compose-message">
                     <div class="col-8 col-md-10">
                         <input autocomplete="off" class="form-control btn-rounded" id="clientMessage"
-                               id="m" placeholder="Enter message"/>
+                               placeholder="Enter message"/>
                     </div>
                     <div class="col-4 col-md-2">
                         <button class="btn btn-info btn-block btn-rounded"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </form>
-            </section>
+            </div>
         </div>
     </div>
 </div>
