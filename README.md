@@ -1,5 +1,5 @@
 # SMALL FISH ERP
-# A smallscael
+#
 
 # DESCRIPTION
     [add description]
@@ -10,7 +10,7 @@
     Jason De Boer - 30034428
     Jason Lyster
     Matthew
-    Parker 
+    Parker Siroishka - 30024936
     Wish 
     
 # CONFIGURATION
