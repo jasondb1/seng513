@@ -37,8 +37,8 @@ mongoose.connection.on('error', (err) => {
 } );
 
 //stack ===========
-app.use(express.static(path.join(__dirname, '/public')));
-//app.use(express.static(path.join(__dirname, '/test')));
+//app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/test')));
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({'extended':'true'}));
@@ -52,6 +52,7 @@ app.use('/api/project', project);
 app.use('/api/invoice', invoice);
 
 //sockets
+app.use('/socket.io', require('./app/socket.js'));
 require('./app/socket.js')(io);
 
 ///////////////////////////////////////////////////////////////////////

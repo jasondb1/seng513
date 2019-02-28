@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Group 2 SENG 513 UI MOCKUP</title>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script crossorigin="anonymous" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/custom.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/all.css" rel="stylesheet">
+    <script src="assets/js/nav_aids.js" type="text/javascript"></script>
+</head>
+<body>
+
+
+
+
+<div class="page-wrapper">
+    <nav class="navbar navbar-expand-xs navbar-dark bg-primary">
+        <div>
+            <button aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" onclick="openNav()" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#" id="company">smallFish ERP</a>
+
+            <ol class="breadcrumb bg-primary">
+                <li class="breadcrumb-item"><a href="#">Projects</a></li>
+                <li class="breadcrumb-item"><a href="#">10001</a></li>
+                <li class="breadcrumb-item active">Invoices</li>
+            </ol>
+        </div>
+        <div id="action">
+            <button class="btn btn-success btn-rounded" data-target="#form-modal" data-toggle="modal"><i
+                    class="far fa-plus-square"></i>Add
+            </button>
+            <!-- Add Page Action Buttons Here -->
+        </div>
+        <div class="ml-auto align-items-center" id="nav_rhs">
+            <span class="btn btn-dark bg-primary" onclick="openChat()" style="color: #fff;">
+                <i class="fa fa-2x fa-comments"> </i>
+            </span>
+            <span class="btn btn-dark bg-primary" style="color: #fff;" >
+                        <i class="fa fa-2x fa-bell"> </i><span class="badge badge-danger">4</span>
+                    </span>
+            <div class="form-group">
+                <div class="input-group">
+                    <input class="form-control btn-rounded" name="search" placeholder="search" type="text"/>
+                    <div class="input-group-append">
+                        <span class="input-group-text btn-rounded"><i class="fa fa-search"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Navigation Slide out Menu -->
+    <div class="sidenav bg-primary" id="sidenav">
+        <a class="closebtn" href="javascript:void(0)" onclick="closeNav()">&times;</a>
+        <a href="#"><i class="fa fa-2x fa-fw fa-archive"></i>Projects</a>
+        <a href="#"><i class="fa fa-2x fa-fw fa-file-invoice-dollar"></i>Invoices</a>
+        <a href="#"><i class="fa fa-2x fa-fw fa-inbox"></i>Purchase Orders</a>
+        <a href="#"><i class="fa fa-2x fa-fw fa-tasks"></i>Work Orders</a>
+        <a href="#"><i class="fa fa-2x fa-fw fa-user-ninja"></i>Admin</a>
+        <a href="#"><i class="fa fa-2x fa-fw fa-sign-out-alt"></i>Logout</a>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="container-fluid full-height">
+        <div class="row full-height">
+            <section class="col-12" id="content">
+                <!-- Add Content Area Here -->
+                <div class="row">
+                    <div class="col-2"><h2>Invoices</h2></div>
+                    <div class="col-10" id="status">
+
+                        <!-- Put status messages here -->
+                        <div class="alert alert-danger">
+                            <strong>Oops!:</strong> Alert/status area here!
+                        </div>
+                    </div>
+                </div>
+
+                
+
+            </section>
+
+            <!-- Chat Area -->
+            <section class="col-3" id="chat">
+                <h2>Notes/Discussion</h2>
+                <a class="closebtn" href="javascript:void(0)" onclick="closeChat()">&times</a>
+                <div id="messages">
+                    <div id="msg_container">
+                        [Discussion Here]
+                    </div>
+                </div>
+                <form class="form-row" id="compose-message">
+                    <div class="col-8 col-md-10">
+                        <input autocomplete="off" class="form-control btn-rounded" id="clientMessage"
+                               id="m" placeholder="Enter message"/>
+                    </div>
+                    <div class="col-4 col-md-2">
+                        <button class="btn btn-info btn-block btn-rounded"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>

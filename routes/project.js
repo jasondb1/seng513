@@ -26,6 +26,7 @@ router.get('/', function(req, res) {
 //save project
 router.post('/', function(req, res){
     //TODO: Implement this method
+    //THis comment
     res.send('Need to fully implement this');
 
     //construct a new employee
@@ -45,7 +46,7 @@ router.post('/', function(req, res){
     });
 });
 
-router.post('/:id', (req, res) => {
+router.get('/:id', (req, res) => {
    //check if id exists in db
     if (!ObjectId.isValid(req.params.id))
        return res.status(400).send('No record matches id: ' + req.params.id);
@@ -76,7 +77,7 @@ router.delete('/:id', function(req, res) {
 });
 
 //update project
-router.put('/:id', function(req, res, next) {
+router.put('/:id', function(req, res) {
     //TODO: Implement this method
     res.send('Need to implement this');
 });

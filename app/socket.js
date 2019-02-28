@@ -43,6 +43,7 @@ module.exports = function (io) {
             allUsers.push(user);
         } else {
             user.color = cookies.color;
+            user.color = cookies.color;
             user.name = cookies.uname;
             user.ID = parseInt(cookies.uid);
         }
