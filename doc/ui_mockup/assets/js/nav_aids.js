@@ -8,17 +8,32 @@ function closeNav() {
     document.getElementById("sidenav").style.width = "0";
 }
 
+//open menu
+function openSidebar() {
+    document.getElementById("content").className = "col-10";
+    document.getElementById("sidebar").style.display = "block";
+
+}
+
+//close menu
+function closeSidebar() {
+    document.getElementById("sidebar").style.display = "none";
+    document.getElementById("content").className = "col-12";
+
+}
+
+
+
+//open Chat
 function openChat() {
     document.getElementById("content").className = "col-9";
-    //document.getElementById("chat").style.visibility = "visible";
-    //document.getElementById("chat").style.display = "block";
-    document.getElementById("chat").style.width = "100%";
+    document.getElementById("chat").style.display = "block";
 }
 
 //close chat
 function closeChat() {
-    //document.getElementById("chat").style.visibility = "hidden";
+    document.getElementById("chat").style.display = "none";
     document.getElementById("content").className = "col-12";
-    //document.getElementById("chat").style.display = "none";
-    document.getElementById("chat").style.width = "0";
+
+
 }

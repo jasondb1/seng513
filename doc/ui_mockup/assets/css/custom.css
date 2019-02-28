@@ -3,6 +3,15 @@
 /* General */
 body {
     font-family: 'PT Sans', sans-serif;
+    overflow: hidden;
+}
+
+hr.white {
+    //color: #fff;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /*page wrapper and navbar height should equal 100%*/
@@ -40,15 +49,6 @@ body {
     background-color: #3b7eb4;
     display: block;
     color: #fff;
-}
-
-#chat {
-    width: 100%;
-    height: 100%;
-    background-color: #306591;
-    color: #fff;
-    display: block;
-    visibility: hidden;
 }
 
 #action {
@@ -91,9 +91,7 @@ table tbody
 .table thead {
     background-color: #033765;
     color: #fff;
-
 }
-
 
  /*Forms*/
 legend {
@@ -167,6 +165,7 @@ label {
     list-style: none;
     border: none;
     padding: 0px;
+
 }
 
 .sidenav {
@@ -176,6 +175,7 @@ label {
     z-index: 1;
     top: 0;
     left: 0;
+    opacity: 0.93;
     /*background-color: #111;*/
     overflow-x: hidden;
     padding-top: 60px;
@@ -237,10 +237,46 @@ label {
     cursor: pointer;
 }
 
+#sidebar {
+    width: 100%;
+    height: 100%;
+    background-color: #3775a7;
+    color: #fff;
+    visibility: none;
+}
+
+#sidebar .closebtn {
+    position: absolute;
+    top: -15px;
+    right: 10px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.icon-grid {
+    margin-top: 1.5em;
+    padding: 0;
+    display: inline-flex;
+    flex-flow: column;
+}
+
+.icon-grid-item{
+    text-align: center;
+    padding: 1.5em;
+
+}
 /*Chat Dialog*/
 
 #chat {
-    width: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #306591;
+    color: #fff;
+    display: none;
+    visibility: visible;
+
 }
 
 #messages {
