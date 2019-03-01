@@ -1,5 +1,5 @@
 //let express = require('express');
-const DEBUG = true;
+const DEBUG = false;
 const cookie = require('cookie');
 
 let firstNames = ['Bodacious', 'Wandering', 'Somber', 'Wallowing', 'Crazy', 'Smiling', 'Sulking',

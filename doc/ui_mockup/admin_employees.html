@@ -121,20 +121,21 @@
     <nav class="navbar navbar-expand-xs navbar-dark bg-primary">
         <div>
             <button aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
-                    class="navbar-toggler" onclick="openSidebar()" type="button">
+                    class="navbar-toggler" onclick="openNav()" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="#" id="company">smallFish ERP</a>
 
             <ol class="breadcrumb bg-primary">
                 <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item"><a href="#">Employees</a></li>
             </ol>
         </div>
         <div id="action">
             <!-- Add Page Action Buttons Here -->
-            <button class="btn btn-success btn-rounded" data-target="#form-modal" data-toggle="modal"><i
+            <!--<button class="btn btn-success btn-rounded" data-target="#form-modal" data-toggle="modal"><i
                     class="far fa-plus-square"></i>Add
-            </button>
+            </button> -->
 
         </div>
         <div class="ml-auto align-items-center" id="nav_rhs">
@@ -152,51 +153,25 @@
         </div>
     </nav>
 
-
     <!-- Navigation Slide out Menu -->
     <div class="sidenav bg-primary" id="sidenav">
         <a class="closebtn" href="javascript:void(0)" onclick="closeNav()">&times;</a>
         <a href="#"><i class="fa fa-2x fa-fw fa-archive"></i>Projects</a>
-        <a href="#"><i class="fa fa-2x fa-fw fa-file-invoice-dollar"></i>Invoices</a>
-        <a href="#"><i class="fa fa-2x fa-fw fa-inbox"></i>Purchase Orders</a>
-        <a href="#"><i class="fa fa-2x fa-fw fa-tasks"></i>Work Orders</a>
+        <hr class="white">
         <a href="#"><i class="fa fa-2x fa-fw fa-user-ninja"></i>Admin</a>
-        <hr>
+        <hr class="white">
         <a href="#"><i class="fa fa-2x fa-fw fa-sign-out-alt"></i>Logout</a>
     </div>
 
     <!-- Main Content Area -->
     <div class="container-fluid full-height">
         <div class="row full-height">
-            <section class="col-md-2" id="sidebar">
-                <a class="closebtn" href="javascript:void(0)" onclick="closeSidebar()">&times</a>
-                <!-- Add Content Area Here -->
-                <div class="icon-grid">
-                    <div class="icon-grid-item">
-                        <i class="fa fa-4x fa-archive"></i><br>
-                        <h3>Projects</h3>
-                    </div>
-                    <hr style="color:fff;">
-                    <div class="icon-grid-item">
-                        <i class="fa fa-4x fa-user"></i><br>
-                        <h3>Employees</h3>
-                    </div>
-                    <div class="icon-grid-item">
-                        <i class="fa fa-4x fa-users"></i><br>
-                        <h3>Customers</h3>
-                    </div>
-                    <div class="icon-grid-item">
-                        <i class="fa fa-4x fa-warehouse"></i><br>
-                        <h3>Vendors</h3>
-                    </div>
-                </div>
-            </section>
             <section class="col-12" id="content">
 
                 <div class="row">
-                    <div class="col-4"><h2>Employee</h2>
+                    <div class="col-md-4"><h2>Employee</h2>
                     </div>
-                    <div class="col-8" id="status">
+                    <div class="col-md-8" id="status">
                         <!-- Put status messages here -->
                         <div class="alert alert-success">
                             <strong>Success:</strong> Employee successfully Added.
@@ -615,9 +590,5 @@
         </div>
     </div>
 </div>
-
-<script>
-    window.onload = closeSidebar();
-</script>
 </body>
 </html>

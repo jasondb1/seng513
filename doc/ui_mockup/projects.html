@@ -135,6 +135,9 @@
         </div>
 
         <div class="ml-auto align-items-center" id="nav_rhs">
+            <span class="btn btn-dark bg-primary" onclick="openChat()" style="color: #fff;">
+                <i class="fa fa-2x fa-comments"> </i>
+            </span>
             <span class="btn btn-dark bg-primary" style="color: #fff;" type="button">
                         <i class="fa fa-2x fa-bell"> </i><span class="badge badge-danger">4</span>
                     </span>
@@ -165,9 +168,9 @@
             <section class="col-12" id="content">
                 <!-- Add Content Area Here -->
                 <div class="row">
-                    <div class="col-4"><h2>Projects</h2>
+                    <div class="col-md-4"><h2>Projects</h2>
                     </div>
-                    <div class="col-8" id="status">
+                    <div class="col-md-8" id="status">
                         <!-- Put status messages here -->
                         <div class="alert alert-success">
                             <strong>Success:</strong> Job successfully Added.
@@ -176,7 +179,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md 4">
+                    <div class="col-md-4">
                         <div class="container-scrollable" style="max-height: 70%;">
                             <table class="table table-hover alt">
                                 <thead>
@@ -719,6 +722,28 @@
 
                 </div>
             </section>
+
+            <!-- Chat Area -->
+            <div class="col-3" id="chat">
+                <h2>Notes/Discussion</h2>
+                <a class="closebtn" href="javascript:void(0)" onclick="closeChat()">&times</a>
+                <div id="messages">
+                    <div id="msg_container">
+                        [Discussion Here]
+                    </div>
+                </div>
+                <form class="form-row" id="compose-message">
+                    <div class="col-8 col-md-10">
+                        <input autocomplete="off" class="form-control btn-rounded" id="clientMessage"
+                               placeholder="Enter message"/>
+                    </div>
+                    <div class="col-4 col-md-2">
+                        <button class="btn btn-info btn-block btn-rounded"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+            </div>
+
+
         </div>
     </div>
 </div>

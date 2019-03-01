@@ -20,7 +20,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Invoice - #####</h5>
+                <h5 class="modal-title" id="modalTitle">Invoices : Project - #####</h5>
                 <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -72,8 +72,17 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">Company</div>
                                 </div>
-                                <input class="form-control" id="bill_to" name="bill_to" placeholder="Company"
-                                       type="text">
+                                <select class="custom-select" id="company_sel" name="company_sel">
+                                    <option value="">Company #1</option>
+                                    <option value="CID">Company #2</option>
+                                    <option value="CID">Company #3</option>
+                                    <option value="CID">Company #4</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        Add
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -171,21 +180,20 @@
     <div class="sidenav bg-primary" id="sidenav">
         <a class="closebtn" href="javascript:void(0)" onclick="closeNav()">&times;</a>
         <a href="#"><i class="fa fa-2x fa-fw fa-archive"></i>Projects</a>
-        <a href="#"><i class="fa fa-2x fa-fw fa-file-invoice-dollar"></i>Invoices</a>
-        <a href="#"><i class="fa fa-2x fa-fw fa-inbox"></i>Purchase Orders</a>
-        <a href="#"><i class="fa fa-2x fa-fw fa-tasks"></i>Work Orders</a>
+        <hr class="white">
         <a href="#"><i class="fa fa-2x fa-fw fa-user-ninja"></i>Admin</a>
+        <hr class="white">
         <a href="#"><i class="fa fa-2x fa-fw fa-sign-out-alt"></i>Logout</a>
     </div>
 
     <!-- Main Content Area -->
     <div class="container-fluid full-height">
         <div class="row full-height">
-            <section class="col-12" id="content">
+            <section class="col-md-12" id="content">
                 <!-- Add Content Area Here -->
                 <div class="row">
-                    <div class="col-2"><h2>Invoices</h2></div>
-                    <div class="col-10" id="status">
+                    <div class="col-md-4"><h2>Invoices</h2></div>
+                    <div class="col-md-8" id="status">
 
                         <!-- Put status messages here -->
                         <div class="alert alert-danger">

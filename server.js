@@ -1,21 +1,21 @@
 /*
  * index.js - The node.js server entry point
- * 
- * 
- * 
  *
- * 
+ *
+ *
+ *
+ *
  */
 
 //setup ===========
 const express = require('express');
 const app = express();
+const server = require('http').Server(app);
 const mongoose = require('mongoose');             //to access mongo database
 const morgan = require('morgan');                 //a logger
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');//allows put and delete in some places it is not allowed
-const server = require('http').Server(app);
 const io = require('socket.io')(server);          //for realtime communication
 const path = require('path');
 const index = require('./routes/index');
@@ -26,6 +26,17 @@ const invoice = require('./routes/invoice');  //used for creating, retrieving, u
 const port = 3000;
 
 //database
+
+// place this middleware before any other route definitions
+// makes io available as req.io in all request handlers
+// then in any express route handler, you can use req.io.emit(...)
+app.use(function(req, res, next) {
+    req.io = io;
+    next();
+});
+
+require('./app/socket.js')(io);
+
 mongoose.connect('mongodb://group2:smallf1sh@ds129625.mlab.com:29625/small_fish', {useNewUrlParser: true});
 
 mongoose.connection.on('connected', () => {
@@ -51,12 +62,9 @@ app.use('/', index);
 app.use('/api/project', project);
 app.use('/api/invoice', invoice);
 
-//sockets
-app.use('/socket.io', require('./app/socket.js'));
-require('./app/socket.js')(io);
 
-///////////////////////////////////////////////////////////////////////
-//start Server
-//listen (start app with node server.js
-app.listen(port);
-console.log("App listening on port: " + port);
+//////////////
+//Start server
+server.listen(port, () => {
+    console.log('listening on port: ' + port);
+});
