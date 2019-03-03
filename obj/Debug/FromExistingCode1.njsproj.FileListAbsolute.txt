@@ -1,0 +1,3 @@
+D:\git\513\obj\Debug\FromExistingCode1.njsprojAssemblyReference.cache
+D:\git\513\obj\Debug\FromExistingCode1.njsproj.CoreCompileInputs.cache
+D:\git\513\bin\Microsoft.NodejsTools.WebRole.dll
