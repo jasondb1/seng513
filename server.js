@@ -18,12 +18,17 @@ const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');//allows put and delete in some places it is not allowed
 const io = require('socket.io')(server);          //for realtime communication
 const path = require('path');
-const index = require('./routes/index');
-const project = require('./routes/project');  //used for creating, retrieving, updating and deleting
-const invoice = require('./routes/invoice');  //used for creating, retrieving, updating and deleting
+const index = require('./app/routes/index');
+const auth = require('./app/routes/auth');
+const project = require('./app/routes/project');  //used for creating, retrieving, updating and deleting
+const invoice = require('./app/routes/invoice');  //used for creating, retrieving, updating and deleting
 
 
 const port = 3000;
+
+//setup authentication
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 //database
 
@@ -48,20 +53,33 @@ mongoose.connection.on('error', (err) => {
 } );
 
 //stack ===========
-//app.use(express.static(path.join(__dirname, '/public')));
-app.use(express.static(path.join(__dirname, '/test')));
+app.use(express.static(path.join(__dirname, '/public')));
+//app.use(express.static(path.join(__dirname, '/test')));
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(methodOverride());
+app.use(require('express-session')({
+    secret: 'rotten fish',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //routes ===========
 app.use('/', index);
+app.use('/api/auth', auth);
 app.use('/api/project', project);
 app.use('/api/invoice', invoice);
 
+// passport config
+var Account = require('./app/models/users');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
 
 //////////////
 //Start server
