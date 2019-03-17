@@ -24,12 +24,12 @@ const Users = new Schema({    //mongoose.model('Users', {
 
     name_first: {
         type: String,
-        required: true
+        required: false
     },
 
     name_last: {
         type: String,
-        required: true
+        required: false
     }
 
 

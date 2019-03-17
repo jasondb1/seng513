@@ -17,6 +17,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');//allows put and delete in some places it is not allowed
 const io = require('socket.io')(server);          //for realtime communication
+const cors = require('cors');
 const path = require('path');
 const index = require('./app/routes/index');
 const auth = require('./app/routes/auth');
@@ -55,6 +56,7 @@ mongoose.connection.on('error', (err) => {
 //stack ===========
 app.use(express.static(path.join(__dirname, '/public')));
 //app.use(express.static(path.join(__dirname, '/test')));
+app.use(cors()); // Use this after the variable declaration
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({'extended':'true'}));
