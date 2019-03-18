@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Group 2 SENG 513 UI MOCKUP</title>
+    <title>Small Fish ERP</title>
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <script src="assets/js/jquery-3.3.1.min.js"></script>
     <script crossorigin="anonymous" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
@@ -11,10 +11,6 @@
     <link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="assets/css/custom.css" rel="stylesheet" type="text/css">
     <link href="assets/css/all.css" rel="stylesheet">
-    <script src="assets/js/smallFish.js" type="text/javascript"></script>
-
-
-
 </head>
 <body>
 
@@ -23,93 +19,72 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Employee - #####</h5>
+                <h5 class="modal-title" id="modalTitle">Employee - [#####]</h5>
                 <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="user-form" method="post" name="user-form">
                     <fieldset>
                         <legend>General:</legend>
+
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text">Status</div>
+                                    <div class="input-group-text">Username</div>
                                 </div>
-                                <select class="custom-select" id="form_status" name="form_status">
-                                    <option value="">Status</option>
-                                    <option value="wip">In Progress</option>
-                                    <option value="completed">Completed</option>
-                                    <option value="cancelled">Cancelled</option>
-                                    <option value="closed">Closed</option>
-                                </select>
+                                <input class="form-control" id="username" name="username"
+                                       placeholder="Username" type="text">
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text">Description</div>
+                                    <div class="input-group-text">Password</div>
                                 </div>
-                                <input class="form-control" id="description" name="description" placeholder="Description" type="text">
+                                <input class="form-control" id="password" name="password" placeholder="Password"
+                                       required="required" type="password">
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text">Started</div>
+                                    <div class="input-group-text">Email</div>
                                 </div>
-                                <input class="form-control" id="date_started" name="date_started" required="required"
+                                <input class="form-control" id="email" name="email" placeholder="Email"
+                                       required="required" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">First name</div>
+                                </div>
+                                <input class="form-control" id="name_first" name="name_first" placeholder="First Name"
                                        type="text">
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Last Name</div>
                                 </div>
+                                <input class="form-control" id="name_last" name="name_last" placeholder="Last Name"
+                                      type="text">
                             </div>
                         </div>
 
                     </fieldset>
-                    <fieldset>
-                        <legend>Assigned To</legend>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Status</div>
-                                </div>
-                                <select class="custom-select" id="form_manager" name="form_status">
-                                    <option value="">Manager #1</option>
-                                    <option value="sent">Manager #2</option>
-                                    <option value="paid">Manager #3</option>
-                                    <option value="cancelled">Manager #4</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">Employees</div>
-                                </div>
-                                <select class="custom-select" id="form_employee" name="form_status" multiple="multiple">
-                                    <option value="">Employee #1</option>
-                                    <option value="sent">Employee #2</option>
-                                    <option value="paid">Employee #3</option>
-                                    <option value="cancelled">Employee #4</option>
-                                </select>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Notes</legend>
-                        <div class="form-group">
-                            <textarea class="form-control" cols="40" id="notes" name="notes" rows="3"></textarea>
-                        </div>
-                    </fieldset>
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" name="submit" type="submit">Submit</button>
-                <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
+                <button class="btn btn-primary" id="submit-user-add" name="submit" type="submit">Submit</button>
+                <button class="btn btn-secondary" id="btn-cancel" data-dismiss="modal" type="button">Cancel</button>
             </div>
         </div>
     </div>
@@ -127,19 +102,17 @@
             <a class="navbar-brand" href="#" id="company">smallFish ERP</a>
 
             <ol class="breadcrumb bg-primary">
-                <li class="breadcrumb-item"><a href="#">Admin</a></li>
-                <li class="breadcrumb-item"><a href="#">Employees</a></li>
+                <li class="breadcrumb-item"><a href="#">Projects</a></li>
             </ol>
         </div>
-        <div id="action">
-            <!-- Add Page Action Buttons Here -->
-            <!--<button class="btn btn-success btn-rounded" data-target="#form-modal" data-toggle="modal"><i
-                    class="far fa-plus-square"></i>Add
-            </button> -->
 
+        <div id="action">
+
+            <!-- Add Page Action Buttons Here -->
         </div>
+
         <div class="ml-auto align-items-center" id="nav_rhs">
-            <span class="btn btn-dark bg-primary" style="color: #fff;">
+            <span class="btn btn-dark bg-primary" style="color: #fff;" type="button">
                         <i class="fa fa-2x fa-bell"> </i><span class="badge badge-danger">4</span>
                     </span>
             <div class="form-group">
@@ -167,406 +140,25 @@
     <div class="container-fluid full-height">
         <div class="row full-height">
             <section class="col-12" id="content">
-
+                <!-- Add Content Area Here -->
                 <div class="row">
-                    <div class="col-md-4"><h2>Employee</h2>
+                    <div class="col-md-4"><h2>Employees</h2>
                     </div>
                     <div class="col-md-8" id="status">
-                        <!-- Put status messages here -->
-                        <div class="alert alert-success">
-                            <strong>Success:</strong> Employee successfully Added.
+
+                        <div id="status-message" class="alert alert-success">
+                            <!-- Put status messages here -->
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md 4">
-                        <div class="container-scrollable" style="max-height: 70%;">
-                            <table class="table table-hover alt">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Number</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Edit</th>
-                                    <th scope="col">Del</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row">10001</th>
-                                    <td>Employee #</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">1XXXXX</th>
-                                    <td>Last, First</td>
-                                    <td><a href="#"><span style="color:#092;"><i
-                                            class="fa fa-edit fa-lg fa-fw"></i></span></a>
-                                    </td>
-                                    <td><a href="#" onclick="return confirm('Confirm Delete?')"><span
-                                            style="color:#f00;"><i
-                                            class="fa fa-trash-alt fa-fw"></i></span></a></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                    <div class="col-md-4">
+                        <div id="table-employee" class="container-scrollable" style="max-height: 70%;">
+                            <!-- table displayed here -->
                         </div>
 
-                        <div id="action" class="text-center mt-3">
+                        <div class="text-center mt-3" id="action">
                             <button class="btn btn-success btn-rounded" data-target="#form-modal" data-toggle="modal">
                                 <i class="far fa-plus-square"></i>Add Employee
                             </button>
@@ -575,20 +167,24 @@
                     </div>
 
                     <div class="col-md-8" style="background-color: #3875a8;">
-                        <h2>Employee Details - ##### - [Description]</h2>
+                        <h2>Employee Details - [#####]</h2>
 
                         <div class="project-item border-top">
-
-                            [Employee Details Here]
-
+                            <h3><i class="fa fa-tasks"></i> Details:</h3>
+                            <p>[Details]<br>
+                                [Other relevant details]<br>
+                            </p>
+                        </div>
                     </div>
 
 
                 </div>
-
             </section>
+
         </div>
     </div>
 </div>
+<script src="assets/js/table.js" type="text/javascript"></script>
+<script src="assets/js/smallFish.js" type="text/javascript"></script>
 </body>
 </html>

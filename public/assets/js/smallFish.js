@@ -42,7 +42,7 @@ function closeChat() {
 //The script below are for admin_employees
 
 
-//This next is only for the admin_employees_new.html
+//This next is only for the admin_employees.html
 //admin_employees scripts (This may need to be moved later on)
 $(document).ready(() => {
 
