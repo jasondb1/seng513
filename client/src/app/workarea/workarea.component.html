@@ -1,3 +1,80 @@
+<!-- Modal For Forms-->
+<div aria-hidden="true" aria-labelledby="formModal" class="modal fade" id="form-modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Employee - [#####]</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="user-form" method="post" name="user-form">
+          <fieldset>
+            <legend>General:</legend>
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Username</div>
+                </div>
+                <input class="form-control" id="username" name="username"
+                       placeholder="Username" type="text">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Password</div>
+                </div>
+                <input class="form-control" id="password" name="password" placeholder="Password"
+                       required="required" type="password">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Email</div>
+                </div>
+                <input class="form-control" id="email" name="email" placeholder="Email"
+                       required="required" type="text">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">First name</div>
+                </div>
+                <input class="form-control" id="name_first" name="name_first" placeholder="First Name"
+                       type="text">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Last Name</div>
+                </div>
+                <input class="form-control" id="name_last" name="name_last" placeholder="Last Name"
+                       type="text">
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="submit-user-add" name="submit" type="submit">Submit</button>
+        <button class="btn btn-secondary" id="btn-cancel" data-dismiss="modal" type="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of Modal-->
+
 <!-- Main Content Area -->
 <div class="container-fluid full-height">
   <div class="row full-height">

@@ -30,7 +30,6 @@ hr.white {
 .container-scrollable {
     overflow-y: auto;
     max-height: 90%;
-
 }
 
 
@@ -227,8 +226,22 @@ label {
     right: -4px;
 }
 
+ol.breadcrumb {
+  border: none;
+  margin-top: 0.8em;
+}
+
+#nav_lhs {
+  display: inline-flex;
+}
+
+#nav_lhs button {
+  align-self: flex-start;
+  line-height: 2;
+}
+
 #nav_rhs {
-    display: inline-flex;;
+    display: inline-flex;
 }
 
 #nav_rhs button {
