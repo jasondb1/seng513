@@ -2,15 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0d6689fa-93cc-4625-a8ac-66240fc155c9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/admin_employees_new.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/table.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/smallFish.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/nav_aids.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/nav_aids.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/admin_employees.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/admin_employees.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/admin_employees_new.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/admin_employees_new.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/nav_aids.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/table.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/invoices.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/invoices.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/projects.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/projects.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,19 +27,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server.js">
+        <entry file="file://$PROJECT_DIR$/app/routes/auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="58" column="16" selection-start-line="58" selection-start-column="16" selection-end-line="58" selection-end-column="16" />
+            <state relative-caret-position="1903">
+              <caret line="151" lean-forward="true" selection-start-line="151" selection-end-line="151" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/routes/auth.js">
+        <entry file="file://$PROJECT_DIR$/app/routes/project.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="32" column="28" lean-forward="true" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
+            <state relative-caret-position="629">
+              <caret line="76" column="3" lean-forward="true" selection-start-line="76" selection-start-column="3" selection-end-line="76" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -44,8 +47,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/admin_employees_new.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1427">
-              <caret line="175" column="54" lean-forward="true" selection-start-line="175" selection-start-column="54" selection-end-line="175" selection-end-column="54" />
+            <state relative-caret-position="408">
+              <caret line="27" column="17" lean-forward="true" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#section#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -56,8 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/assets/js/table.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1105">
-              <caret line="65" column="5" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+            <state relative-caret-position="595">
+              <caret line="59" column="85" selection-start-line="59" selection-start-column="85" selection-end-line="59" selection-end-column="85" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#a#0;n#td#0;n#!!top" expanded="true" />
@@ -68,10 +71,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/assets/js/nav_aids.js">
+        <entry file="file://$PROJECT_DIR$/public/assets/js/smallFish.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="50" column="41" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
+            <state relative-caret-position="526">
+              <caret line="83" column="46" selection-start-line="83" selection-start-column="46" selection-end-line="83" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -95,6 +98,7 @@
       <find>Project #X</find>
       <find>Invoice #2</find>
       <find>full</find>
+      <find>&lt;/b&gt;</find>
     </findStrings>
     <replaceStrings>
       <replace>invoices</replace>
@@ -103,6 +107,7 @@
       <replace>1XXXXX</replace>
       <replace>Project #X</replace>
       <replace>Last, First</replace>
+      <replace>&lt;/strong&gt;</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -151,18 +156,20 @@
         <option value="$PROJECT_DIR$/doc/ui_mockup/assets/css/custom.css" />
         <option value="$PROJECT_DIR$/app/routes/invoice.js" />
         <option value="$PROJECT_DIR$/app/routes/index.js" />
-        <option value="$PROJECT_DIR$/app/routes/auth.js" />
         <option value="$PROJECT_DIR$/app/models/users.js" />
-        <option value="$PROJECT_DIR$/public/assets/js/table.js" />
-        <option value="$PROJECT_DIR$/public/admin_employees_new.html" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/app/routes/project.js" />
+        <option value="$PROJECT_DIR$/public/assets/js/table.js" />
         <option value="$PROJECT_DIR$/public/assets/js/nav_aids.js" />
+        <option value="$PROJECT_DIR$/app/routes/auth.js" />
+        <option value="$PROJECT_DIR$/public/admin_employees_new.html" />
+        <option value="$PROJECT_DIR$/public/assets/js/smallFish.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="756" />
-    <option name="width" value="1164" />
+    <option name="x" value="961" />
+    <option name="width" value="959" />
     <option name="height" value="1051" />
   </component>
   <component name="ProjectView">
@@ -170,7 +177,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -217,6 +223,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -270,15 +277,16 @@
       <workItem from="1551123190428" duration="51447000" />
       <workItem from="1551286666735" duration="55081000" />
       <workItem from="1552491503062" duration="4535000" />
-      <workItem from="1552836221000" duration="11512000" />
+      <workItem from="1552836221000" duration="18431000" />
+      <workItem from="1552870824326" duration="7844000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122575000" />
+    <option name="totallyTimeSpent" value="137338000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="756" y="0" width="1164" height="1051" extended-state="4" />
+    <frame x="961" y="0" width="959" height="1051" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
@@ -705,13 +713,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/employee.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="10" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes/employee.js" />
     <entry file="file://$PROJECT_DIR$/app/models/users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -736,34 +738,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/admin_employees_new.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1427">
-          <caret line="175" column="54" lean-forward="true" selection-start-line="175" selection-start-column="54" selection-end-line="175" selection-end-column="54" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#section#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/project.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="43" column="27" lean-forward="true" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/auth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="32" column="28" lean-forward="true" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/assets/js/table.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="65" column="5" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+        <state relative-caret-position="595">
+          <caret line="59" column="85" selection-start-line="59" selection-start-column="85" selection-end-line="59" selection-end-column="85" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="n#style#0;n#span#0;n#a#0;n#td#0;n#!!top" expanded="true" />
@@ -772,10 +750,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/nav_aids.js">
+    <entry file="file://$PROJECT_DIR$/app/routes/project.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="50" column="41" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
+        <state relative-caret-position="629">
+          <caret line="76" column="3" lean-forward="true" selection-start-line="76" selection-start-column="3" selection-end-line="76" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes/auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1903">
+          <caret line="151" lean-forward="true" selection-start-line="151" selection-end-line="151" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/admin_employees_new.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="27" column="17" lean-forward="true" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#section#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/smallFish.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="83" column="46" selection-start-line="83" selection-start-column="46" selection-end-line="83" selection-end-column="46" />
         </state>
       </provider>
     </entry>

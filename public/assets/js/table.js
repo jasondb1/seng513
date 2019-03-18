@@ -8,14 +8,15 @@
 
 function tableHtml(data_json, name_columns, editColumn, delColumn) {
 
+    let keys = [];
     if (name_columns === undefined)
-        name_columns = [];
+        name_columns = {};
+    else
+        keys = Object.keys(name_columns);
 
     if (data_json === undefined)
         return "No Data";
         //data_json = {}; //json data object
-
-//remove Del if user is not admin
 
     let html = '<table class="table table-hover alt">\n';
 
@@ -23,9 +24,9 @@ function tableHtml(data_json, name_columns, editColumn, delColumn) {
     html += '<thead>\n';
     html += '<tr>';
 
-    for (let i = 0; i < name_columns.length; i++) {
+    for (let val of keys) {
         html += '<th scope="col">';
-        html += name_columns[i];
+        html += name_columns[val];
         html += '</th>';
     }
 
@@ -44,24 +45,22 @@ function tableHtml(data_json, name_columns, editColumn, delColumn) {
         html += '<tr>';
 
         //add items in each object
-        for (let j= 0; j < name_columns.length; j++) {
+        for (let key of keys) {
             html += '<td>';
-            let key = name_columns[j];
             html += data_json[i][key];
             html += '</td>';
         }
 
-        //TODO populate the href attribute in edit and delete
+        //TODO replace auth with the correct api, may need to pass in as param
         if (editColumn)
-            html += '<td><a href="#"><span style="color:#092;">\n' +
+            html += '<td><a href="/api/auth/edit/'+ data_json[i]['_id'] + '" ><span style="color:#092;">\n' +
                 '    <i class="fa fa-edit fa-lg fa-fw"></i></span></a></td>';
 
         if (delColumn)
-            html += '<td><a href="#" onclick="return confirm(\'Confirm Delete?\')"><span\n' +
+            html += '<td><a class="btn-delete" href="' + data_json[i]['_id'] + '"><span\n' +
                 '    style="color:#f00;">\n' +
                 '    <i class="fa fa-trash-alt fa-fw"></i></span></a></td>';
 
-        html += name_columns[i];
         html += '</tr>';
     }
     html += '</tbody>';
