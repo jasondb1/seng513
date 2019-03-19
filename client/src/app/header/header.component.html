@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-xs navbar-dark bg-primary">
   <div id="nav_lhs">
-    <button aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
-            class="navbar-toggler" onclick="openNav()" type="button">
+    <button (click)="displayMenu = true;" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="#" id="company">smallFish ERP</a>
@@ -31,3 +31,18 @@
     </div>
   </div>
 </nav>
+
+<!-- Navigation Slide out Menu
+<app-menu></app-menu> -->
+
+<div *ngIf="displayMenu" class="sidenav bg-primary" id="sidenav">
+  <nav class="navbar navbar-expand-xs navbar-dark bg-primary">
+    <a (click)="displayMenu = false;" class="closebtn" href="javascript:void(0)">&times;</a>
+    <a href="#"><i class="fa fa-2x fa-fw fa-archive"></i>Projects</a>
+    <hr class="white">
+    <a href="#"><i class="fa fa-2x fa-fw fa-user-ninja"></i>Admin</a>
+    <hr class="white">
+    <a href="#"><i class="fa fa-2x fa-fw fa-sign-out-alt"></i>Logout</a>
+  </nav>
+</div>
+

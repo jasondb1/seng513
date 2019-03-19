@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import $ from 'jquery';
-import tableHtml from 'table';
+//import tableHtml from 'table';
+//import { tableHtml } from '../../assets/js/table.js';\
+import {TableService} from "../table.service";
+import {User} from "../user";
+
 
 @Component({
   selector: 'app-workarea',
@@ -9,9 +13,11 @@ import tableHtml from 'table';
 })
 export class WorkareaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tableService: TableService) { }
 
   ngOnInit() {
+
+    let user:User;
 
     let DEBUG = true;
     let server = "http://localhost:3000";
@@ -29,7 +35,7 @@ export class WorkareaComponent implements OnInit {
 
             //populate data in table
             if (DEBUG) console.log(data);
-            let html = tableHtml(data, {'username': 'Username', 'email': 'Email'}, true, true);
+            let html = this.tablesService.tableHtml(data, {'username': 'Username', 'email': 'Email'}, true, true);
             $('#table-employee').html(html);
 
 
@@ -72,7 +78,7 @@ export class WorkareaComponent implements OnInit {
 
           })
           .catch(err => {
-            console.log(err);
+            //console.log(err);
             let status = `<strong>${err.status}</strong> - ${err.message}`;
             $("#status").html(status).attr('class', 'alert alert-danger');
           });
@@ -93,18 +99,31 @@ export class WorkareaComponent implements OnInit {
         event.preventDefault();
 
         //all of the fields
-        //TODO look for method to automatically put form data in json format
-        // let uname = <HTMLInputElement>document.getElementById('username').value;
-        // let pword = <HTMLInputElement>document.getElementById('password').value;
+        // //TODO look for method to automatically put form data in json format
+        // let element = document.getElementById('username') as HTMLInputElement;
+        // let uname = element.value;
+        // element = document.getElementById('password') as HTMLInputElement;
+        // let pword = element.value;
+        // element = document.getElementById('email') as HTMLInputElement;
+        // let email = element.value;
+        // element = document.getElementById('name_first') as HTMLInputElement;
+        // let name_first = element.value;
+        // element = document.getElementById('name_last') as HTMLInputElement;
+        // let name_last = element.value;
+
+        let uname = user.username;
+        let pword = user.password;
+        let email = user.email;
+        let name_first = user.name_first;
+        let name_last = user.name_last;
+        let admin = user.admin;
+
+        //let uname = <HTMLInputElement>document.getElementById('username') as HTMLInputElement;
+        //let pword = <HTMLInputElement>document.getElementById('password').value;
         // let email = <HTMLInputElement>document.getElementById('email').value;
         // let name_first = <HTMLInputElement>document.getElementById('name_first').value;
         // let name_last = (<HTMLInputElement>document.getElementById('name_last').value);
 
-        let uname = 'generic';
-        let pword = 'pword';
-        let email = 'email';
-        let name_first = 'first';
-        let name_last = 'last';
 
 
         let newUser = {

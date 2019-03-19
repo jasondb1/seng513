@@ -68,3 +68,4 @@ function tableHtml(data_json, name_columns, editColumn, delColumn) {
 
     return html;
 }
+

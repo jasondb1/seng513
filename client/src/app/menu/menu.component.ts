@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+//@Input() displayMenu: boolean;
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  // displayMenu: boolean = false;
+  //
+  // //open menu
+  // openNav(): void {
+  //   //document.getElementById("sidenav").style.width = "250px";
+  //   this.displayMenu = false;
+  // }
+  //
+  // //close menu
+  // closeNav(): void {
+  //   //document.getElementById("sidenav").style.width = "0";
+  //   this.displayMenu = false;
+  // }
+
+
+
+  constructor() {
+  }
 
   ngOnInit() {
+
   }
+
+
 
 }
