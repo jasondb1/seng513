@@ -10,7 +10,23 @@ const Project = mongoose.model('Project', {
     description: {
        type: String,
        required: true
+    },
+
+    dateCreated: {
+        type: Date,
+        required: true
+    },
+
+    employees:[{
+    type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
+    }],
+
+    projectManager:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
     }
+
 
 });
 

@@ -32,17 +32,24 @@ router.post('/', function(req, res){
     //construct a new employee
     let newProject = new Project({
         description: req.body.description,
-        id: req.body.id
+        id: req.body.id,
+        dateCreated: req.body.dateCreated,
+        employees: req.body.employees,
+        projectManager: req.body.projectManager
     });
 
     //save into database
     newProject.save( (err, project) => {
        if(err){
+           let message = {status: 'Error', message: 'Project Could Not Be Added:' + err};
            console.log ("Error saving project data:" + err);
+           res.json(message);
        }
        else {
-           res.send(project);
+           let message = {status: 'Success', message: "New Project Added"};
+           res.json(message);
        }
+
     });
 });
 
