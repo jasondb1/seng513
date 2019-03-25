@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { WorkareaComponent } from './workarea/workarea.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ProjectsComponent } from './projects/projects.component';
 import { AdminEmployeeComponent } from './admin-employee/admin-employee.component';
@@ -17,7 +16,6 @@ import { MessagingComponent } from './messaging/messaging.component';
   declarations: [
     AppComponent,
     HeaderComponent,
-    WorkareaComponent,
     ProjectsComponent,
     AdminEmployeeComponent,
     LoginComponent,
