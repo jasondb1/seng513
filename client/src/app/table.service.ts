@@ -15,7 +15,8 @@ export class TableService {
 * param: delCol - Add a delete column (true/false)
 */
 
-  static tableHtml(data_json, name_columns, editColumn, delColumn) {
+  //static tableHtml(data_json, name_columns, editColumn, delColumn) {
+  static tableHtml(data_json, name_columns, editColumn, delColumn): string {
 
     let keys = [];
     if (name_columns === undefined)

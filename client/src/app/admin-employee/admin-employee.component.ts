@@ -10,99 +10,94 @@ import {User} from "../user";
 })
 export class AdminEmployeeComponent implements OnInit {
 
-  constructor(private tableService: TableService) { }
+  user:User;
 
-  ngOnInit() {
+  DEBUG: boolean = true;
+  server: string = "http://localhost:3000";
+  data: any = {};
 
-    let user:User;
+  //request info and populate table when page loads
+  updateTable(): void {
 
-    let DEBUG = true;
-    let server = "http://localhost:3000";
-    let data = {};
+    //get data from server
+    fetch(this.server + '/api/auth/users')
+      .then(res => {
+        return res.json()
+      })
+      .then(data => {
 
-    //request info and populate table when page loads
-    function updateTable() {
-
-      //get data from server
-      fetch(server + '/api/auth/users')
-        .then(res => {
-          return res.json()
-        })
-        .then(data => {
-
-          //populate data in table
-          if (DEBUG) console.log(data);
-          let html = this.tablesService.tableHtml(data, {'username': 'Username', 'email': 'Email'}, true, true);
-          $('#table-employee').html(html);
+        //populate data in table
+        if (this.DEBUG) console.log(data);
+        let html = TableService.tableHtml(data, {'username': 'Username', 'email': 'Email'}, true, true);
+        $('#table-employee').html(html);
 
 
-          //This needs to go here so that the listeners are updated after the table is displayed
-          //delete user
-          $('a.btn-delete').on('click', event => {
+        //This needs to go here so that the listeners are updated after the table is displayed
+        //delete user
+        $('a.btn-delete').on('click', event => {
 
-            event.preventDefault();
+          event.preventDefault();
 
-            //TODO Possibly make a better confirmation dialog
-            confirm('Delete This User');
+          //TODO Possibly make a better confirmation dialog
+          confirm('Delete This User');
 
-            let id = event.currentTarget.href;
-            let regex = /[^/]+$/; //matches everything after the last / to get the id
-            id = id.match(regex);
+          let id = event.currentTarget.href;
+          let regex = /[^/]+$/; //matches everything after the last / to get the id
+          id = id.match(regex);
 
-            fetch(server + '/api/auth/users/' + id[0], {
-              method: 'DELETE',
+          fetch(this.server + '/api/auth/users/' + id[0], {
+            method: 'DELETE',
+          })
+            .then((res) => res.json())
+
+            //TODO update the table
+            .then((data) => {
+              let status = `<strong>${data.status}</strong> - ${data.message}`;
+              $("#status").html(status).attr('class', 'alert alert-success');
+
+              //update the table if successful
+              this.updateTable();
             })
-              .then((res) => res.json())
+            .catch((err) => {
+              let status = `<strong>${data.status}</strong> - ${data.message}`;
+              $("#status").html(status).attr('class', 'alert alert-danger');
+            })
 
-              //TODO update the table
-              .then((data) => {
-                let status = `<strong>${data.status}</strong> - ${data.message}`;
-                $("#status").html(status).attr('class', 'alert alert-success');
-
-                //update the table
-                updateTable();
-              })
-              .catch((err) => {
-                let status = `<strong>${data.status}</strong> - ${data.message}`;
-                $("#status").html(status).attr('class', 'alert alert-danger');
-              })
-
-          });
-
-          //edit user
-          //TODO edit user
-
-
-        })
-        .catch(err => {
-          //console.log(err);
-          let status = `<strong>${err.status}</strong> - ${err.message}`;
-          $("#status").html(status).attr('class', 'alert alert-danger');
         });
 
-    }
+        //edit user
+        //TODO edit user
 
-    //update the table
-    updateTable();
 
+      })
+      .catch(err => {
+        //console.log(err);
+        let status = `<strong>${err.status}</strong> - ${err.message}`;
+        $("#status").html(status).attr('class', 'alert alert-danger');
+      });
+
+  }
+
+
+  //Sets up a new form
+  setupForm(): void {
 
     //Add new user
     $('#submit-user-add').on('click', event => {
       //TODO: add functionality and change action when user is being edited instead of created.
-      if (DEBUG) {
+      if (this.DEBUG) {
         console.log("Submit Button Pressed");
       }
 
       event.preventDefault();
 
-
-      //2 way data-binding
-      let uname = user.username;
-      let pword = user.password;
-      let email = user.email;
-      let name_first = user.name_first;
-      let name_last = user.name_last;
-      let admin = user.admin;
+//2 way data-binding
+      let uname = this.user.username;
+      let pword = this.user.password;
+      let email = this.user.email;
+      let name_first = this.user.name_first;
+      let name_last = this.user.name_last;
+      let admin = this.user.admin;
 
 
       let newUser = {
@@ -113,8 +108,8 @@ export class AdminEmployeeComponent implements OnInit {
         'name_last': name_last,
       };
 
-      //post the user data to the server
-      fetch(server + '/api/auth/users', {
+//post the user data to the server
+      fetch(this.server + '/api/auth/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -123,7 +118,7 @@ export class AdminEmployeeComponent implements OnInit {
       })
         .then((res) => res.json())
         .then((data) => {
-          if (DEBUG) console.log(data);
+          if (this.DEBUG) console.log(data);
           //close the dialog box and reset the form fields
           $("#form-modal").modal("hide");
           $("#user-form")[0].reset();
@@ -133,10 +128,10 @@ export class AdminEmployeeComponent implements OnInit {
           $("#status").html(status).attr('class', 'alert alert-success');
 
           //update the table
-          updateTable();
+          this.updateTable();
         })
         .catch((err) => {
-          if (DEBUG) console.log(data);
+          if (this.DEBUG) console.log(this.data);
           //close the dialog box and reset the form fields
           $("#form-modal").modal("hide");
           $("#user-form")[0].reset();
@@ -149,11 +144,21 @@ export class AdminEmployeeComponent implements OnInit {
 
     });
 
-    $("#btn-cancel").click( () => {
+    $("#btn-cancel").click(() => {
       //reset the form data
       $("#user-form")[0].reset();
       $("#form-modal").modal("hide");
     });
+  }
+
+  constructor() { }
+
+  ngOnInit() {
+
+    //update the table
+    this.updateTable();
+  this.setupForm();
+
 
   }
 
