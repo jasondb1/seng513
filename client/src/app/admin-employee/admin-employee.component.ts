@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import $ from 'jquery';
 import {TableService} from "../table.service";
 import {User} from "../user";
@@ -10,7 +10,7 @@ import {User} from "../user";
 })
 export class AdminEmployeeComponent implements OnInit {
 
-  user:User;
+  user: User;
 
   DEBUG: boolean = true;
   server: string = "http://localhost:3000";
@@ -151,13 +151,15 @@ export class AdminEmployeeComponent implements OnInit {
     });
   }
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
 
+    this.user = new User;
     //update the table
     this.updateTable();
-  this.setupForm();
+    this.setupForm();
 
 
   }

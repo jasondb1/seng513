@@ -18,7 +18,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Username</div>
                 </div>
-                <input [(ngModel)]="user.uname" class="form-control" id="username" name="username"
+                <input [(ngModel)]="this.user.username" class="form-control" id="username" name="username"
                        placeholder="Username" type="text">
               </div>
             </div>
@@ -28,7 +28,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Password</div>
                 </div>
-                <input [(ngModel)]="user.password" class="form-control" id="password" name="password" placeholder="Password"
+                <input [(ngModel)]="this.user.password" class="form-control" id="password" name="password" placeholder="Password"
                        required="required" type="password">
               </div>
             </div>
@@ -38,7 +38,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Email</div>
                 </div>
-                <input [(ngModel)]="user.email" class="form-control" id="email" name="email" placeholder="Email"
+                <input [(ngModel)]="this.user.email" class="form-control" id="email" name="email" placeholder="Email"
                        required="required" type="text">
               </div>
             </div>
@@ -58,7 +58,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Last Name</div>
                 </div>
-                <input [(ngModel)]="user.name_last" class="form-control" id="name_last" name="name_last" placeholder="Last Name"
+                <input [(ngModel)]="this.user.name_last" class="form-control" id="name_last" name="name_last" placeholder="Last Name"
                        type="text">
               </div>
             </div>
@@ -68,7 +68,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Administrator</div>
                 </div>
-                <input [(ngModel)]="user.admin" class="form-control" id="admin" name="admin" placeholder="admin"
+                <input [(ngModel)]="this.user.admin" class="form-control" id="admin" name="admin" placeholder="admin"
                        type="checkbox">
               </div>
             </div>
