@@ -22,7 +22,7 @@ export class ProjectsComponent implements OnInit {
   updateTable(): void {
 
     //get data from server
-    fetch(this.server + '/api/auth/project')
+    fetch(this.server + '/api/project')
       .then(res => {
         return res.json()
       })
@@ -30,24 +30,24 @@ export class ProjectsComponent implements OnInit {
 
         //populate data in table
         if (this.DEBUG) console.log(data);
-        let html = TableService.tableHtml(data, {'username': 'Username', 'email': 'Email'}, true, true);
-        $('#table-employee').html(html);
+        let html = TableService.tableHtml(data, {'id': 'id', 'description': 'description'}, true, true);
+        $('#table-project').html(html);
 
 
         //This needs to go here so that the listeners are updated after the table is displayed
-        //delete user
+        //delete project
         $('a.btn-delete').on('click', event => {
 
           event.preventDefault();
 
           //TODO Possibly make a better confirmation dialog
-          confirm('Delete This User');
+          confirm('Delete This Project');
 
           let id = event.currentTarget.href;
           let regex = /[^/]+$/; //matches everything after the last / to get the id
           id = id.match(regex);
 
-          fetch(this.server + '/api/auth/project/' + id[0], {
+          fetch(this.server + '/api/project/' + id[0], {
             method: 'DELETE',
           })
             .then((res) => res.json())
@@ -67,8 +67,8 @@ export class ProjectsComponent implements OnInit {
 
         });
 
-        //edit user
-        //TODO edit user
+        //edit project
+        //TODO edit project
 
 
       })
@@ -84,9 +84,9 @@ export class ProjectsComponent implements OnInit {
   //Sets up a new form
   setupForm(): void {
 
-    //Add new user
-    $('#submit-user-add').on('click', event => {
-      //TODO: add functionality and change action when user is being edited instead of created.
+    //Add new project
+    $('#submit-project-add').on('click', event => {
+      //TODO: add functionality and change action when project is being edited instead of created.
       if (this.DEBUG) {
         console.log("Submit Button Pressed");
       }
@@ -107,8 +107,8 @@ export class ProjectsComponent implements OnInit {
 
 
 
-//post the user data to the server
-      fetch(this.server + '/api/auth/project', {
+//post the project data to the server
+      fetch(this.server + '/api/project', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -120,7 +120,7 @@ export class ProjectsComponent implements OnInit {
           if (this.DEBUG) console.log(data);
           //close the dialog box and reset the form fields
           $("#form-modal").modal("hide");
-          $("#user-form")[0].reset();
+          $("#project-form")[0].reset();
 
           //update status
           let status = `<strong>${data.status}</strong> - ${data.message}`;
@@ -133,7 +133,7 @@ export class ProjectsComponent implements OnInit {
           if (this.DEBUG) console.log(this.data);
           //close the dialog box and reset the form fields
           $("#form-modal").modal("hide");
-          $("#user-form")[0].reset();
+          $("#project-form")[0].reset();
 
           //update status
           let status = `<strong>${err.status}</strong> - ${err.message}`;
@@ -145,7 +145,7 @@ export class ProjectsComponent implements OnInit {
 
     $("#btn-cancel").click(() => {
       //reset the form data
-      $("#user-form")[0].reset();
+      $("#project-form")[0].reset();
       $("#form-modal").modal("hide");
     });
   }
