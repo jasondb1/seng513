@@ -1,3 +1,94 @@
-<p>
-  projects works!
-</p>
+<!-- Modal For Forms-->
+<div aria-hidden="true" aria-labelledby="formModal" class="modal fade" id="form-modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Add Project</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="user-form" method="post" name="user-form">
+          <fieldset>
+            <legend>General:</legend>
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Description</div>
+                </div>
+                <input [(ngModel)]="this.project.description" class="form-control" id="description" name="description"
+                       placeholder="description" type="text">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Project Manager</div>
+                </div>
+                <input [(ngModel)]="this.project.description" class="form-control" id="projectManager" name="Project Manager" placeholder="Project Manager"
+                       required="required" type="text">
+              </div>
+            </div>
+
+
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="submit-user-add" name="submit" type="submit">Submit</button>
+        <button class="btn btn-secondary" id="btn-cancel" data-dismiss="modal" type="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of Modal-->
+
+<!-- Main Content Area -->
+<div class="container-fluid full-height">
+  <div class="row full-height">
+    <section class="col-12" id="content">
+      <!-- Add Content Area Here -->
+      <div class="row">
+        <div class="col-md-4"><h2>Project</h2>
+        </div>
+        <div class="col-md-8" id="status">
+
+          <div id="status-message" class="">
+            <!-- Put status messages here -->
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div id="table-project" class="container-scrollable" style="max-height: 70%;">
+            <!-- table displayed here -->
+          </div>
+
+          <div class="text-center mt-3" id="action">
+            <button class="btn btn-success btn-rounded" data-target="#form-modal" data-toggle="modal">
+              <i class="far fa-plus-square"></i>Add Project
+            </button>
+          </div>
+
+        </div>
+
+        <div class="col-md-8" style="background-color: #3875a8;">
+          <h2>Project Details</h2>
+
+          <div class="project-item border-top">
+            <h3><i class="fa fa-tasks"></i> Details:</h3>
+            <p>[Details]<br>
+              [Other relevant details]<br>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</div>
