@@ -31,6 +31,9 @@ const port = 3000;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+//socket.io
+require('./app/socket.js')(io);
+
 //database
 
 // place this middleware before any other route definitions

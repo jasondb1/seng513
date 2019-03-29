@@ -20,6 +20,7 @@ let allUsers = [];
 let currentUID = 10000;
 let currentMID = 1000000;
 
+console.log("[Socket.js loaded]")
 
 module.exports = function (io) {
 //Establish a client connection
@@ -101,6 +102,8 @@ module.exports = function (io) {
         //////////////////////////////////////////////////////////////////////
         //Event: userMessage - logs and transmits a message to connected users
         socket.on('clientMessage', msg => {
+
+            console.log('recieved a message');
 
             if (/^\//.test(msg)) { //test if command
 

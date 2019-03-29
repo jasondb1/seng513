@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ViewOptionsService} from "../view-options.service";
+import { ChatService } from '../chat.service';
 
 @Component({
   selector: 'app-messaging',
@@ -11,6 +12,15 @@ export class MessagingComponent implements OnInit {
   //@Input() displayChat: boolean;
   displayChat: boolean = null;
   project: number = null;
+  message: string;
+
+  constructor(private viewOptionsService: ViewOptionsService,
+              private chatService: ChatService) { }
+
+  sendMessage() {
+    this.chatService.sendMessage(this.message);
+    this.message = '';
+  }
 
   closeChat(): void {
     document.getElementById("chat").style.display = "none";
@@ -28,13 +38,18 @@ export class MessagingComponent implements OnInit {
 
   //TODO: save and load discussions
 
-  constructor(private viewOptionsService: ViewOptionsService) { }
 
   ngOnInit() {
     this.displayChat = true;
     //this.displayChat = this.viewOptionsService.displayChat;
     this.project = this.viewOptionsService.projectNumber;
     console.log("[messaging initialized]" + this.displayChat);
+
+
+    //temp to see if it works
+    this.message = 'Test Message';
+    this.sendMessage();
+
   }
 
 }
