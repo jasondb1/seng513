@@ -19,7 +19,6 @@ router.get('/', function(req, res) {
             console.log("Error retrieving project:" + err);
         }
 
-
     });
 });
 
@@ -29,7 +28,7 @@ router.post('/', function(req, res){
     //THis comment
     res.send('Need to fully implement this');
 
-    //construct a new employee
+    //construct a new project
     let newProject = new Project({
         description: req.body.description,
         id: req.body.id,
@@ -88,6 +87,5 @@ router.put('/:id', function(req, res) {
     //TODO: Implement this method
     res.send('Need to implement this');
 });
-
 
 module.exports = router;
