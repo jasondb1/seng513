@@ -293,7 +293,7 @@ ol.breadcrumb {
     height: 100%;
     background-color: #306591;
     color: #fff;
-    display: none;
+    /*display: none;*/
     visibility: visible;
 
 }

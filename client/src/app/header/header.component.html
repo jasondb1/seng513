@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-xs navbar-dark bg-primary">
   <div id="nav_lhs">
-    <button (click)="displayMenu = true;" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
+    <button (click)="displayMenu = true;" aria-controls="navbarColor01" aria-expanded="false"
+            aria-label="Toggle navigation"
             class="navbar-toggler" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -18,9 +19,9 @@
   -->
 
   <div class="ml-auto align-items-center" id="nav_rhs">
-            <span class="btn btn-dark bg-primary" style="color: #fff;" type="button">
-                        <i class="fa fa-2x fa-bell"> </i><span class="badge badge-danger">4</span>
-                    </span>
+     <span (click)="toggleChat();" class="btn btn-dark bg-primary" style="color: #fff;">
+                <i class="fa fa-2x fa-comments"> </i>
+            </span>
     <div class="form-group">
       <div class="input-group">
         <input class="form-control btn-rounded" name="search" placeholder="search" type="text"/>
@@ -38,11 +39,10 @@
 <div *ngIf="displayMenu" class="sidenav bg-primary" id="sidenav">
   <nav class="navbar navbar-expand-xs navbar-dark bg-primary">
     <a (click)="displayMenu = false;" class="closebtn" href="javascript:void(0)">&times;</a>
-    <a routerLink="/projects" ><i class="fa fa-2x fa-fw fa-archive"></i>Projects</a>
+    <a routerLink="/projects"><i class="fa fa-2x fa-fw fa-archive"></i>Projects</a>
     <hr class="white">
-    <a routerLink="/admin" ><i class="fa fa-2x fa-fw fa-user-ninja"></i>Admin</a>
+    <a routerLink="/admin"><i class="fa fa-2x fa-fw fa-user-ninja"></i>Admin</a>
     <hr class="white">
-    <a routerLink="/login" ><i class="fa fa-2x fa-fw fa-sign-out-alt"></i>Logout</a>
+    <a routerLink="/login"><i class="fa fa-2x fa-fw fa-sign-out-alt"></i>Logout</a>
   </nav>
 </div>
-

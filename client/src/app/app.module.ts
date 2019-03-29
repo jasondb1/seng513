@@ -21,7 +21,7 @@ import { MessagingComponent } from './messaging/messaging.component';
     LoginComponent,
     InvoicesComponent,
     PoComponent,
-    MessagingComponent
+    MessagingComponent,
   ],
   imports: [
     BrowserModule,

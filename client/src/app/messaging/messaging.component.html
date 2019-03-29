@@ -1,3 +1,18 @@
-<p>
-  messaging works!
-</p>
+<!-- Chat Area -->
+  <h2>Notes/Discussion</h2>
+  <a (click)="closeChat()" class="closebtn" href="javascript:void(0)">&times;</a>
+  <div id="messages">
+    <div id="msg_container">
+      [Discussion Here]
+    </div>
+  </div>
+  <form class="form-row" id="compose-message">
+    <div class="col-8 col-md-10">
+      <input autocomplete="off" class="form-control btn-rounded" id="clientMessage"
+             placeholder="Enter message"/>
+    </div>
+    <div class="col-4 col-md-2">
+      <button class="btn btn-info btn-block btn-rounded"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </form>
+

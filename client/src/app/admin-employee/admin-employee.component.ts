@@ -16,6 +16,18 @@ export class AdminEmployeeComponent implements OnInit {
   server: string = "http://localhost:3000";
   data: any = {};
 
+  constructor() {
+  }
+
+  ngOnInit() {
+
+    this.user = new User;
+    //update the table
+    this.updateTable();
+    this.setupForm();
+
+  }
+
   //request info and populate table when page loads
   updateTable(): void {
 
@@ -79,7 +91,7 @@ export class AdminEmployeeComponent implements OnInit {
   }
 
 
-  //Sets up a new form
+  //Setup code for the form
   setupForm(): void {
 
     //Add new user
@@ -151,17 +163,6 @@ export class AdminEmployeeComponent implements OnInit {
     });
   }
 
-  constructor() {
-  }
 
-  ngOnInit() {
-
-    this.user = new User;
-    //update the table
-    this.updateTable();
-    this.setupForm();
-
-
-  }
 
 }
