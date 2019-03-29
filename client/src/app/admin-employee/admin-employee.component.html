@@ -1,5 +1,6 @@
 <!-- Modal For Forms-->
-<div aria-hidden="true" aria-labelledby="formModal" class="modal fade" id="form-modal" role="dialog" tabindex="-1">
+<!-- <div aria-hidden="true" aria-labelledby="formModal" class="modal fade" id="form-modal" role="dialog" tabindex="-1"> -->
+<div *ngIf="this.displayForm;" aria-hidden="true" aria-labelledby="formModal" class="modal fade" id="form-modal" role="dialog" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -18,7 +19,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Username</div>
                 </div>
-                <input [(ngModel)]="this.user.username" class="form-control" id="username" name="username"
+                <input [(ngModel)]="user.username" class="form-control" id="username" name="username"
                        placeholder="Username" type="text">
               </div>
             </div>
@@ -28,7 +29,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Password</div>
                 </div>
-                <input [(ngModel)]="this.user.password" class="form-control" id="password" name="password" placeholder="Password"
+                <input [(ngModel)]="user.password" class="form-control" id="password" name="password" placeholder="Password"
                        required="required" type="password">
               </div>
             </div>
@@ -38,7 +39,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Email</div>
                 </div>
-                <input [(ngModel)]="this.user.email" class="form-control" id="email" name="email" placeholder="Email"
+                <input [(ngModel)]="user.email" class="form-control" id="email" name="email" placeholder="Email"
                        required="required" type="text">
               </div>
             </div>
@@ -58,7 +59,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Last Name</div>
                 </div>
-                <input [(ngModel)]="this.user.name_last" class="form-control" id="name_last" name="name_last" placeholder="Last Name"
+                <input [(ngModel)]="user.name_last" class="form-control" id="name_last" name="name_last" placeholder="Last Name"
                        type="text">
               </div>
             </div>
@@ -68,7 +69,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Administrator</div>
                 </div>
-                <input [(ngModel)]="this.user.admin" class="form-control" id="admin" name="admin" placeholder="admin"
+                <input [(ngModel)]="user.admin" class="form-control" id="admin" name="admin" placeholder="admin"
                        type="checkbox">
               </div>
             </div>
@@ -77,8 +78,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" id="submit-user-add" name="submit" type="submit">Submit</button>
-        <button class="btn btn-secondary" id="btn-cancel" data-dismiss="modal" type="button">Cancel</button>
+        <button (click)="submitForm()" type="button" class="btn btn-primary" id="submit-user-add" name="submit" >Submit</button>
+        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal" type="button">Cancel</button>
       </div>
     </div>
   </div>
@@ -104,7 +105,7 @@
           </div>
 
           <div class="text-center mt-3" id="action">
-            <button class="btn btn-success btn-rounded" data-target="#form-modal" data-toggle="modal">
+            <button (click)="this.displayForm = true;" class="btn btn-success btn-rounded" data-target="#form-modal" data-toggle="modal">
               <i class="far fa-plus-square"></i>Add Employee
             </button>
           </div>

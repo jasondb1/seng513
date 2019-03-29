@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewOptionsService } from '../view-options.service';
+import { ConfigService } from '../config.service';
 import { MessagingComponent} from "../messaging/messaging.component";
 
 @Component({
@@ -11,16 +11,16 @@ export class HeaderComponent implements OnInit {
 
   displayMenu: boolean;
 
-  constructor(private viewOptionsService: ViewOptionsService) { }
+  constructor(private configService: ConfigService) { }
 
   //Toggles the chat box on the side
   toggleChat(): void {
     //this.messagingComponent.openChat();
 
 
-    this.viewOptionsService.displayChat = !this.viewOptionsService.displayChat;
+    this.configService.displayChat = !this.configService.displayChat;
 
-    if (this.viewOptionsService.displayChat) {
+    if (this.configService.displayChat) {
       document.getElementById("content").className = "col-9";
       document.getElementById("chat").style.display = "block";
     } else {
@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
       document.getElementById("content").className = "col-12";
     }
 
-    console.log("[toggle chat called]" + this.viewOptionsService.displayChat);
+    console.log("[toggle chat called]" + this.configService.displayChat);
   }
 
 
@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
 
     //this.displayChat = false;
-    this.viewOptionsService.displayChat = false;
+    this.configService.displayChat = false;
     this.displayMenu = false;
 
   }

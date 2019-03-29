@@ -8,11 +8,11 @@
   </div>
   <form class="form-row" id="compose-message">
     <div class="col-8 col-md-10">
-      <input autocomplete="off" class="form-control btn-rounded" id="clientMessage"
+      <input [(ngModel)]="message" name="message" autocomplete="off" class="form-control btn-rounded" id="clientMessage"
              placeholder="Enter message"/>
     </div>
     <div class="col-4 col-md-2">
-      <button class="btn btn-info btn-block btn-rounded"><i class="fas fa-paper-plane"></i></button>
+      <button (click)="sendMessage()" class="btn btn-info btn-block btn-rounded"><i class="fas fa-paper-plane"></i></button>
     </div>
   </form>
 

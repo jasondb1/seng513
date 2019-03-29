@@ -367,6 +367,15 @@ ol.breadcrumb {
     overflow-y: auto;
 }
 
+.modal-backdrop {
+  /* bug fix - no overlay */
+  display: none;
+}
+
+.modal legend{
+  color: #616060;
+}
+
 
 /*Screen Compensation */
 

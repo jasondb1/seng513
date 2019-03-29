@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ViewOptionsService} from "../view-options.service";
+import { ConfigService} from "../config.service";
 import { ChatService } from '../chat.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class MessagingComponent implements OnInit {
   project: number = null;
   message: string;
 
-  constructor(private viewOptionsService: ViewOptionsService,
+  constructor(private configService: ConfigService,
               private chatService: ChatService) { }
 
   sendMessage() {
@@ -26,29 +26,22 @@ export class MessagingComponent implements OnInit {
     document.getElementById("chat").style.display = "none";
     document.getElementById("content").className = "col-12";
     this.displayChat = false;
-    this.viewOptionsService.displayChat = false;
+    this.configService.displayChat = false;
   }
 
   openChat(): void {
     document.getElementById("content").className = "col-9";
     document.getElementById("chat").style.display = "block";
     this.displayChat = true;
-    this.viewOptionsService.displayChat = true;
+    this.configService.displayChat = true;
   }
 
   //TODO: save and load discussions
 
 
   ngOnInit() {
-    this.displayChat = true;
-    //this.displayChat = this.viewOptionsService.displayChat;
-    this.project = this.viewOptionsService.projectNumber;
-    console.log("[messaging initialized]" + this.displayChat);
-
-
-    //temp to see if it works
-    this.message = 'Test Message';
-    this.sendMessage();
+    this.project = this.configService.projectNumber;
+    console.log("[messaging initialized] display chat:" + this.displayChat);
 
   }
 

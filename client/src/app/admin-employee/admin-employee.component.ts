@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import $ from 'jquery';
 import {TableService} from "../table.service";
 import {User} from "../user";
+import {DataService} from "../data.service";
+//import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-admin-employee',
@@ -10,100 +12,107 @@ import {User} from "../user";
 })
 export class AdminEmployeeComponent implements OnInit {
 
-  user: User;
 
   DEBUG: boolean = true;
-  server: string = "http://localhost:3000";
-  data: any = {};
 
-  constructor() {
+  private user: User;
+  private users = [];
+  private displayForm: boolean = false;
+
+
+  constructor(private dataService: DataService) {
+    this.user = <User>{};
   }
 
-  ngOnInit() {
 
-    this.user = new User;
-    //update the table
-    this.updateTable();
-    this.setupForm();
+  ////////////////
+  // updateTable()
+
+  displayTable(): void {
+    let html = TableService.tableHtml(this.users, {'username': 'Username', 'email': 'Email'}, true, true);
+    $('#table-employee').html(html);
+
+    //setup listeners for the icons on the table
+    this.setupDeleteListener();
 
   }
 
-  //request info and populate table when page loads
+  ////////////////
+  // getData()
+
   updateTable(): void {
 
-    //get data from server
-    fetch(this.server + '/api/auth/users')
-      .then(res => {
-        return res.json()
-      })
-      .then(data => {
+    console.log("[Get Users]");
+    this.dataService.getEmployees()
+      .subscribe(
+        (res: any[]) => {
+          console.log(res);
+          this.users = res;
+        },
+        (err) => {
+          //Display error in status area
+          let status = `<strong>${err.status}</strong> - ${err.message}`;
+          $("#status").html(status).attr('class', 'alert alert-danger');
+        },
+        () => {
+          console.log("Data finished loading.");
+          this.displayTable();
+        }
+      );
+  }
 
-        //populate data in table
-        if (this.DEBUG) console.log(data);
-        let html = TableService.tableHtml(data, {'username': 'Username', 'email': 'Email'}, true, true);
-        $('#table-employee').html(html);
+  ///////////////////////////
+  // setupDeleteListener()
 
+  setupDeleteListener(): void {
 
-        //This needs to go here so that the listeners are updated after the table is displayed
-        //delete user
-        $('a.btn-delete').on('click', event => {
+    $('a.btn-delete').on('click', event => {
 
-          event.preventDefault();
+      event.preventDefault();
 
-          //TODO Possibly make a better confirmation dialog
-          confirm('Delete This User');
+      //TODO Possibly make a better confirmation dialog
+      let isConfirmed = confirm('Delete This User');
 
-          let id = event.currentTarget.href;
-          let regex = /[^/]+$/; //matches everything after the last / to get the id
-          id = id.match(regex);
+      if (isConfirmed) {
+        let id = event.currentTarget.href;
+        let regex = /[^/]+$/; //matches everything after the last / to get the id
+        id = id.match(regex);
 
-          fetch(this.server + '/api/auth/users/' + id[0], {
-            method: 'DELETE',
-          })
-            .then((res) => res.json())
+        this.dataService.deleteEmployee(id[0]).subscribe((res: any) => {
 
-            //TODO update the table
-            .then((data) => {
-              let status = `<strong>${data.status}</strong> - ${data.message}`;
-              $("#status").html(status).attr('class', 'alert alert-success');
+            let status = `<strong>${res.status}</strong> - ${res.message}`;
+            $("#status").html(status).attr('class', 'alert alert-success');
 
-              //update the table if successful
-              this.updateTable();
-            })
-            .catch((err) => {
-              let status = `<strong>${data.status}</strong> - ${data.message}`;
-              $("#status").html(status).attr('class', 'alert alert-danger');
-            })
-
-        });
-
-        //edit user
-        //TODO edit user
-
-
-      })
-      .catch(err => {
-        //console.log(err);
-        let status = `<strong>${err.status}</strong> - ${err.message}`;
-        $("#status").html(status).attr('class', 'alert alert-danger');
-      });
+          },
+          (res: any) => {
+            let status = `<strong>${res.status}</strong> - ${res.message}`;
+            $("#status").html(status).attr('class', 'alert alert-danger');
+          },
+          () => {
+            console.log("[Deletion complete]");
+            this.updateTable();
+          });
+      }
+    });
 
   }
 
+  ///////////////////////////////////////
+  //Submit Form
 
-  //Setup code for the form
-  setupForm(): void {
-
+  submitForm(): void {
     //Add new user
-    $('#submit-user-add').on('click', event => {
+
+      this.displayForm = false;
+
       //TODO: add functionality and change action when user is being edited instead of created.
       if (this.DEBUG) {
         console.log("Submit Button Pressed");
       }
 
-      event.preventDefault();
+      //event.preventDefault();
 
-//2 way data-binding
+      //2 way data-binding
       let uname = this.user.username;
       let pword = this.user.password;
       let email = this.user.email;
@@ -111,57 +120,55 @@ export class AdminEmployeeComponent implements OnInit {
       let name_last = this.user.name_last;
       let admin = this.user.admin;
 
-
-      let newUser = {
+      //compose the new user from the form fields
+      let newUser: User = {
         'username': uname,
         'password': pword,
         'email': email,
         'name_first': name_first,
         'name_last': name_last,
+        'admin': admin
       };
 
-//post the user data to the server
-      fetch(this.server + '/api/auth/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newUser)
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (this.DEBUG) console.log(data);
-          //close the dialog box and reset the form fields
-          $("#form-modal").modal("hide");
-          $("#user-form")[0].reset();
-
-          //update status
-          let status = `<strong>${data.status}</strong> - ${data.message}`;
-          $("#status").html(status).attr('class', 'alert alert-success');
-
-          //update the table
-          this.updateTable();
-        })
-        .catch((err) => {
-          if (this.DEBUG) console.log(this.data);
-          //close the dialog box and reset the form fields
-          $("#form-modal").modal("hide");
-          $("#user-form")[0].reset();
-
-          //update status
+      //submit the data to the database via the dataService
+      this.dataService.newEmployee(newUser).subscribe(
+        (res: any) => {
+          let status = `<strong>${res.status}</strong> - ${res.message}`;
+          $("#status").html(status).attr('class', 'alert alert-success');},
+        (err: any) => {
+          this.resetForm();
+          //display error message in status
           let status = `<strong>${err.status}</strong> - ${err.message}`;
           $("#status").html(status).attr('class', 'alert alert-danger');
-        })
 
+        },
+        () => {
+          //$("#form-modal").modal("hide");
+          this.resetForm();
+          this.updateTable();
+        }
+      );
 
-    });
-
-    $("#btn-cancel").click(() => {
-      //reset the form data
-      $("#user-form")[0].reset();
-      $("#form-modal").modal("hide");
-    });
   }
+
+  /////////////////////////
+  // resetForm()
+
+  resetForm(): void {
+    console.log("Resetting Form");
+    this.user = new User();
+  }
+
+  /////////////////////////
+  // ngOnInit()
+
+  ngOnInit() {
+
+    this.user = new User;
+    this.updateTable();  //Testing
+
+  }
+
 
 
 

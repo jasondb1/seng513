@@ -85,8 +85,6 @@ module.exports = function (io) {
                 if (currentUsers[i].connections < 1) {
                     let removed = currentUsers.splice(i, 1);
                 }
-
-
             }
 
             io.emit('updateUsers', currentUsers);
@@ -103,7 +101,7 @@ module.exports = function (io) {
         //Event: userMessage - logs and transmits a message to connected users
         socket.on('clientMessage', msg => {
 
-            console.log('recieved a message');
+            console.log('recieved a message:' + msg);
 
             if (/^\//.test(msg)) { //test if command
 
