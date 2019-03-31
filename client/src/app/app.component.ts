@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {
     router.events.forEach((event) => {
       if (event instanceof NavigationStart) {
-        if (event['url'] == '/login') {
+        if (event['url'] != '/projects' || event['url'] != '/admin' || event['url'] != '/po' || event['url'] != '/invoices') {
           this.headerVisible = false;
         } else {
           this.headerVisible = true;

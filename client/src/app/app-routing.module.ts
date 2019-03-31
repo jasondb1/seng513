@@ -11,10 +11,10 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   //{ path: '/', component: LoginComponent },
   { path: 'projects', component: ProjectsComponent },
-  {path: 'admin', component: AdminEmployeeComponent },
-  {path: 'login', component: LoginComponent },
-  {path: 'invoices', component: InvoicesComponent },
-  {path: 'po', component: PoComponent }
+  { path: 'admin', component: AdminEmployeeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'invoices', component: InvoicesComponent },
+  { path: 'po', component: PoComponent }
 
 ];
 

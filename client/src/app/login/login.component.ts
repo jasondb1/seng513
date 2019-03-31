@@ -43,6 +43,7 @@ export class LoginComponent {
       });
     } else {
         this.emptyCreds = true;
+        this.incorrectPass = false;
     }
   }
   
