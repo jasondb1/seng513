@@ -6,7 +6,7 @@ import { Router, NavigationStart } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'smallFish ERP';
   headerVisible: boolean = false;
 
@@ -20,5 +20,9 @@ export class AppComponent {
         }
       }
     });
+  }
+
+  ngOnInit() {
+    this.headerVisible = false;
   }
 }

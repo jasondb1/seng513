@@ -2,10 +2,29 @@
   max-width: 350px;
   padding: 15px;
   margin: 0 auto;
+  margin-top: 10%;
+  background: lightblue;
+  border-radius: 5%;
+}
+html{
+  color: white;
 }
 
 .login .login-heading {
   margin-bottom: 10px;
+}
+
+button {
+  font-size: 75%;
+}
+
+input {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #3b7eb4;
+  opacity: 0.5; /* Firefox */
 }
 
 .login .form-control {
@@ -28,5 +47,5 @@
 .login-incorrect {
   margin-top: 5px;
   margin-bottom: 5px;
-  color: red;
+  color: #dd5c5c;
 }

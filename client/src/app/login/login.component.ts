@@ -13,6 +13,7 @@ export class LoginComponent {
 
   public user: any;
   public incorrectPass: boolean;
+  public emptyCreds: boolean;
 
   constructor(private dataService: DataService,
               private router: Router) {
@@ -31,15 +32,17 @@ export class LoginComponent {
             this.router.navigateByUrl('/projects');
           } else {
             this.incorrectPass = true;
+            this.emptyCreds = false;
           }
         } else {
           this.incorrectPass = true;
+          this.emptyCreds = false;
         }
       }, error => {
         console.log(error);
       });
     } else {
-        alert('Please enter both username and password');
+        this.emptyCreds = true;
     }
   }
   
