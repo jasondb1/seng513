@@ -1,13 +1,21 @@
 @import url(//fonts.googleapis.com/css?family=PT+Sans);
 
 /* General */
+html { 
+    background-color: #3b7eb4; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 body {
     font-family: 'PT Sans', sans-serif;
     overflow: hidden;
 }
 
 hr.white {
-    //color: #fff;
+    color: #fff;
     margin-top: 1rem;
     margin-bottom: 1rem;
     border: 0;

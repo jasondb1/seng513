@@ -1,15 +1,46 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
+
+import { DataService } from './../data.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [ DataService ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  constructor() { }
+  public user: any;
+  public incorrectPass: boolean;
 
-  ngOnInit() {
+  constructor(private dataService: DataService,
+              private router: Router) {
+    
+    this.user = {};
   }
 
+  validateLogin() {
+    if(this.user.username && this.user.password) {
+        this.dataService.getEmployees().subscribe((result : Array<any>) => { 
+        let returned = result.filter(obj => {
+          return obj.username === this.user.username
+        })
+        if (returned.length !== 0) {
+          if (returned[0].password === this.user.password) {
+            this.router.navigateByUrl('/projects');
+          } else {
+            this.incorrectPass = true;
+          }
+        } else {
+          this.incorrectPass = true;
+        }
+      }, error => {
+        console.log(error);
+      });
+    } else {
+        alert('Please enter both username and password');
+    }
+  }
+  
 }

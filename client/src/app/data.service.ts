@@ -27,7 +27,6 @@ export class DataService {
 
     console.log("[data service - getting data] from:" + this.baseUrl + this
       .url);
-    console.log (this.httpClient.get(this.baseUrl + this.url));
 
     return this.httpClient.get(this.baseUrl + this.url);
 

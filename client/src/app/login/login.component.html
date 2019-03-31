@@ -1,3 +1,9 @@
-<p>
-  login works!
-</p>
+<form class="login">
+  <h2 class="login-heading">Welcome to SmallFish ERP</h2>
+  <label for="inputUsername" class="sr-only">Username</label>
+  <input name="username" [(ngModel)] = "user.username" id="username" class="form-control" placeholder="Username" required autofocus>
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input name="password" [(ngModel)] = "user.password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+  <h5 *ngIf="incorrectPass" class="login-incorrect">Incorrect Username or Password!</h5>
+  <button class="btn btn-lg btn-primary btn-block" (click)="validateLogin();" type="button">Sign in</button>
+</form>

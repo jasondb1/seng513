@@ -36,7 +36,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    //this.displayChat = false;
     this.configService.displayChat = false;
     this.displayMenu = false;
 
