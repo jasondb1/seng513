@@ -51,8 +51,4 @@ export class DataService {
 
   }
 
-  switchLoggedIn(): boolean {
-    (this.loggedIn) ? this.loggedIn = false : this.loggedIn = true;
-    return this.loggedIn;
-  }
 }

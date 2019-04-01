@@ -30,7 +30,7 @@ export class LoginComponent {
         })
         if (returned.length !== 0) {
           if (returned[0].password === this.user.password) {
-            this.dataService.switchLoggedIn();
+            this.dataService.loggedIn = true;
             this.authGuardService.canActivate();
             this.router.navigateByUrl('/projects');
           } else {

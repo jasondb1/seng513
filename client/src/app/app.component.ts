@@ -17,6 +17,7 @@ export class AppComponent {
       if (event instanceof NavigationStart) {
         if (event['url'] == '/login' || event['url'] == '/') { 
           this.headerVisible = false;
+          this.dataService.loggedIn = false;
         } else {
           this.headerVisible = true; 
         }
