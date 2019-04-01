@@ -6,6 +6,16 @@
     color: rgb(93, 106, 119);
 }
 .add-project-button {
-    background-color: #9F32B2;
-    outline-color: #9F32B2;
+    background-color: #f19f4d;
+    outline-color: #f19f4d;
+}
+
+button :focus{
+    background-color: #f9cf00 !important;
+    outline-color: #f9cf00 !important;
+}
+
+h2 {
+    color: rgb(93, 106, 119);
+ 
 }

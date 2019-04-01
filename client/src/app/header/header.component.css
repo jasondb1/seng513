@@ -14,10 +14,25 @@
   background-color: #4484Ce !important;
 }
 
+
 a {
   color: white !important;
+}
+
+a :hover {
+  color: #f19f4d !important;
 }
 
 i {
   color: white;
 }
+
+.chat-icon-background :hover {
+  color: #f19f4d !important;
+}
+
+.chat-icon-background {
+  background-color: #4484Ce !important;
+  border-color: #4484Ce !important;
+}
+
