@@ -3,7 +3,7 @@
   padding: 15px;
   margin: 0 auto;
   margin-top: 10%;
-  background: lightblue;
+  background: #4484ce;
   border-radius: 5%;
 }
 html{
@@ -16,6 +16,8 @@ html{
 
 button {
   font-size: 75%;
+  background-color: #f19f4d;
+  color: white;
 }
 
 input {

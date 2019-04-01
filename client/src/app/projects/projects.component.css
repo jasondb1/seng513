@@ -1,0 +1,11 @@
+.project-details {
+    background-color: white;
+}
+
+.detail-text {
+    color: rgb(93, 106, 119);
+}
+.add-project-button {
+    background-color: #9F32B2;
+    outline-color: #9F32B2;
+}
