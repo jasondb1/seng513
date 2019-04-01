@@ -13,6 +13,8 @@ import { InvoicesComponent } from './invoices/invoices.component';
 import { PoComponent } from './po/po.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { ChatService } from './chat.service';
+import { AuthGuardService } from './auth-guard.service';
+import { DataService } from './data.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { ChatService } from './chat.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ChatService],
+  providers: [ChatService, AuthGuardService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
