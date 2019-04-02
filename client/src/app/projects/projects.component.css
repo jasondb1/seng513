@@ -1,0 +1,21 @@
+.project-details {
+    background-color: white;
+}
+
+.detail-text {
+    color: rgb(93, 106, 119);
+}
+.add-project-button {
+    background-color: #f19f4d;
+    outline-color: #f19f4d;
+}
+
+button :focus{
+    background-color: #f9cf00 !important;
+    outline-color: #f9cf00 !important;
+}
+
+h2 {
+    color: rgb(93, 106, 119);
+ 
+}

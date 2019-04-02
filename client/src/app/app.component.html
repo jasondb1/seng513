@@ -1,18 +1,15 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<app-header></app-header>
-
+<app-header *ngIf="headerVisible"></app-header>
 
 <!-- Main Content Area -->
 <div class="container-fluid full-height">
   <div class="row full-height">
     <section class="col-12" id="content">
-<router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </section>
-
-
-<div  class="col-3" id="chat">
-<app-messaging></app-messaging>
-</div>
+    <div *ngIf="headerVisible"class="col-3" id="chat">
+      <app-messaging ></app-messaging>
+    </div>
   </div>
 </div>

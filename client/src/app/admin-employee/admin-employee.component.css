@@ -1,0 +1,17 @@
+h2, .employee-details {
+    color: rgb(93, 106, 119);
+}
+
+.employee-detail-container {
+    background-color: white !important;
+}
+
+.add-employee-button {
+    background-color: #f19f4d;
+    outline-color: #f19f4d;
+}
+
+button :focus{
+    background-color: #f9cf00 !important;
+    outline-color: #f9cf00 !important;
+}
