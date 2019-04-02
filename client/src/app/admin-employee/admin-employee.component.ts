@@ -37,6 +37,7 @@ export class AdminEmployeeComponent implements OnInit {
     //setup listeners for the icons on the table
     this.setupDeleteListener();
     this.setupRowListener();
+    this.setupEditListener();
 
   }
 
@@ -101,12 +102,44 @@ export class AdminEmployeeComponent implements OnInit {
 
   }
 
+  ///////////////////////////
+  // setupEditListener()
+
+  setupEditListener(): void {
+
+    $('a.btn-edit').on('click', event => {
+      event.preventDefault();
+
+      console.log("[Edit Form] button clicked");
+
+      this.user = this.selectedUser;
+      this.displayForm = true;
+      this.openForm();
+
+      console.log(this.user);
+      console.log(this.displayForm);
+
+      // let id = event.currentTarget.href;
+      // let regex = /[^/]+$/; //matches everything after the last / to get the id
+      // id = id.match(regex)[0];
+
+    })
+  };
+
+  ///////////////////////////
+  // setupRowListener()
+
   setupRowListener(): void {
 
-    $('#table-summary tr').on('click', event => {
+    $('#table-summary tr').on('mouseover', event => {
 
-      console.log(event);
-      console.log(event.currentTarget);
+      let rowId = event.currentTarget.id;
+      let regex = /[^R]+$/; //matches everything after the last / to get the id
+
+      if (rowId !== null) {
+        rowId = rowId.match(regex)[0];
+        this.displaySelected(rowId);
+      }
 
     });
 
@@ -172,6 +205,10 @@ export class AdminEmployeeComponent implements OnInit {
   resetForm(): void {
     console.log("Resetting Form");
     this.user = new User();
+  }
+
+  openForm(): void {
+    this.displayForm = true;
   }
 
   /////////////////////////

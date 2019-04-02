@@ -4,6 +4,7 @@ h2, .employee-details {
 
 .employee-detail-container {
     background-color: white !important;
+    color: rgb(93, 106, 119);
 }
 
 .add-employee-button {

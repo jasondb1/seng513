@@ -14,6 +14,8 @@
           <fieldset>
             <legend>General:</legend>
 
+            <input [(ngModel)]="user._id" class="form-control" id="userid" name="userid" type="hidden">
+
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -116,7 +118,7 @@
           <h2 class="employee-details">Employee Details</h2>
 
           <div class="project-item border-top">
-            <h3><i class="fa fa-tasks"></i> Details:</h3>
+            <!-- <h3><i class="fa fa-tasks"></i> Details:</h3> -->
             <p>Username: {{selectedUser.username}}<br>
               Email: {{selectedUser.email}}<br>
               First Name: {{selectedUser.name_first}}<br>

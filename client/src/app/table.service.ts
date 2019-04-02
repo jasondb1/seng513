@@ -61,9 +61,8 @@ export class TableService {
         html += '</td>';
       }
 
-      //TODO replace auth with the correct api, may need to pass in as param
       if (editColumn)
-        html += '<td><a href="/api/auth/edit/'+ data_json[i]['_id'] + '" ><span style="color:#092;">\n' +
+        html += '<td><a class="btn-edit" href="'+ data_json[i]['_id'] + '" ><span style="color:#092;">\n' +
           '    <i style="color:#90C048;" class="fa fa-edit fa-lg fa-fw"></i></span></a></td>';
 
       if (delColumn)

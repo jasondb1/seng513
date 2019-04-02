@@ -16,6 +16,7 @@ export class DataService {
 
   //user: User[];
   baseUrl: string = "http://localhost:3000";
+  //baseUrl: string = "http://localhost:5200";
   private url = '/api/auth/users';
   loggedIn: boolean = false;
 
@@ -48,6 +49,16 @@ export class DataService {
     console.log("[add an employee]" + user);
 
     return this.httpClient.post(this.baseUrl + this.url, user);
+
+  }
+
+  /////////////////////
+  //newEmployees ()
+
+  editEmployee(user: User, objId: Number) {
+    console.log("[Edit an employee]" + user);
+
+    return this.httpClient.post(this.baseUrl + this.url + objId, user);
 
   }
 

@@ -125,8 +125,14 @@ app.post('/authenticate', (req, res) => {
 
 
 //////////////
+// //Start server
+// // app.set('port', process.env.PORT || 5200);
+// // const serv = app.listen(app.get('port'), () => {
+// //     console.log(`Express running → PORT ${serv.address().port}`);
+// // });
+
 //Start server
-app.set('port', process.env.PORT || 5200);
+app.set('port', port);
 const serv = app.listen(app.get('port'), () => {
     console.log(`Express running → PORT ${serv.address().port}`);
 });

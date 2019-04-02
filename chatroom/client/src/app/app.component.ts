@@ -41,10 +41,10 @@ export class AppComponent {
 
   addUser() {
     const { username } = this;
-    axios.post('http://localhost:5200/users', { username })
+    axios.post('http://localhost:3000/users', { username })
       .then(() => {
         const tokenProvider = new Chatkit.TokenProvider({
-          url: 'http://localhost:5200/authenticate'
+          url: 'http://localhost:3000/authenticate'
         });
 
         const chatManager = new Chatkit.ChatManager({
