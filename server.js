@@ -1,4 +1,4 @@
-/*
+﻿/*
  * index.js - The node.js server entry point
  *
  *
@@ -8,6 +8,9 @@
  */
 
 //setup ===========
+
+require('dotenv').config({ path: 'variables.env' });
+
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
@@ -23,13 +26,19 @@ const index = require('./app/routes/index');
 const auth = require('./app/routes/auth');
 const project = require('./app/routes/project');  //used for creating, retrieving, updating and deleting
 const invoice = require('./app/routes/invoice');  //used for creating, retrieving, updating and deleting
-
+const Chatkit = require('@pusher/chatkit-server');
 
 const port = 3000;
 
 //setup authentication
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+
+const chatkit = new Chatkit.default({
+    instanceLocator: process.env.CHATKIT_INSTANCE_LOCATOR,
+    key: process.env.CHATKIT_SECRET_KEY,
+});
+
 
 //socket.io
 require('./app/socket.js')(io);
@@ -86,8 +95,45 @@ passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
+//routing 
+app.post('/users', (req, res) => {
+    const { username } = req.body;
+
+    chatkit
+        .createUser({
+            id: username,
+            name: username,
+        })
+        .then(() => {
+            res.sendStatus(201);
+        })
+        .catch(err => {
+            if (err.error === 'services/chatkit/user_already_exists') {
+                res.sendStatus(200);
+            } else {
+                res.status(err.status).json(err);
+            }
+        });
+});
+
+app.post('/authenticate', (req, res) => {
+    const authData = chatkit.authenticate({
+        userId: req.query.user_id,
+    });
+    res.status(authData.status).send(authData.body);
+});
+
+
 //////////////
 //Start server
-server.listen(port, () => {
-    console.log('listening on port: ' + port);
+app.set('port', process.env.PORT || 5200);
+const serv = app.listen(app.get('port'), () => {
+    console.log(`Express running → PORT ${serv.address().port}`);
 });
+
+
+//////////////
+//Start server
+//server.listen(port, () => {
+//    console.log('listening on port: ' + port);
+//});
