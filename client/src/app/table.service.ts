@@ -52,7 +52,7 @@ export class TableService {
 
     //display data
     for (let i = 0; i < data_json.length; i++) {
-      html += '<tr>';
+      html += '<tr class="' + data_json[i]['_id'] + ' " id=R' + i +' >';
 
       //add items in each object
       for (let key of keys) {

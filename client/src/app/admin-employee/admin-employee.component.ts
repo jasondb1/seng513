@@ -16,12 +16,14 @@ export class AdminEmployeeComponent implements OnInit {
   DEBUG: boolean = true;
 
   private user: User;
+  private selectedUser: User;
   private users = [];
   private displayForm: boolean = false;
 
 
   constructor(private dataService: DataService) {
     this.user = <User>{};
+    this.selectedUser = <User>{};
   }
 
 
@@ -30,10 +32,11 @@ export class AdminEmployeeComponent implements OnInit {
 
   displayTable(): void {
     let html = TableService.tableHtml(this.users, {'username': 'Username', 'email': 'Email'}, true, true);
-    $('#table-employee').html(html);
+    $('#table-summary').html(html);
 
     //setup listeners for the icons on the table
     this.setupDeleteListener();
+    this.setupRowListener();
 
   }
 
@@ -57,6 +60,7 @@ export class AdminEmployeeComponent implements OnInit {
         () => {
           console.log("Data finished loading.");
           this.displayTable();
+          this.displaySelected(0);
         }
       );
   }
@@ -93,6 +97,17 @@ export class AdminEmployeeComponent implements OnInit {
             this.updateTable();
           });
       }
+    });
+
+  }
+
+  setupRowListener(): void {
+
+    $('#table-summary tr').on('click', event => {
+
+      console.log(event);
+      console.log(event.currentTarget);
+
     });
 
   }
@@ -165,11 +180,18 @@ export class AdminEmployeeComponent implements OnInit {
   ngOnInit() {
 
     this.user = new User;
+    this.selectedUser = new User;
     this.updateTable();  //Testing
 
   }
 
+  displaySelected(index){
+    console.log("display selected:");
+    console.log(this.users);
+    console.log(this.users[index]);
+    this.selectedUser = this.users[index];
 
+  }
 
 
 }
