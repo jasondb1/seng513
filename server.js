@@ -132,14 +132,14 @@ app.post('/authenticate', (req, res) => {
 // // });
 
 //Start server
-app.set('port', port);
-const serv = app.listen(app.get('port'), () => {
-    console.log(`Express running → PORT ${serv.address().port}`);
-});
+// app.set('port', port);
+// const serv = app.listen(app.get('port'), () => {
+//     console.log(`Express running → PORT ${serv.address().port}`);
+// });
 
 
 //////////////
 //Start server
-//server.listen(port, () => {
-//    console.log('listening on port: ' + port);
-//});
+server.listen(port, () => {
+   console.log('listening on port: ' + port);
+});

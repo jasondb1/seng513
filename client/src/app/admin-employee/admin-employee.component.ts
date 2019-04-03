@@ -26,9 +26,19 @@ export class AdminEmployeeComponent implements OnInit {
     this.selectedUser = <User>{};
   }
 
+  /////////////////////////
+  // ngOnInit()
+
+  ngOnInit() {
+
+    this.user = new User;
+    this.selectedUser = new User;
+    this.updateTable();  //Testing
+
+  }
 
   ////////////////
-  // updateTable()
+  // displayTable()
 
   displayTable(): void {
     let html = TableService.tableHtml(this.users, {'username': 'Username', 'email': 'Email'}, true, true);
@@ -42,7 +52,7 @@ export class AdminEmployeeComponent implements OnInit {
   }
 
   ////////////////
-  // getData()
+  // updateTable()
 
   updateTable(): void {
 
@@ -131,7 +141,7 @@ export class AdminEmployeeComponent implements OnInit {
 
   setupRowListener(): void {
 
-    $('#table-summary tr').on('mouseover', event => {
+    $('#table-summary tr').on('click', event => {
 
       let rowId = event.currentTarget.id;
       let regex = /[^R]+$/; //matches everything after the last / to get the id
@@ -212,15 +222,7 @@ export class AdminEmployeeComponent implements OnInit {
   }
 
   /////////////////////////
-  // ngOnInit()
-
-  ngOnInit() {
-
-    this.user = new User;
-    this.selectedUser = new User;
-    this.updateTable();  //Testing
-
-  }
+  // displaySelected()
 
   displaySelected(index){
     console.log("display selected:");

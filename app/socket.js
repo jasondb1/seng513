@@ -19,6 +19,7 @@ let allUsers = [];
 
 let currentUID = 10000;
 let currentMID = 1000000;
+let project = "";
 
 console.log("[Socket.js loaded]")
 
@@ -49,6 +50,9 @@ module.exports = function (io) {
             user.ID = parseInt(cookies.uid);
         }
 
+        //TODO: add specific project rooms
+        socket.join('general');
+
         //add user to list of users and send to connected Users
         socket.emit('acknowledgeConn', user);
         if (currentUsers.find(obj => {
@@ -67,7 +71,6 @@ module.exports = function (io) {
             currentUsers[i].connections = 1;
         }
 
-
         io.emit('updateUsers', currentUsers);       //transmit updated user list to everyone
         socket.emit('refreshMessages', messageLog); //must come after updateUsers
 
@@ -75,6 +78,17 @@ module.exports = function (io) {
             console.log('[Connect Current Users:]');
             console.log(currentUsers);
         }
+
+        /////////////////////////////
+        //Event: user disconnects
+        socket.on('changeProject', project => {
+            console.log('[change project]');
+            console.log('project');
+
+            this.project = project;
+            socket.join(this.project);
+
+        });
 
         /////////////////////////////
         //Event: user disconnects
@@ -91,7 +105,7 @@ module.exports = function (io) {
             console.log(`${user.name}(${user.ID}) disconnected`);
 
             if (DEBUG) {
-                console.log('[Disconnect Current Users]')
+                console.log('[Disconnect Current Users]');
                 console.log(currentUsers);
             }
 
@@ -101,70 +115,27 @@ module.exports = function (io) {
         //Event: userMessage - logs and transmits a message to connected users
         socket.on('clientMessage', msg => {
 
-            console.log('recieved a message:' + msg);
+            console.log('received a message:' + msg);
 
-            if (/^\//.test(msg)) { //test if command
+            let timestamp = new Date();
+            //format the message and push to message log
+            let formattedMessage = {};
+            formattedMessage.UID = user.ID;
+            formattedMessage.message = msg;
+            formattedMessage.timestamp = timestamp;
+            formattedMessage.messageID = currentMID++;
+            formattedMessage.color = user.color;
+            formattedMessage.name = user.name;
 
-                if (/^\/nickcolor\s[0-9a-f]{6}$/i.test(msg)) { //change color
+            //TODO: Save message in mongodb
+            messageLog.push(formattedMessage); //store test in a volatile log
 
-                    //change the color
-                    msg = msg.replace(/\/nickcolor\s*|/gi, '');
-                    user.color = "#" + msg;
-                    let i = currentUsers.findIndex(obj => {
-                        return obj.ID === user.ID;
-                    });
-                    currentUsers[i].color = user.color;
+            socket.emit('status', 'Ready');
 
-                    //propogate to all users
-                    socket.emit('acknowledgeConn', user);
-                    io.emit('updateUsers', currentUsers)
-                    socket.emit('status', 'Color Changed');
-
-                } else if (/^\/nick\s/.test(msg)) { //change nickname
-
-                    msg = msg.replace(/\/nick\s*|/gi, '');
-
-                    if (userExists(msg)) {
-                        socket.emit('status', 'ERROR: Name Exists - name was not unique');
-                    } else {
-                        user.name = msg;
-                        let i = currentUsers.findIndex(obj => {
-                            return obj.ID === user.ID;
-                        });
-                        currentUsers[i].name = user.name;
-
-                        //propogate new name to all users
-                        socket.emit('acknowledgeConn', user);
-                        io.emit('updateUsers', currentUsers);
-                        socket.emit('status', 'Name Changed');
-                    }
-
-                } else {
-                    socket.emit('status', 'ERROR: Command is not valid');
-                }
-
-            } else {
-
-                let timestamp = new Date();
-                //format the message and push to message log
-                let formattedMessage = {};
-                formattedMessage.UID = user.ID;
-                formattedMessage.message = msg;
-                formattedMessage.timestamp = timestamp;
-                formattedMessage.messageID = currentMID++;
-                formattedMessage.color = user.color;
-                formattedMessage.name = user.name;
-
-                messageLog.push(formattedMessage); //store test in a volatile log
-
-                socket.emit('status', 'Ready');
-
-                io.emit('serverMessage', formattedMessage);
-                if (DEBUG) {
-                    console.log('current message: ');
-                    console.log(formattedMessage);
-                }
-
+            io.emit('serverMessage', formattedMessage);
+            if (DEBUG) {
+                console.log('current message: ');
+                console.log(formattedMessage);
             }
         });
 
@@ -174,13 +145,6 @@ module.exports = function (io) {
             return Math.floor((Math.random() * num));
         };
 
-        //////////////////////////////////////
-        //Tests if a user exists
-        function userExists(name) {
-            return allUsers.find(obj => {
-                return obj.name === name;
-            }) !== undefined;
-        }
 
     });
 };

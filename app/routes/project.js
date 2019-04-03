@@ -25,6 +25,8 @@ router.get('/', function(req, res) {
 //save project
 router.post('/', function(req, res){
     //TODO: Implement this method
+    //TODO: if id is -1 assign a number
+
     //THis comment
     res.send('Need to fully implement this');
 

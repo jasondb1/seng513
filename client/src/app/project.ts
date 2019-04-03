@@ -3,4 +3,7 @@ export class Project {
   description: string;
   employees: string;
   projectManager: string;
+
+  constructor() {}
+
 }
