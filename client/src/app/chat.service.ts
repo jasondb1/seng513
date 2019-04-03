@@ -55,12 +55,45 @@ export class ChatService {
     });
 
     ///////////////////
-    //Refresh Messages
+    //Refresh Status
     this.socket.on('status', msg => {
       $('#status').text(msg);
     });
 
-  }
+/////////////////////////////////////////////////////////////////
+//TODO Remove these methods once uname cookie is set by node.js login
+
+    //Update users from server
+    this.socket.on('updateUsers', msg => {
+      this.users = msg;
+
+      let newHTML = [];
+      for (let i = 0; i < msg.length; i++) {
+        newHTML.push('<span style="color:' +  msg[i].color + ';">' + msg[i].name + '</span>');
+      }
+      $('#users').html(newHTML.join(''));
+
+      if (this.DEBUG) console.log('[update Users]');
+
+    });
+
+    //////////////////////////////////////////////////////////////
+    //Acknowledges the client connection returning the user object
+    this.socket.on('acknowledgeConn', msg => {
+      this.currentUser = msg;
+      console.log(msg);
+      $('#currentUser').text(this.currentUser.name);
+      $('#status').text('Connected');
+      document.cookie = 'uname=' + this.currentUser.name;
+      document.cookie = 'uid=' + this.currentUser.ID;
+      document.cookie = 'color=' + this.currentUser.color;
+    });
+
+////////////////////////////////////////////////////////////////////////
+
+
+
+  }//end of setupListeners
 
   //////////////////
   //Compose Message
@@ -105,6 +138,7 @@ export class ChatService {
       scrollDiv.scrollTop = scrollDiv.scrollHeight;
     }
   };
+
 
 
 }
