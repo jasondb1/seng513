@@ -145,6 +145,17 @@ module.exports = function (io) {
             return Math.floor((Math.random() * num));
         };
 
+        //////////////////////////////////////
+        //Tests if a user exists
+        function userExists(name) {
+            return allUsers.find(obj => {
+                return obj.name === name;
+            }) !== undefined;
+        }
 
     });
+
+
+
+
 };
