@@ -124,22 +124,27 @@ app.post('/authenticate', (req, res) => {
 });
 
 
-//////////////
-// //Start server
-// // app.set('port', process.env.PORT || 5200);
-// // const serv = app.listen(app.get('port'), () => {
-// //     console.log(`Express running → PORT ${serv.address().port}`);
-// // });
 
-//Start server
+ 
+
+
+ 
+
+////Start server
 // app.set('port', port);
 // const serv = app.listen(app.get('port'), () => {
 //     console.log(`Express running → PORT ${serv.address().port}`);
 // });
 
 
-//////////////
+app.set('port', process.env.port || 5200);
+const serv = app.listen(app.get('port'), () => {
+    console.log(`express running → port ${serv.address().port}`);
+});
+////////////
 //Start server
 server.listen(port, () => {
    console.log('listening on port: ' + port);
 });
+
+
