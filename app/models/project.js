@@ -1,6 +1,7 @@
 const mongoose=require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
-const Project = mongoose.model('Project', {
+ProjectSchema = mongoose.Schema({
 
     id: {
         type: Number,
@@ -14,13 +15,16 @@ const Project = mongoose.model('Project', {
 
     dateCreated: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now
     },
 
     employees:[{
     type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'
     }],
+
+
 
     projectManager:{
         type: mongoose.Schema.Types.ObjectId,
@@ -30,4 +34,9 @@ const Project = mongoose.model('Project', {
 
 });
 
-module.exports = {Project};
+mongoose.model("Project",ProjectSchema);
+
+ProjectSchema.plugin(AutoIncrement, {inc_field: 'id'});
+
+
+module.exports = {ProjectSchema};

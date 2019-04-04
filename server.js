@@ -14,7 +14,7 @@ require('dotenv').config({ path: 'variables.env' });
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
-const mongoose = require('mongoose');             //to access mongo database
+const mongoose = require('mongoose');
 const morgan = require('morgan');                 //a logger
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -64,6 +64,8 @@ mongoose.connection.on('connected', () => {
 mongoose.connection.on('error', (err) => {
     console.error('Error in database connection:' + err);
 } );
+
+
 
 //stack ===========
 app.use(express.static(path.join(__dirname, '/public')));
