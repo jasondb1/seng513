@@ -41,7 +41,7 @@ const chatkit = new Chatkit.default({
 
 
 //socket.io
-require('./app/socket.js')(io);
+//require('./app/socket.js')(io);
 
 //database
 
@@ -53,7 +53,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-require('./app/socket.js')(io);
+//require('./app/socket.js')(io);
 
 mongoose.connect('mongodb://group2:smallf1sh@ds129625.mlab.com:29625/small_fish', {useNewUrlParser: true});
 
@@ -99,6 +99,8 @@ passport.deserializeUser(Account.deserializeUser());
 app.post('/users', (req, res) => {
     const { username } = req.body;
 
+    console.log(req.body);
+
     chatkit
         .createUser({
             id: username,
@@ -138,9 +140,11 @@ app.post('/authenticate', (req, res) => {
 
 
 app.set('port', process.env.port || 5200);
+//app.set('port', 3000);
 const serv = app.listen(app.get('port'), () => {
     console.log(`express running → port ${serv.address().port}`);
 });
+
 ////////////
 //Start server
 server.listen(port, () => {
