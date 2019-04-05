@@ -138,8 +138,7 @@ export class ProjectsComponent implements OnInit {
     let html = TableService.tableHtml(this.projects, {'id': 'ID', 'description': 'Description'}, true, true);
     $('#table-summary').html(html);
 
-    let html2 = TableService.tableHtml(this.projects, {'employees.username': 'Employee Name', 'description': 'Description'}, true, true);
-    $('#employee-summary2').html(html2);
+
     //setup listeners for the icons on the table
     this.setupDeleteListener();
     this.setupRowListener();

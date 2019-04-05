@@ -15,6 +15,7 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 const morgan = require('morgan');                 //a logger
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');

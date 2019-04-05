@@ -1,8 +1,9 @@
 const mongoose=require('mongoose');
+let Schema = mongoose.Schema;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
+const {Users} = require('./users');
 
-
-const Project = mongoose.model("Project", new mongoose.Schema({
+const Project = new Schema({
 
 
     id: {
@@ -46,7 +47,9 @@ const Project = mongoose.model("Project", new mongoose.Schema({
     }
 
 
-}));
+});
+
+
 
 
 async function addEmployee(projectId, employeeID){
@@ -75,13 +78,9 @@ async function addPurchaseOrder(projectId, employeeID){
 }
 
 
+Project.plugin(AutoIncrement, {inc_field: 'id'});
+
+module.exports = mongoose.model("Project",Project);
 
 
 
-ProjectSchema.plugin(AutoIncrement, {inc_field: 'id'});
-
-
-exports.Project = Project;
-exports.validate = validateCustomer;
-
-module.exports = {Project};
