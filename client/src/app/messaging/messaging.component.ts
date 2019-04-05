@@ -9,7 +9,8 @@ import axios from 'axios';
 })
 
 export class MessagingComponent {
-  userId = '';
+  //userId = '';
+  uid = '';
   currentUser = <any>{};
   messages = [];
   currentRoom = <any>{};
@@ -119,30 +120,35 @@ export class MessagingComponent {
   }
 
   addUser() {
-    const { userId } = this;
-    axios.post('http://localhost:5200/users', { userId })
+
+    console.log("[Add User]");
+
+    const { uid } = this;
+    axios.post('http://localhost:5200/users', { username: uid })
+    //axios.post('http://localhost:3000/users', { userId })
       .then(() => {
         const tokenProvider = new Chatkit.TokenProvider({
           url: 'http://localhost:5200/authenticate'
+          //url: 'http://localhost:3000/authenticate'
         });
 
         const chatManager = new Chatkit.ChatManager({
           instanceLocator: 'v1:us1:03c31da5-6cc7-4d98-9fcd-db504679cac0',
-          userId,
+          userId: uid,
           tokenProvider
         });
 
         return chatManager
           .connect({
             onAddedToRoom: room => {
-              console.log(`Added to room ${room.name}`)
+              console.log(`Added to room ${room.name}`);
               this.userRooms.push(room);
               this.getJoinableRooms();
             },
           })
           .then(currentUser => {
             this.currentUser = currentUser;
-            this.connectToRoom('19387778');
+            this.connectToRoom('19388641');
             this.getJoinableRooms();
           });
       })
