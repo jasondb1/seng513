@@ -1,7 +1,9 @@
 const mongoose=require('mongoose');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
-ProjectSchema = mongoose.Schema({
+
+const Project = mongoose.model("Project", new mongoose.Schema({
+
 
     id: {
         type: Number,
@@ -9,8 +11,10 @@ ProjectSchema = mongoose.Schema({
     },
 
     description: {
-       type: String,
-       required: true
+        minlength: 2,
+        maxlength: 255,
+        type: String,
+        required: true
     },
 
     dateCreated: {
@@ -29,14 +33,55 @@ ProjectSchema = mongoose.Schema({
     projectManager:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'
+    },
+
+    invoice:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'invoice'
+    },
+
+    purchaseOrder:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'purchaseOrder'
     }
 
 
-});
+}));
 
-mongoose.model("Project",ProjectSchema);
+
+async function addEmployee(projectId, employeeID){
+    const project= await Project.findById(projectId);
+    project.employees.push(employeeID);
+    project.save();
+}
+
+async function removeEmployee(projectId, employeeID){
+    const project= await Project.findById(projectId);
+    const employee = project.employees.id(employeeID);
+    employee.remove();
+    project.save();
+}
+
+async function addPurchaseOrder(projectId, employeeID){
+
+}
+
+async function removePurchaseOrder(projectId, employeeID){
+
+}
+
+async function addPurchaseOrder(projectId, employeeID){
+
+}
+
+
+
+
 
 ProjectSchema.plugin(AutoIncrement, {inc_field: 'id'});
 
 
-module.exports = {ProjectSchema};
+exports.Project = Project;
+exports.validate = validateCustomer;
+
+module.exports = {Project};

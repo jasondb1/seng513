@@ -78,7 +78,7 @@ export class ProjectsComponent implements OnInit {
   ///////////////////////////
   // setupDeleteListener()
 
-  setupDeleteListener(): void {
+  setupDeleteListener(id): void {
 
     $('a.btn-delete').on('click', event => {
 

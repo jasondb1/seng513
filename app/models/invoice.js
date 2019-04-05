@@ -10,6 +10,16 @@ const Invoice = mongoose.model('Invoice', {
     description: {
        type: String,
        required: true
+    },
+
+    vendor:{
+        type: String,
+        required: true
+    },
+
+    invoiceTotal:{
+        type: Number,
+        required: true
     }
 
 });
