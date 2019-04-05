@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 let ObjectId = require('mongoose').Types.ObjectId;
-
-const {Project} = require('../models/project');
+const mongoose = require('mongoose');
+const Project = require('../models/project');
 
 
 ///////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ router.post('/', function(req, res){
     //TODO: if id is -1 assign a number
 
     //THis comment
-    res.send('Need to fully implement this');
+   // res.send('Need to fully implement this');
 
     //construct a new project
     let newProject = new Project({

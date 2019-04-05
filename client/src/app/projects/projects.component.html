@@ -31,23 +31,25 @@
               </div>
             </div>
 
-            <div class="form-group">
+         <div class="form-group">
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">Project Manager</div>
-                </div>
-                <input [(ngModel)]="this.project.projectManager" class="form-control" id="projectManager" name="Project Manager" placeholder="Project Manager"
-                       required="required" type="text">
-              </div>
-            </div>
+               <div class="input-group-text">Description</div>
+           <select class="form-control">
+
+              <option [(ngModel)]="this.users" ng-repeat="employee in users" value="{{employee}}">  {{employee}} </option>
+               <input [(ngModel)]="this.project.projectManager" class="form-control" id="description" name="description"
+                                    placeholder="description" type="text">
+           </select>
+         </div>
+         </div>
 
 
           </fieldset>
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" id="submit-project-add" name="submit" type="submit">Submit</button>
-        <button class="btn btn-secondary" id="btn-cancel" data-dismiss="modal" type="button">Cancel</button>
+      <button (click)="submitForm()" type="button" class="btn btn-primary" id="submit-project-add" name="submit" >Submit</button>
+        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal" type="button">Cancel</button>
       </div>
     </div>
   </div>

@@ -15,6 +15,7 @@ export class ProjectsComponent implements OnInit {
   private project: Project;
   private selectedProject: Project;
   private projects: Project[];
+  private users: [{username:"ducky"}];
   private displayForm: boolean = false;
 
   DEBUG: boolean = true;
@@ -31,7 +32,9 @@ export class ProjectsComponent implements OnInit {
 
     //update the table
     this.updateTable();
+    this.emplyeesDisplay();
   }
+
 
 
   /////////////////////////
@@ -46,14 +49,17 @@ export class ProjectsComponent implements OnInit {
   // displaySelected()
 
   displaySelected(index){
+
     console.log("display selected:");
     console.log(this.projects);
     console.log(this.projects[index]);
     this.selectedProject = this.projects[index];
 
+      console.log(this.projects[index].employees)
     //TODO Enable this when project rooms are ready.
     //this.chatService.changeProject(this.selectedProject.id);
   }
+
 
   ///////////////////////////
   // setupRowListener()
@@ -64,6 +70,8 @@ export class ProjectsComponent implements OnInit {
 
       let rowId = event.currentTarget.id;
       let regex = /[^R]+$/; //matches everything after the last / to get the id
+
+      console.log(regex);
 
       if (rowId !== null) {
         rowId = rowId.match(regex)[0];
@@ -251,9 +259,9 @@ export class ProjectsComponent implements OnInit {
     let projectManager: string = this.project.projectManager;
 
     let newProject: Project ={
-      'id': -1,
+      //'id': -1,
       'description': description,
-      'employees': "",
+      'employees': "5c8f160293cec31f87612b61",
       'projectManager': projectManager
     };
 
@@ -277,6 +285,29 @@ export class ProjectsComponent implements OnInit {
     );
 
   }
+
+   emplyeesDisplay(){
+    console.log("[Get Users]");
+    this.dataService.getEmployees()
+      .subscribe(
+        (res: any[]) => {
+          console.log(res);
+          this.users = res;
+        },
+        (err) => {
+          //Display error in status area
+          let status = `<strong>${err.status}</strong> - ${err.message}`;
+          $("#status").html(status).attr('class', 'alert alert-danger');
+        },
+        () => {
+          console.log("Data finished loading.");
+          console.log(this.users);
+
+
+        }
+      );
+  }
+
 
 
 

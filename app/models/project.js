@@ -1,33 +1,81 @@
 const mongoose=require('mongoose');
+let Schema = mongoose.Schema;
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+const {Users} = require('./users');
 
-const Project = mongoose.model('Project', {
+const Project = new Schema({
 
-    id: {
-        type: Number,
-        required: true
-    },
-
+//id field is created by Auto-increment, starts at 1 for all documents put in.
     description: {
-       type: String,
-       required: true
+        minlength: 2,
+        maxlength: 255,
+        type: String,
+        required: true
     },
 
     dateCreated: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now
     },
 
     employees:[{
-    type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'
     }],
+
+
 
     projectManager:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'
+    },
+
+    invoice:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'invoice'
+    },
+
+    purchaseOrder:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'purchaseOrder'
     }
 
 
 });
 
-module.exports = {Project};
+
+
+
+async function addEmployee(projectId, employeeID){
+    const project= await Project.findById(projectId);
+    project.employees.push(employeeID);
+    project.save();
+}
+
+async function removeEmployee(projectId, employeeID){
+    const project= await Project.findById(projectId);
+    const employee = project.employees.id(employeeID);
+    employee.remove();
+    project.save();
+}
+
+async function addPurchaseOrder(projectId, employeeID){
+
+}
+
+async function removePurchaseOrder(projectId, employeeID){
+
+}
+
+async function addPurchaseOrder(projectId, employeeID){
+
+}
+
+
+Project.plugin(AutoIncrement, {inc_field: 'id'});
+
+module.exports = mongoose.model("Project",Project);
+
+
+
