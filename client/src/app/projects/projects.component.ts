@@ -15,7 +15,7 @@ export class ProjectsComponent implements OnInit {
   private project: Project;
   private selectedProject: Project;
   private projects: Project[];
-  private users: [{username:"ducky"}];
+  private users: [];
   private displayForm: boolean = false;
 
   DEBUG: boolean = true;
@@ -32,7 +32,7 @@ export class ProjectsComponent implements OnInit {
 
     //update the table
     this.updateTable();
-    this.emplyeesDisplay();
+    this.employeesDisplay();
   }
 
 
@@ -259,7 +259,7 @@ export class ProjectsComponent implements OnInit {
     let projectManager: string = this.project.projectManager;
 
     let newProject: Project ={
-      //'id': -1,
+      'id': -1,
       'description': description,
       'employees': "5c8f160293cec31f87612b61",
       'projectManager': projectManager
@@ -286,7 +286,7 @@ export class ProjectsComponent implements OnInit {
 
   }
 
-   emplyeesDisplay(){
+   employeesDisplay(){
     console.log("[Get Users]");
     this.dataService.getEmployees()
       .subscribe(
@@ -302,12 +302,23 @@ export class ProjectsComponent implements OnInit {
         () => {
           console.log("Data finished loading.");
           console.log(this.users);
-
+          this.formSetup();
 
         }
       );
   }
 
+    formSetup(){
+      let html;
+      for (let i = 0; i < this.users.length; i++) {
+        html += '<option>';
+        html += this.users[i]['username'];
+        html += '</option>';
+      }
+      console.log(html);
+
+      $('#exampleFormControlSelect1').html(html);
+    }
 
 
 
