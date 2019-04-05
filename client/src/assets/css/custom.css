@@ -304,6 +304,7 @@ ol.breadcrumb {
     color: #fff;
     /*display: none;*/
     visibility: visible;
+  padding: 0;
 
 }
 
