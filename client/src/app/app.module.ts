@@ -12,7 +12,6 @@ import { LoginComponent } from './login/login.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { PoComponent } from './po/po.component';
 import { MessagingComponent } from './messaging/messaging.component';
-import { ChatService } from './chat.service';
 import { AuthGuardService } from './auth-guard.service';
 import { DataService } from './data.service';
 
@@ -33,7 +32,7 @@ import { DataService } from './data.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ChatService, AuthGuardService, DataService],
+  providers: [AuthGuardService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

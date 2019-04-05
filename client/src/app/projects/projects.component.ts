@@ -2,15 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import $ from 'jquery';
 import {TableService} from "../table.service";
 import {Project} from "../project";
-import { ChatService} from "../chat.service";
 import {DataService} from "../data.service";
-
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.css']
 })
+
 export class ProjectsComponent implements OnInit {
 
   private project: Project;
@@ -22,7 +21,7 @@ export class ProjectsComponent implements OnInit {
   server: string = "http://localhost:3000";
   data: any = {};
 
-  constructor(private dataService: DataService, private chatService: ChatService) {
+  constructor(private dataService: DataService) {
     this.project = <Project>{};
     this.selectedProject = <Project>{};
   }
