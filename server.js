@@ -39,22 +39,7 @@ const chatkit = new Chatkit.default({
     key: process.env.CHATKIT_SECRET_KEY,
 });
 
-
-//socket.io
-require('./app/socket.js')(io);
-
 //database
-
-// place this middleware before any other route definitions
-// makes io available as req.io in all request handlers
-// then in any express route handler, you can use req.io.emit(...)
-app.use(function(req, res, next) {
-    req.io = io;
-    next();
-});
-
-require('./app/socket.js')(io);
-
 mongoose.connect('mongodb://group2:smallf1sh@ds129625.mlab.com:29625/small_fish', {useNewUrlParser: true});
 
 mongoose.connection.on('connected', () => {
@@ -67,7 +52,6 @@ mongoose.connection.on('error', (err) => {
 
 //stack ===========
 app.use(express.static(path.join(__dirname, '/public')));
-//app.use(express.static(path.join(__dirname, '/test')));
 app.use(cors()); // Use this after the variable declaration
 app.use(morgan('dev'));
 app.use(cookieParser());
@@ -99,6 +83,8 @@ passport.deserializeUser(Account.deserializeUser());
 app.post('/users', (req, res) => {
     const { username } = req.body;
 
+    console.log(req.body);
+
     chatkit
         .createUser({
             id: username,
@@ -123,23 +109,18 @@ app.post('/authenticate', (req, res) => {
     res.status(authData.status).send(authData.body);
 });
 
+////////////
+// start chat-server
+app.set('port', process.env.port || 5200);
+//app.set('port', 3000);
+const serv = app.listen(app.get('port'), () => {
+    console.log(`express running → port ${serv.address().port}`);
+});
 
-//////////////
-// //Start server
-// // app.set('port', process.env.PORT || 5200);
-// // const serv = app.listen(app.get('port'), () => {
-// //     console.log(`Express running → PORT ${serv.address().port}`);
-// // });
-
-//Start server
-// app.set('port', port);
-// const serv = app.listen(app.get('port'), () => {
-//     console.log(`Express running → PORT ${serv.address().port}`);
-// });
-
-
-//////////////
+////////////
 //Start server
 server.listen(port, () => {
    console.log('listening on port: ' + port);
 });
+
+

@@ -1,3 +1,245 @@
-#messages {
+
+.App {
+  width: 100%;
+  height: 90vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /*display: flex;
+  border: 1px solid #ccc;
+
+  color: #333;
+    */
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  margin: 0;
+}
+
+h4 {
+  font-size: 1.3em;
+  margin-bottom:0;
+  color: #aaa;
+}
+
+ul {
+  list-style: none;
+  margin-bottom: 0.5em;
+}
+
+form {
+  margin-bottom: 0;
+}
+
+input[type="text"] {
+  color: #333;
+  border-radius: 4px;
+  height: 1.5em;
+  margin-bottom: 0.4em;
+}
+
+.sidebar {
+  flex-basis: 15%;
+  flex-shrink: 0;
+  flex-grow: 0;
+  /**
+  background-color: #300d4f;
+  */
+  color: #fff;
+  padding: 0.5em 0.5em;
+}
+
+.left-sidebar section {
+  margin-bottom: 1em;
+}
+/*
+.left-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+*/
+
+.room-members {
+  flex-grow: 1;
+  border-top: 1px solid #ccc;
+
+}
+
+.right-sidebar .room {
+  display: flex;
+}
+
+.newUser-input {
+  margin-bottom: 0;
+}
+
+.right-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.user-rooms ul li{
+  font-size: 0.9em;
+  margin: 0;
+  margin-bottom: -0.4em;
+}
+
+.room {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+  .room:hover {
+    background-color: goldenrod;
+    color: #333;
+  }
+
+  .room.active {
+    background-color: #11D771;
+    color: #333;
+    border-radius: 4px;
+  }
+
+.room-name {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.user-list li {
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.presence {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  margin-right: 1em;
+  border-radius: 50%;
+}
+
+  .presence.online {
+    background-color: #11D771;
+  }
+
+.chat-window {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chat-header, .chat-footer {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.chat-header {
+  /*border-top: 1px solid #ccc;
+
+  padding: 0.5em 0.5em;
+  */
+}
+
+  .chat-header h4 {
+    margin-bottom: 0;
+    font-size: 1.3em;
+  }
+
+.chat-session {
+  flex-grow: 0.75;
+  padding: 0.5em 0.5em;
+  overflow-y: auto;
+  color: #000;
+  height: 350px;
+  border-radius:4px;
+  background-color: #eeecec;
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.user-message {
+  margin:0;
+  margin-bottom: 0.2em;
   font-size: 0.85em;
+}
+
+  .user-message span {
+    display: block;
+  }
+
+.user-id {
+  font-weight: bold;
+}
+
+.chat-footer {
+  padding: 0;
+  margin-top: 1em;
+  /*
+  height: 50px;
+  */
+}
+
+.message-form {
+  width: 100%;
+  height: 100%;
+}
+
+.message-input {
+  width: 100%;
+  border: none;
+  margin-bottom: 0;
+  height: 100%;
+}
+
+  .message-input:focus {
+    border: none;
+  }
+
+.send-message {
+  background-color: #300d4f;
+  color: #fff;
+  border: 1px solid #300d4f;
+  padding: 10px;
+}
+
+.create-room {
+  padding: 0 10px;
+}
+
+  .create-room button {
+    display: block;
+  }
+
+input[type="checkbox"] {
+  margin-bottom: 0;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.is-private {
+  display: flex;
+  align-items: center;
+}
+
+.user-rooms,
+.joinable-rooms{
+  border-top: 1px solid #ccc;
+  font-size:0.9em;
+}
+
+.user-rooms h4, .joinable-rooms h4 {
+
+}
+
+.App label {
+  font-weight:400;
 }

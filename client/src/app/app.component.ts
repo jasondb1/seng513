@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { DataService } from './data.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,6 +11,7 @@ import { DataService } from './data.service';
 export class AppComponent {
   title = 'smallFish ERP';
   headerVisible: boolean = false;
+
 
   constructor(private router: Router,
               private dataService: DataService) {
