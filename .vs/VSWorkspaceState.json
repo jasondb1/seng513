@@ -1,0 +1,19 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\chatroom\\client",
+    "\\chatroom\\client\\src",
+    "\\chatroom\\client\\src\\app",
+    "\\chatroom\\client\\src\\assets",
+    "\\chatroom\\client\\src\\environments",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\app",
+    "\\client\\src\\app\\invoices",
+    "\\client\\src\\app\\login",
+    "\\client\\src\\app\\messaging",
+    "\\client\\src\\assets"
+  ],
+  "SelectedNode": "\\server.js",
+  "PreviewInSolutionExplorer": false
+}
