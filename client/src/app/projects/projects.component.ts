@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import $ from 'jquery';
+//import $ from 'jquery';
 import {TableService} from "../table.service";
 import {Project} from "../project";
 import {DataService} from "../data.service";
+declare var $: any;
 
 @Component({
   selector: 'app-projects',
@@ -18,7 +19,6 @@ export class ProjectsComponent implements OnInit {
   private displayForm: boolean = false;
 
   DEBUG: boolean = true;
-  server: string = "http://localhost:3000";
   data: any = {};
 
   constructor(private dataService: DataService) {
@@ -46,9 +46,6 @@ export class ProjectsComponent implements OnInit {
   // displaySelected()
 
   displaySelected(index){
-    console.log("display selected:");
-    console.log(this.projects);
-    console.log(this.projects[index]);
     this.selectedProject = this.projects[index];
 
     //TODO Enable this when project rooms are ready.
@@ -118,14 +115,9 @@ export class ProjectsComponent implements OnInit {
     $('a.btn-edit').on('click', event => {
       event.preventDefault();
 
-      console.log("[Edit Form] button clicked");
-
       this.project = this.selectedProject;
       this.displayForm = true;
-      this.displayForm = true;
-
-      console.log(this.project);
-      console.log(this.displayForm);
+      $('#form-modal').modal('show');
     })
   };
 

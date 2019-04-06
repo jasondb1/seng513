@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import $ from 'jquery';
 import {TableService} from "../table.service";
 import {User} from "../user";
 import {DataService} from "../data.service";
-//import {Observable} from 'rxjs';
+declare var $: any;
+
 
 @Component({
   selector: 'app-admin-employee',
@@ -16,9 +16,9 @@ export class AdminEmployeeComponent implements OnInit {
   DEBUG: boolean = true;
 
   private user: User;
-  private selectedUser: User;
-  private users = [];
-  private displayForm: boolean = false;
+  selectedUser: User;
+  users = [];
+  displayForm: boolean = false;
 
 
   constructor(private dataService: DataService) {
@@ -120,14 +120,10 @@ export class AdminEmployeeComponent implements OnInit {
     $('a.btn-edit').on('click', event => {
       event.preventDefault();
 
-      console.log("[Edit Form] button clicked");
-
       this.user = this.selectedUser;
       this.displayForm = true;
-      this.openForm();
 
-      console.log(this.user);
-      console.log(this.displayForm);
+      $('#form-modal').modal('show');
 
       // let id = event.currentTarget.href;
       // let regex = /[^/]+$/; //matches everything after the last / to get the id
@@ -225,11 +221,7 @@ export class AdminEmployeeComponent implements OnInit {
   // displaySelected()
 
   displaySelected(index){
-    console.log("display selected:");
-    console.log(this.users);
-    console.log(this.users[index]);
     this.selectedUser = this.users[index];
-
   }
 
 

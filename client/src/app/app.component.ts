@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { DataService } from './data.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({

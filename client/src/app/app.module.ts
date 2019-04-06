@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule} from "@angular/common/http";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -14,6 +15,7 @@ import { PoComponent } from './po/po.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { AuthGuardService } from './auth-guard.service';
 import { DataService } from './data.service';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { DataService } from './data.service';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [AuthGuardService, DataService],
   bootstrap: [AppComponent]

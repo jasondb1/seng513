@@ -12,12 +12,6 @@
     </ol>
   </div>
 
-  <!-- Add Page Action Buttons Here
-  <div id="action">
-
-  </div>
-  -->
-
   <div class="ml-auto align-items-center" id="nav_rhs">
      <span (click)="toggleChat();" class="btn btn-dark bg-primary chat-icon-background" style="color: #fff;">
                 <i class="fa fa-2x fa-comments"> </i>
@@ -31,10 +25,10 @@
 <div *ngIf="displayMenu" class="sidenav bg-primary" id="sidenav">
   <nav class="navbar navbar-expand-xs navbar-dark bg-primary">
     <a (click)="displayMenu = false;" class="closebtn" href="javascript:void(0)">&times;</a>
-    <a routerLink="/projects"><i class="fa fa-2x fa-fw fa-archive"></i>Projects</a>
+    <a (click)="displayMenu = false;" routerLink="/projects"><i class="fa fa-2x fa-fw fa-archive"></i>Projects</a>
     <hr class="white">
-    <a routerLink="/admin"><i class="fa fa-2x fa-fw fa-user-ninja"></i>Admin</a>
+    <a (click)="displayMenu = false;" routerLink="/admin"><i class="fa fa-2x fa-fw fa-user-ninja"></i>Admin</a>
     <hr class="white">
-    <a routerLink="/login"><i class="fa fa-2x fa-fw fa-sign-out-alt"></i>Logout</a>
+    <a (click)="displayMenu = false;" routerLink="/login"><i class="fa fa-2x fa-fw fa-sign-out-alt"></i>Logout</a>
   </nav>
 </div>

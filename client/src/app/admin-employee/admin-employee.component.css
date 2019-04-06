@@ -16,3 +16,9 @@ button :focus{
     background-color: #f9cf00 !important;
     outline-color: #f9cf00 !important;
 }
+
+/*
+.modal {
+  display: block;
+}
+*/
