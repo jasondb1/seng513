@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0d6689fa-93cc-4625-a8ac-66240fc155c9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/assets/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/assets/js/jquery.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/assets/js/popper.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/admin-employee/admin-employee.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/admin-employee/admin-employee.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/admin-employee/admin-employee.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/admin-employee/admin-employee.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/admin-employee/admin-employee.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/admin-employee/admin-employee.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/header/header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/header/header.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/header/header.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/header/header.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/app/projects/projects.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/projects/projects.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/messaging/messaging.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/messaging/messaging.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/messaging/messaging.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/messaging/messaging.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/app/messaging/messaging.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/app/messaging/messaging.component.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -57,8 +44,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/app/admin-employee/admin-employee.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="34" lean-forward="true" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
+            <state relative-caret-position="68">
+              <caret line="4" selection-start-line="4" selection-end-line="4" selection-end-column="19" />
               <folding>
                 <element signature="e#0#48#0" expanded="true" />
               </folding>
@@ -66,7 +53,37 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/app/messaging/messaging.component.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="18" column="54" lean-forward="true" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/app/messaging/messaging.component.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="307">
+              <caret line="164" column="26" selection-start-line="164" selection-start-column="26" selection-end-line="164" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/app/messaging/messaging.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-136">
+              <caret line="28" column="4" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#42#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/app/header/header.component.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="527">
@@ -74,15 +91,6 @@
               <folding>
                 <element signature="n#style#0;n#span#0;n#div#1;n#nav#0;n#!!top" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/node_modules/@angular/router/src/directives/router_link.d.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="164" column="4" selection-start-line="164" selection-start-column="4" selection-end-line="164" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -170,10 +178,7 @@
         <option value="$PROJECT_DIR$/client/src/app/chat.service.ts" />
         <option value="$PROJECT_DIR$/app/socket.js" />
         <option value="$PROJECT_DIR$/variables.env" />
-        <option value="$PROJECT_DIR$/client/src/app/messaging/messaging.component.ts" />
         <option value="$PROJECT_DIR$/client/src/assets/css/custom.css" />
-        <option value="$PROJECT_DIR$/client/src/app/messaging/messaging.component.html" />
-        <option value="$PROJECT_DIR$/client/src/app/messaging/messaging.component.css" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/client/src/app/admin-employee/admin-employee.component.html" />
         <option value="$PROJECT_DIR$/client/src/app/admin-employee/admin-employee.component.css" />
@@ -185,6 +190,9 @@
         <option value="$PROJECT_DIR$/client/src/app/projects/projects.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/header/header.component.ts" />
         <option value="$PROJECT_DIR$/client/src/app/header/header.component.html" />
+        <option value="$PROJECT_DIR$/client/src/app/messaging/messaging.component.css" />
+        <option value="$PROJECT_DIR$/client/src/app/messaging/messaging.component.html" />
+        <option value="$PROJECT_DIR$/client/src/app/messaging/messaging.component.ts" />
       </list>
     </option>
   </component>
@@ -235,6 +243,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="header" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="seng513" type="b2602c69:ProjectViewProjectNode" />
+              <item name="seng513" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="messaging" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="seng513" type="b2602c69:ProjectViewProjectNode" />
@@ -318,12 +334,12 @@
       <workItem from="1554348945111" duration="2432000" />
       <workItem from="1554399493637" duration="12606000" />
       <workItem from="1554567466967" duration="348000" />
-      <workItem from="1554583303826" duration="6266000" />
+      <workItem from="1554583303826" duration="12838000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="265157000" />
+    <option name="totallyTimeSpent" value="271729000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1052" extended-state="6" />
@@ -496,27 +512,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chatroom/client/src/app/app.component.html" />
     <entry file="file://$PROJECT_DIR$/chatroom/client/src/app/app.component.ts" />
-    <entry file="file://$PROJECT_DIR$/client/src/app/messaging/messaging.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="136" column="16" selection-start-line="136" selection-start-column="16" selection-end-line="136" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/messaging/messaging.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/messaging/messaging.component.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2057">
-          <caret line="121" column="1" selection-start-line="121" selection-start-column="1" selection-end-line="121" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/assets/css/custom.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="671">
@@ -659,22 +654,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/app/admin-employee/admin-employee.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="34" lean-forward="true" selection-start-line="35" selection-start-column="34" selection-end-line="35" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/app/header/header.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
           <folding>
             <element signature="n#style#0;n#span#0;n#div#1;n#nav#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/messaging/messaging.component.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="164" column="26" selection-start-line="164" selection-start-column="26" selection-end-line="164" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/admin-employee/admin-employee.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="4" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/messaging/messaging.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="18" column="54" lean-forward="true" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/app/messaging/messaging.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-136">
+          <caret line="28" column="4" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
           </folding>
         </state>
       </provider>
