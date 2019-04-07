@@ -85,9 +85,19 @@ router.delete('/:id', function(req, res) {
 });
 
 //update project
-router.put('/:id', function(req, res) {
+router.put('/:id/', function(req, res) {
     //TODO: Implement this method
     res.send('Need to implement this');
 });
+
+/*// for adding employees to a project
+rotuer.put("what goes here???", function(req, res{
+    res.send("loll")
+}
+
+//for removing employeers from project
+rotuer.put("what goes here???", function(req, res{
+    res.send("loll")
+}*/
 
 module.exports = router;

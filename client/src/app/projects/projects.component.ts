@@ -56,7 +56,7 @@ export class ProjectsComponent implements OnInit {
     this.selectedProject = this.projects[index];
   console.log(this.users[0]);
     //console.log(this.users['_id'].indexOf(this.projects[index].employees));
-
+    this.displayTable2();
     //TODO Enable this when project rooms are ready.
     //this.chatService.changeProject(this.selectedProject.id);
   }
@@ -135,6 +135,8 @@ export class ProjectsComponent implements OnInit {
 
       console.log(this.project);
       console.log(this.displayForm);
+
+
     })
   };
 
@@ -152,6 +154,21 @@ export class ProjectsComponent implements OnInit {
     this.setupEditListener();
 
   }
+
+  displayTable2(): void {
+    let html = TableService.tableHtml(this.selectedProject, {'id': 'ID', 'description': 'Description'}, true, true);
+    $('#employee-summary').html(html);
+    console.log(this.projects);
+
+    console.log(this.selectedProject);
+
+    //setup listeners for the icons on the table
+    this.setupDeleteListener();
+    this.setupRowListener();
+    this.setupEditListener();
+
+  }
+
 
 
   ////////////////
@@ -174,7 +191,7 @@ export class ProjectsComponent implements OnInit {
         () => {
           console.log("Data finished loading.");
           this.displayTable();
-          this.displaySelected(0);
+          //this.displaySelected();
         }
       );
   }
@@ -319,6 +336,7 @@ export class ProjectsComponent implements OnInit {
       console.log(html);
 
       $('#employeeDropDown').html(html);
+      $('#employeeDropDown2').html(html);
     }
 
 

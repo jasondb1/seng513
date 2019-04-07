@@ -96,12 +96,26 @@ export class DataService {
   /////////////////////
   //Add Employees to Project
 
-  addEmployeeProject(id: Number, employees: []){
-  
-    return this.httpClient.put(this.baseUrl + this.projectUrl, id);
+  updateProjects(id: Number, project: Project){
+    return this.httpClient.put(this.baseUrl + this.projectUrl + "/" +id, project);
   }
 
 
+
+/*
+  /////////////////////
+  //Add Employees to Project
+
+  addEmployeesProject(id: Number, user: user?){
+    return this.httpClient.put(this.baseUrl + this.projectUrl + "/" +id, ?????)
+  }
+
+/////////////////////
+//Delete Employee from Project
+removeEmployeesProject(id: Number, user: user?){
+  return this.httpClient.put(this.baseUrl + this.projectUrl + "/" +id, ?????)
+}
+*/
 
   /////////////////////
   //Delete Employee from Project
