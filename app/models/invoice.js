@@ -10,7 +10,23 @@ const Invoice = mongoose.model('Invoice', {
     description: {
        type: String,
        required: true
+    },
+
+    status: {
+        type: String,
+        required: true
+    },
+
+    started: {
+        type: String,
+        required: true
+    },
+
+    notes: {
+        type: String,
+        required: true
     }
+
 
 });
 

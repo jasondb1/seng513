@@ -133,8 +133,7 @@ export class ProjectsComponent implements OnInit {
       this.displayForm = true;
       this.displayForm = true;
 
-      console.log(this.project);
-      console.log(this.displayForm);
+
 
 
     })
@@ -158,9 +157,7 @@ export class ProjectsComponent implements OnInit {
   displayTable2(): void {
     let html = TableService.tableHtml(this.selectedProject, {'id': 'ID', 'description': 'Description'}, true, true);
     $('#employee-summary').html(html);
-    console.log(this.projects);
 
-    console.log(this.selectedProject);
 
     //setup listeners for the icons on the table
     this.setupDeleteListener();
@@ -180,7 +177,7 @@ export class ProjectsComponent implements OnInit {
     this.dataService.getProjects()
       .subscribe(
         (res: any[]) => {
-          console.log(res);
+
           this.projects = res;
         },
         (err) => {
@@ -293,7 +290,6 @@ export class ProjectsComponent implements OnInit {
         //display error message in status
         let status = `<strong>${err.status}</strong> - ${err.message}`;
         $("#status").html(status).attr('class', 'alert alert-danger');
-
       },
       () => {
         //$("#form-modal").modal("hide");
@@ -304,12 +300,14 @@ export class ProjectsComponent implements OnInit {
 
   }
 
+
+  //bring in emplopyee
    employeesDisplay(){
     console.log("[Get Users]");
     this.dataService.getEmployees()
       .subscribe(
         (res: any) => {
-          console.log(res);
+
           this.users = res;
         },
         (err) => {
@@ -333,7 +331,7 @@ export class ProjectsComponent implements OnInit {
         html += this.users[i]['username'];
         html += '</option>';
       }
-      console.log(html);
+
 
       $('#employeeDropDown').html(html);
       $('#employeeDropDown2').html(html);

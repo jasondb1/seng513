@@ -54,7 +54,7 @@ router.post('/', function(req, res){
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id/', (req, res) => {
    //check if id exists in db
     if (!ObjectId.isValid(req.params.id))
        return res.status(400).send('No record matches id: ' + req.params.id);
@@ -84,20 +84,31 @@ router.delete('/:id', function(req, res) {
     });
 });
 
-//update project
+//update project description/status
 router.put('/:id/', function(req, res) {
     //TODO: Implement this method
     res.send('Need to implement this');
 });
 
-/*// for adding employees to a project
-rotuer.put("what goes here???", function(req, res{
-    res.send("loll")
-}
+router.put('addEmployees/:id/', function(req, res) {
 
-//for removing employeers from project
-rotuer.put("what goes here???", function(req, res{
-    res.send("loll")
-}*/
+    console.log(req);
+    //
+    // async function addEmployee(projectId, employeeID){
+    //     const project= await Project.findById(projectId);
+    //     project.employees.push(employeeID);
+    //     project.save();
+    // }
+
+
+    res.send('Need to implement this');
+});
+
+router.put('removeEmployees/:id/', function(req, res) {
+    //TODO: Implement this method
+    res.send('Need to implement this');
+});
+
+
 
 module.exports = router;

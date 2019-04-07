@@ -102,14 +102,14 @@ export class DataService {
 
 
 
-/*
   /////////////////////
   //Add Employees to Project
 
-  addEmployeesProject(id: Number, user: user?){
-    return this.httpClient.put(this.baseUrl + this.projectUrl + "/" +id, ?????)
+  addEmployeesProject(id: Number, userIDs: []){
+    return this.httpClient.put(this.baseUrl + this.projectUrl + "addEmployees/" +id, userIDs)
   }
 
+/*
 /////////////////////
 //Delete Employee from Project
 removeEmployeesProject(id: Number, user: user?){
