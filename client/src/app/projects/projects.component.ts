@@ -54,8 +54,9 @@ export class ProjectsComponent implements OnInit {
     console.log(this.projects);
     console.log(this.projects[index]);
     this.selectedProject = this.projects[index];
+  console.log(this.users[0]);
+    //console.log(this.users['_id'].indexOf(this.projects[index].employees));
 
-      console.log(this.projects[index].employees)
     //TODO Enable this when project rooms are ready.
     //this.chatService.changeProject(this.selectedProject.id);
   }
@@ -290,7 +291,7 @@ export class ProjectsComponent implements OnInit {
     console.log("[Get Users]");
     this.dataService.getEmployees()
       .subscribe(
-        (res: any[]) => {
+        (res: any) => {
           console.log(res);
           this.users = res;
         },
@@ -317,8 +318,10 @@ export class ProjectsComponent implements OnInit {
       }
       console.log(html);
 
-      $('#exampleFormControlSelect1').html(html);
+      $('#employeeDropDown').html(html);
     }
+
+
 
 
 
