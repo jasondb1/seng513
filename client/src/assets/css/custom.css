@@ -393,3 +393,9 @@ ol.breadcrumb {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
+@media screen and (max-height: 450px) {
+ .full-height{
+   overflow-y: auto;
+ }
+}

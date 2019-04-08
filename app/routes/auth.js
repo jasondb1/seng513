@@ -64,14 +64,17 @@ router.get('/ping', function(req, res){
 router.get('/users', (req, res) => {
 
     User.find( (err, users) => {
+        let temp_users = [];
+
         if (!err) {
             //remove passwords from being sent
-        for (let i = 0; i < users.length; i++ ){
-            delete users[i].password;
+       // for (let i = 0; i < users.length; i++ ){
+            for (i of users){
+                temp_user = JSON.stringify((i));
+                temp_user = JSON.parse(temp_user);
+                delete temp_user['password'];
+                temp_users.push(temp_user);
         }
-
-console.log(users);
-
             res.json(users);
         }
         else {
