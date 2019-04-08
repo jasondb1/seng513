@@ -19,6 +19,7 @@ export class AdminEmployeeComponent implements OnInit {
   selectedUser: User;
   users = [];
   displayForm: boolean = false;
+  editUser: boolean = false; //
 
 
   constructor(private dataService: DataService) {
@@ -117,6 +118,7 @@ export class AdminEmployeeComponent implements OnInit {
 
   setupEditListener(): void {
 
+    this.editUser = true;
     $('a.btn-edit').on('click', event => {
       event.preventDefault();
 
@@ -157,22 +159,58 @@ export class AdminEmployeeComponent implements OnInit {
   submitForm(): void {
     //Add new user
 
-      this.displayForm = false;
+    //edit the user instead of
 
-      //TODO: add functionality and change action when user is being edited instead of created.
-      if (this.DEBUG) {
-        console.log("Submit Button Pressed");
-      }
+    this.displayForm = false;
 
-      //event.preventDefault();
+    //TODO: add functionality and change action when user is being edited instead of created.
+    if (this.DEBUG) {
+      console.log("Submit Button Pressed");
+    }
 
-      //2 way data-binding
-      let uname = this.user.username;
-      let pword = this.user.password;
-      let email = this.user.email;
-      let name_first = this.user.name_first;
-      let name_last = this.user.name_last;
-      let admin = this.user.admin;
+    //event.preventDefault();
+
+    //2 way data-binding
+    let uname = this.user.username;
+    let pword = this.user.password;
+    let email = this.user.email;
+    let name_first = this.user.name_first;
+    let name_last = this.user.name_last;
+    let admin = this.user.admin;
+
+    if (this.editUser) {
+
+      this.editUser = false;
+
+      this.selectedUser.username = uname;
+      this.selectedUser.password = pword;
+      this.selectedUser.email = email;
+      this.selectedUser.name_first = name_first;
+      this.selectedUser.name_last = name_last;
+      this.selectedUser.admin = admin;
+
+      this.dataService.editEmployee(this.selectedUser).subscribe(
+        (res: any) => {
+          let status = `<strong>${res.status}</strong> - ${res.message}`;
+          $("#status").html(status).attr('class', 'alert alert-success');
+        },
+        (err: any) => {
+          this.resetForm();
+          //display error message in status
+          let status = `<strong>${err.status}</strong> - ${err.message}`;
+          $("#status").html(status).attr('class', 'alert alert-danger');
+
+        },
+        () => {
+          //$("#form-modal").modal("hide");
+          this.resetForm();
+          this.updateTable();
+
+        }
+      );
+
+    } else {
+
 
       //compose the new user from the form fields
       let newUser: User = {
@@ -188,7 +226,8 @@ export class AdminEmployeeComponent implements OnInit {
       this.dataService.newEmployee(newUser).subscribe(
         (res: any) => {
           let status = `<strong>${res.status}</strong> - ${res.message}`;
-          $("#status").html(status).attr('class', 'alert alert-success');},
+          $("#status").html(status).attr('class', 'alert alert-success');
+        },
         (err: any) => {
           this.resetForm();
           //display error message in status
@@ -203,8 +242,8 @@ export class AdminEmployeeComponent implements OnInit {
         }
       );
 
+    }
   }
-
   /////////////////////////
   // resetForm()
 
@@ -221,7 +260,9 @@ export class AdminEmployeeComponent implements OnInit {
   // displaySelected()
 
   displaySelected(index){
+
     this.selectedUser = this.users[index];
+    console.log(this.selectedUser);
   }
 
 

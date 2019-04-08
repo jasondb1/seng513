@@ -57,10 +57,11 @@ export class DataService {
   /////////////////////
   //editEmployee ()
 
-  editEmployee(user: User, objId: Number) {
-    console.log("[Edit an employee]" + user);
+  editEmployee(user: User) {
+    console.log("[Edit an employee]");
+    console.log(user);
 
-    return this.httpClient.post(this.baseUrl + this.employeeUrl + objId, user);
+    return this.httpClient.put(this.baseUrl + this.employeeUrl + "/editUser", user);
 
   }
 

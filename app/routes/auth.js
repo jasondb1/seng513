@@ -126,9 +126,26 @@ router.post('/users', (req, res) => {
 });
 
 //////edit user
-router.post('/users/:id', (req, res) => {
+router.put('/users/editUser', async (req, res) => {
 
+   // console.log(req);
     console.log('[Edit User]');
+    //params is ID followed, OKAY I GET
+    console.log(req.body._id)
+
+    const user = await User.findByIdAndUpdate(req.body._id,
+        {
+            title: req.body.title,
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email,
+            name_first: req.body.name_first,
+            admin: req.body.admin,
+        });
+
+    if (!user) return res.status(404).send('User Does not exist');
+
+    res.send(user);
 
 });
 
