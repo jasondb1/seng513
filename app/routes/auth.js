@@ -65,6 +65,13 @@ router.get('/users', (req, res) => {
 
     User.find( (err, users) => {
         if (!err) {
+            //remove passwords from being sent
+        for (let i = 0; i < users.length; i++ ){
+            delete users[i].password;
+        }
+
+console.log(users);
+
             res.json(users);
         }
         else {
@@ -89,6 +96,9 @@ router.get('/users/:id', (req, res) => {
             res.json(message);
         }
         else {
+
+            delete user.password;
+
             res.send(user);
         }
     });
