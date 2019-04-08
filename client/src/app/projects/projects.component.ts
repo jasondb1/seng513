@@ -49,15 +49,9 @@ export class ProjectsComponent implements OnInit {
   // displaySelected()
 
   displaySelected(index){
-<<<<<<< HEAD
 
-    console.log("display selected:");
-    console.log(this.projects);
-    console.log(this.projects[index]);
-=======
->>>>>>> master
     this.selectedProject = this.projects[index];
-  console.log(this.users[0]);
+
     //console.log(this.users['_id'].indexOf(this.projects[index].employees));
     this.displayTable2();
     //TODO Enable this when project rooms are ready.
@@ -132,15 +126,15 @@ export class ProjectsComponent implements OnInit {
 
       this.project = this.selectedProject;
       this.displayForm = true;
-<<<<<<< HEAD
+
       this.displayForm = true;
 
 
 
 
-=======
+
       $('#form-modal').modal('show');
->>>>>>> master
+
     })
   };
 
