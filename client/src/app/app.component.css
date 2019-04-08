@@ -1,2 +1,6 @@
 @import url(//fonts.googleapis.com/css?family=PT+Sans);
 
+#chat {
+  display:none;
+}
+

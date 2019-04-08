@@ -20,11 +20,11 @@ export class HeaderComponent implements OnInit {
     this.configService.displayChat = !this.configService.displayChat;
 
     if (this.configService.displayChat) {
-      document.getElementById("content").className = "col-12 col-md-9";
+      document.getElementById("content").className = "order-4 col-12 col-md-9";
       document.getElementById("chat").style.display = "block";
     } else {
       document.getElementById("chat").style.display = "none";
-      document.getElementById("content").className = "col-md-12";
+      document.getElementById("content").className = "order-0 col-12 col-md-12";
     }
 
     //console.log("[toggle chat called]" + this.configService.displayChat);

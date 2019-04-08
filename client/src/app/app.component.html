@@ -4,11 +4,11 @@
 
 <!-- Main Content Area -->
 <div class="container-fluid full-height">
-  <div class="row full-height">
-    <section class="col-12 col-md-12" id="content">
+  <div class="row full-height" id="scroll-mobile">
+    <section class="order-4 col-12 col-md-12" id="content">
       <router-outlet></router-outlet>
     </section>
-    <div *ngIf="headerVisible" class="col-12 col-md-3" id="chat">
+    <div *ngIf="headerVisible" class="order-0 order-md-6 col-12 col-md-3" id="chat">
       <app-messaging></app-messaging>
     </div>
   </div>

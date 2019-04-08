@@ -386,16 +386,19 @@ ol.breadcrumb {
   color: #616060;
 }
 
+#scroll-mobile {
+  overflow-y: auto;
+}
+
 
 /*Screen Compensation */
 
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
-}
 
-@media screen and (max-height: 450px) {
- .full-height{
-   overflow-y: auto;
- }
+  #scroll-mobile {
+    overflow-y: auto;
+  }
+
 }
