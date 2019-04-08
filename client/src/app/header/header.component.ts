@@ -16,7 +16,6 @@ export class HeaderComponent implements OnInit {
   toggleChat(): void {
     //this.messagingComponent.openChat();
 
-
     this.configService.displayChat = !this.configService.displayChat;
 
     if (this.configService.displayChat) {
