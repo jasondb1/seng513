@@ -16,9 +16,9 @@
         </ng-template>
         <span class="participants"></span>
       </header>
-      <section class="chat-session">
+      <section id="chat-session" class="chat-session">
         <ul class="message-list">
-          <li class="user-message" *ngFor="let message of messages">
+          <li class="user-message" *ngFor="let message of messages" [class.isActive]="scrollDown()" >
             <span class="user-id">{{ message.senderId }}</span>
             <span>{{ message.text }}</span>
           </li>

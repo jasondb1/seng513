@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import Chatkit from '@pusher/chatkit-client';
 import axios from 'axios';
+declare var $: any;
 
 @Component({
   selector: 'app-messaging',
@@ -23,6 +24,14 @@ export class MessagingComponent {
   };
   joinableRooms = [];
   newUser = '';
+
+  scrollDown(){
+    let scrollDiv = document.getElementById("chat-session");
+
+    if(scrollDiv !== null) {
+      scrollDiv.scrollTop = scrollDiv.scrollHeight;
+    }
+  }
 
   addUserToRoom() {
     const { newUser, currentUser, currentRoom } = this;
@@ -89,6 +98,14 @@ export class MessagingComponent {
       hooks: {
         onMessage: message => {
           this.messages.push(message);
+
+
+          let scrollDiv = document.getElementById("chat-session");
+
+          if(scrollDiv !== null) {
+            scrollDiv.scrollTop = scrollDiv.scrollHeight;
+          }
+
         },
         onPresenceChanged: () => {
           this.roomUsers = this.currentRoom.users.sort((a) => {
@@ -103,6 +120,7 @@ export class MessagingComponent {
         this.currentRoom = currentRoom;
         this.roomUsers = currentRoom.users;
         this.userRooms = currentUser.rooms;
+
       });
   }
 

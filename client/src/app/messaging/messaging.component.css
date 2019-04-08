@@ -162,14 +162,24 @@ input[type="text"] {
 
 .message-list {
   display: flex;
+  /* messages bottom up */
   flex-direction: column;
   justify-content: flex-end;
+
+
+  /* messages top down
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  */
+
 }
 
 .user-message {
   margin:0;
   margin-bottom: 0.2em;
   font-size: 0.85em;
+  line-height: 1.5;
+
 }
 
   .user-message span {

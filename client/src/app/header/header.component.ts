@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../config.service';
-import { MessagingComponent} from "../messaging/messaging.component";
 
 @Component({
   selector: 'app-header',
@@ -28,7 +27,7 @@ export class HeaderComponent implements OnInit {
       document.getElementById("content").className = "col-12";
     }
 
-    console.log("[toggle chat called]" + this.configService.displayChat);
+    //console.log("[toggle chat called]" + this.configService.displayChat);
   }
 
 
