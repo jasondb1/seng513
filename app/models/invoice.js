@@ -12,6 +12,12 @@ const invoice = new Schema({
         required: true
     },
 
+    invoiceDate:{
+        type: Date,
+        required: true,
+        defualt: Date.now
+    },
+
     dateCreated: {
         type: Date,
         required: true,
@@ -21,7 +27,14 @@ const invoice = new Schema({
     status: {
         type: String,
         required: true,
+        default: "In Progress"
     },
+
+    totalCost:{
+        type: Number,
+        required: true,
+        default: 0
+    }
 
 });
 

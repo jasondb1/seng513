@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 let Schema = mongoose.Schema;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 const {Users} = require('./users');
-
+const {Invoice} = require('./invoice');
 const Project = new Schema({
 
 //id field is created by Auto-increment, starts at 1 for all documents put in.
@@ -24,6 +24,9 @@ const Project = new Schema({
         ref: 'Users'
     }],
 
+    status:{
+      type: String
+    },
 
 
     projectManager:{
@@ -31,9 +34,8 @@ const Project = new Schema({
         ref: 'Users'
     },
 
-    invoice:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'invoice'
+    invoice: {
+        type:  [Invoice]
     },
 
     purchaseOrder:{

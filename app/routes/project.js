@@ -110,5 +110,14 @@ router.put('removeEmployees/:id/', function(req, res) {
 });
 
 
+router.put('addInvoice/:id/', async (req, res) => {
+
+    const project= await Project.findById(req.params.id);
+    console.log()
+    project.invoice.push(req.body.invoice);
+    project.save();
+
+
+});
 
 module.exports = router;

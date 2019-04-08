@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { User } from './user';
 import { Project } from './project';
+import { Invoice } from './invoice';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';;
@@ -128,7 +129,9 @@ removeEmployeesProject(id: Number, user: user?){
 
   /////////////////////
   //Add Invoice to Project
-
+    newInvoice(id: Number, invoice: Invoice ){
+    return this.httpClient.put(this.baseUrl + this.projectUrl + "addEmployees/" +id, invoice)
+  }
 
   /////////////////////
   //Add Work Order to Project
