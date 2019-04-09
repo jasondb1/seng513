@@ -3,6 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {TableService} from "../table.service";
 import {Project} from "../project";
 import {DataService} from "../data.service";
+import {Invoice} from "../invoice";
+
 declare var $: any;
 
 @Component({
@@ -18,18 +20,20 @@ export class ProjectsComponent implements OnInit {
   private projects: Project[];
   private users: [];
   private displayForm: boolean = false;
-
+  stupidArray: Project[];
+  private invoice: Invoice;
   DEBUG: boolean = true;
   data: any = {};
 
   constructor(private dataService: DataService) {
     this.project = <Project>{};
     this.selectedProject = <Project>{};
+    this.invoice = <Invoice>{};
   }
 
   ngOnInit() {
     this.project = new Project;
-
+    this.invoice = new Invoice;
     //update the table
     this.updateTable();
     this.employeesDisplay();
@@ -43,6 +47,7 @@ export class ProjectsComponent implements OnInit {
   resetForm(): void {
     console.log("Resetting Form");
     this.project = new Project();
+    this.invoice = new Invoice();
   }
 
   /////////////////////////
@@ -51,6 +56,7 @@ export class ProjectsComponent implements OnInit {
   displaySelected(index){
 
     this.selectedProject = this.projects[index];
+
 
     //console.log(this.users['_id'].indexOf(this.projects[index].employees));
     this.displayTable2();
@@ -64,16 +70,29 @@ export class ProjectsComponent implements OnInit {
 
   setupRowListener(): void {
 
-    $('#table-summary tr').on('click', event => {
+    $('#table-summary tr').on('mouseover', event => {
 
       let rowId = event.currentTarget.id;
       let regex = /[^R]+$/; //matches everything after the last / to get the id
 
-      console.log(regex);
+
 
       if (rowId !== null) {
         rowId = rowId.match(regex)[0];
         this.displaySelected(rowId);
+      }
+
+    });
+
+    $('#invoice-summary tr').on('mouseover', event => {
+
+      let rowId = event.currentTarget.id;
+      let regex = /[^R]+$/; //matches everything after the last / to get the id
+
+      //needed for edit function.
+      if (rowId !== null) {
+        rowId = rowId.match(regex)[0];
+        this.invoice = this.selectedProject.invoice[rowId];
       }
 
     });
@@ -121,21 +140,44 @@ export class ProjectsComponent implements OnInit {
 
   setupEditListener(): void {
 
-    $('a.btn-edit').on('click', event => {
+    $('#table-summary a.btn-edit').on('click', event => {
       event.preventDefault();
 
       this.project = this.selectedProject;
       this.displayForm = true;
 
-      this.displayForm = true;
-
-
-
-
 
       $('#form-modal').modal('show');
 
-    })
+    });
+
+    $('#employee-summary a.btn-edit').on('click', event => {
+      event.preventDefault();
+
+
+      $('#form-modal-employee').modal('show');
+
+    });
+
+
+    $('#invoice-summary a.btn-edit').on('click', event => {
+      event.preventDefault();
+
+
+      $('#form-modal-invoice').modal('show');
+
+    });
+
+    $('#purchase-summary a.btn-edit').on('click', event => {
+      event.preventDefault();
+
+
+      $('#form-modal-PO').modal('show');
+
+    });
+
+
+
   };
 
 
@@ -146,6 +188,7 @@ export class ProjectsComponent implements OnInit {
     let html = TableService.tableHtml(this.projects, {'id': 'ID', 'description': 'Description'}, true, true);
     $('#table-summary').html(html);
 
+    console.log(this.projects);
     //setup listeners for the icons on the table
     this.setupDeleteListener();
     this.setupRowListener();
@@ -154,14 +197,9 @@ export class ProjectsComponent implements OnInit {
   }
 
   displayTable2(): void {
-    let html = TableService.tableHtml(this.selectedProject, {'id': 'ID', 'description': 'Description'}, true, true);
-    $('#employee-summary').html(html);
 
-
-    //setup listeners for the icons on the table
-    this.setupDeleteListener();
-    this.setupRowListener();
-    this.setupEditListener();
+    let html = TableService.tableHtml(this.selectedProject.invoice, {'status' : 'Status', 'description': 'Description', 'invoiceDate': 'Invoice Date', 'totalCost' : 'totalCost'}, true, true);
+    $('#invoice-summary').html(html);
 
   }
 
@@ -191,69 +229,7 @@ export class ProjectsComponent implements OnInit {
         }
       );
   }
-  //
-  // //Sets up a new form
-  // setupForm(): void {
-  //
-  //   //Add new project
-  //   $('#submit-project-add').on('click', event => {
-  //     //TODO: add functionality and change action when project is being edited instead of created.
-  //     if (this.DEBUG) {
-  //       console.log("Submit Button Pressed");
-  //     }
-  //
-  //     event.preventDefault();
-  //
-  //   //2 way data-binding
-  //     let desciption = this.project.description;
-  //     let projectManager = this.project.projectManager;
-  //
-  //     let newProject ={
-  //       'description' : desciption,
-  //       'projectManager' : projectManager
-  //
-  //     };
-  //
-  //   //post the project data to the server
-  //     fetch(this.server + '/api/project', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify(newProject)
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         if (this.DEBUG) console.log(data);
-  //         //close the dialog box and reset the form fields
-  //         $("#form-modal").modal("hide");
-  //         $("#project-form")[0].reset();
-  //
-  //         //update status
-  //         let status = `<strong>${data.status}</strong> - ${data.message}`;
-  //         $("#status").html(status).attr('class', 'alert alert-success');
-  //
-  //         //update the table
-  //         this.updateTable();
-  //       })
-  //       .catch((err) => {
-  //         if (this.DEBUG) console.log(this.data);
-  //         //close the dialog box and reset the form fields
-  //         $("#form-modal").modal("hide");
-  //         $("#project-form")[0].reset();
-  //
-  //         //update status
-  //         let status = `<strong>${err.status}</strong> - ${err.message}`;
-  //         $("#status").html(status).attr('class', 'alert alert-danger');
-  //       })
-  //   });
-  //
-  //   $("#btn-cancel").click(() => {
-  //     //reset the form data
-  //     $("#project-form")[0].reset();
-  //     $("#form-modal").modal("hide");
-  //   });
-  // }
+
 
   ///////////////////////////////////////
   //Submit Form
@@ -272,10 +248,12 @@ export class ProjectsComponent implements OnInit {
     let description: string = this.project.description;
     let projectManager: string = this.project.projectManager;
 
+
+
     let newProject: Project ={
       'id': -1,
       'description': description,
-      'employees': "5c8f160293cec31f87612b61",
+      'employees': null,
       'projectManager': projectManager
     };
 
@@ -337,7 +315,56 @@ export class ProjectsComponent implements OnInit {
     }
 
 
+  submitFormEmployee(): void {
+//todo make this work.
+  }
 
+  submitFormInvoice(): void {
+
+    let id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
+    let status = this.invoice.status
+    let description = this.invoice.description;
+    let invoiceDate = this.invoice.invoiceDate;
+    let totalCost = this.invoice.totalCost;
+    let seller = this.invoice.seller
+
+    let newInvoice: Invoice={
+      'projectId' : id,
+      'status': null,
+      'description' : description,
+      'invoiceDate' : invoiceDate,
+      'totalCost': totalCost,
+      'seller': seller
+    };
+
+
+
+
+    this.dataService.newInvoice(id,newInvoice).subscribe(
+      (res: any) => {
+        let status = `<strong>${res.status}</strong> - ${res.message}`;
+        $("#status").html(status).attr('class', 'alert alert-success');},
+      (err: any) => {
+        this.resetForm();
+        //display error message in status
+        let status = `<strong>${err.status}</strong> - ${err.message}`;
+        $("#status").html(status).attr('class', 'alert alert-danger');
+      },
+      () => {
+        //$("#form-modal").modal("hide");
+        this.resetForm();
+        this.updateTable();
+      }
+    );
+
+
+
+  }
+
+
+  submitFormPO(): void {
+//todo make this work.
+  }
 
 
 }

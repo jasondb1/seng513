@@ -84,7 +84,7 @@ router.delete('/:id', function(req, res) {
     });
 });
 
-//update project description/status
+/*//update project description/status
 router.put('/:id/', function(req, res) {
     //TODO: Implement this method
     res.send('Need to implement this');
@@ -102,13 +102,49 @@ router.put('addEmployees/:id/', function(req, res) {
 
 
     res.send('Need to implement this');
-});
+});*/
 
+/*
 router.put('removeEmployees/:id/', function(req, res) {
     //TODO: Implement this method
     res.send('Need to implement this');
 });
+*/
 
 
+router.put('/addInvoice',  async (req, res) => {
+
+    console.log(req.body);
+
+    const project = await Project.findByIdAndUpdate(req.body.projectId,
+        {
+           $push:{
+               invoice:{
+                   description: req.body.description,
+                   invoiceDate: req.body.invoiceDate,
+                   dateCreated: req.body.dateCreated,
+                   status: req.body.status,
+                   totalCost: req.body.totalCost,
+                   seller: req.body.seller
+               }
+           }
+
+        });
+
+    console.log(project);
+    res.send(project);
+
+});
+
+/*
+db.posts.update({_id: ObjectId("5121908755734d2f29000123")}, {
+    $push: {
+        comments: {
+            "authorId": ObjectId("50d013076a2208d3060000a7"),
+            "content": "Some content again"
+        }
+    }
+})
+*/
 
 module.exports = router;
