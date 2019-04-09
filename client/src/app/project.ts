@@ -8,6 +8,7 @@ export class Project {
   projectManager: string;
   dateCreated: Date;
   invoice: Invoice[];
+  _id: any;
 
   constructor() {}
 
