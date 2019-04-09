@@ -124,7 +124,8 @@ router.put('/addInvoice',  async (req, res) => {
                    invoiceDate: req.body.invoiceDate,
                    dateCreated: req.body.dateCreated,
                    status: req.body.status,
-                   totalCost: req.body.totalCost
+                   totalCost: req.body.totalCost,
+                   seller: req.body.seller
                }
            }
 

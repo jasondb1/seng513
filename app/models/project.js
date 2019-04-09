@@ -36,7 +36,16 @@ const invoiceSchema = new Schema({
         type: Number,
         required: true,
         default: 0
+    },
+
+    seller: {
+        type: String
+    },
+
+    notes:{
+        type: String
     }
+
 
 });
 
@@ -70,9 +79,6 @@ const Project = new Schema({
       type: String
     },
 
-    testing:[{
-        type: String
-    }],
 
     projectManager:{
         type: mongoose.Schema.Types.ObjectId,
@@ -85,6 +91,8 @@ const Project = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'purchaseOrder'
     }
+
+
 
 
 });

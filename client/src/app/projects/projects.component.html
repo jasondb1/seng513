@@ -4,6 +4,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
+
 </head>
 
 <!-- Modal For Adding Project-->
@@ -149,12 +150,48 @@
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <div class="input-group-text">Description</div>
+                     <div class="input-group-text">Description</div>
                   </div>
                     <input [(ngModel)]="this.invoice.description" class="form-control" id="description" name="description"
                        placeholder="description" type="text">
-                    </div>
+                </div>
+              </div>`
+
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                     <div class="input-group-text">Invoice Date</div>
                   </div>
+                    <label for="Invoice_Date">Invoice Date</label><input [(ngModel)]="this.invoice.invoiceDate" type="date" id="start" name="Invoice_Date"
+                           value="2019-04-07"
+                           min="2018-01-01" max="2020-12-31">
+                </div>
+              </div>`
+
+              <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                         <div class="input-group-text">Total Cost</div>
+                      </div>
+                        <input [(ngModel)]="this.invoice.totalCost" class="form-control" id="total_cost" name="Total Cost"
+                           placeholder="Enter Cost" type="text">
+                    </div>
+              </div>
+
+
+              <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                         <div class="input-group-text">Seller</div>
+                      </div>
+                        <input [(ngModel)]="this.invoice.seller" class="form-control" id="seller" name="seller"
+                           placeholder="Enter Seller" type="text">
+                    </div>
+              </div>
+
+
+
+
           </fieldset>
         </form>
       </div>
@@ -168,12 +205,12 @@
 <!-- End of Modal for Invoice-->
 
 
-<!-- Modal For Invoice-->
+<!-- Modal For Purchase Order-->
 <div aria-hidden="true" aria-labelledby="formModalInvoice" class="modal fade" id="form-modal-PO" role="dialog" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalTitle">Add Invoice</h5>
+        <h5 class="modal-title" id="modalTitle">Add PO</h5>
         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -213,7 +250,7 @@
     </div>
   </div>
 </div>
-<!-- End of Modal for Invoice-->
+<!-- End of Modal for Purchase Order-->
 
 
 
