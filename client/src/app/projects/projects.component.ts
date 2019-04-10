@@ -259,6 +259,7 @@ export class ProjectsComponent implements OnInit {
     let newProject: Project ={
       '_id': -1,
       'id': -1,
+      '_id': -1,
       'description': description,
       'employees': employees,
       'projectManager': projectManager,
@@ -308,24 +309,24 @@ export class ProjectsComponent implements OnInit {
         () => {
           console.log("Data finished loading.");
           console.log(this.users);
-          this.formSetup();
+          //this.formSetup();
 
         }
       );
   }
 
-    formSetup(){
-      let html;
-      for (let i = 0; i < this.users.length; i++) {
-        html += '<option>';
-        html += this.users[i]['username'];
-        html += '</option>';
-      }
-
-
-      $('#employeeDropDown').html(html);
-      $('#employeeDropDown2').html(html);
-    }
+    // formSetup(){
+    //   let html;
+    //   for (let i = 0; i < this.users.length; i++) {
+    //     html += '<option>';
+    //     html += this.users[i]['username'];
+    //     html += '</option>';
+    //   }
+    //
+    //
+    //   $('#employeeDropDown').html(html);
+    //   $('#employeeDropDown2').html(html);
+    // }
 
 
   submitFormEmployee(): void {
@@ -335,7 +336,7 @@ export class ProjectsComponent implements OnInit {
   submitFormInvoice(): void {
 
     let proj_id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
-    let status = this.invoice.status;
+    let status = this.invoice.status
     let description = this.invoice.description;
     let invoiceDate = this.invoice.invoiceDate;
     let totalCost = this.invoice.totalCost;
