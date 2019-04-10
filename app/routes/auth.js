@@ -10,35 +10,10 @@ router.get('/', function (req, res) {
     res.render('index', {user: req.user});
 });
 
-// ////The following are for authorization
-// router.get('/register', function(req, res) {
-//     res.render('register', { });
-// });
-//
-//
-// //////Register user
-// router.post('/register', function(req, res) {
-//     Users.register(new User({ username : req.body.username }), req.body.password, function(err, account) {
-//         if (err) {
-//             return res.render('register', { error: err.message });
-//         }
-//
-//         passport.authenticate('local')(req, res, function () {
-//             req.session.save(function (err) {
-//                 if (err) {
-//                     return next(err);
-//                 }
-//                 res.redirect('/');
-//             });
-//         });
-//     });
-// });
-
 //////login
 router.get('/login', function (req, res) {
     res.render('login', {user: req.user});
 });
-
 
 //////Login
 router.post('/login', function (req, res) {
@@ -59,14 +34,10 @@ router.post('/login', function (req, res) {
                 bcrypt
                     .compare(req.body.password, users.password)
                     .then(isAuthenticated => {
-                        console.log(isAuthenticated);
 
                         if (isAuthenticated) {
-                            console.log('authenticated');
-
                             message = {status: 'authenticated', username: users.username, admin: users.admin};
                             res.send(message);
-
                         } else {
                             let message = {status: 'Error', message: "Username or password is invalid:"};
                             res.send(message);
@@ -142,7 +113,6 @@ router.get('/users/:id', (req, res) => {
 //add user
 router.post('/users', (req, res) => {
 
-    console.log(req.body);
     //construct a new employee
     let newUser = new User({
         username: req.body.username,
@@ -162,8 +132,8 @@ router.post('/users', (req, res) => {
             newUser.save((err, user) => {
                 if (err) {
                     let message = {status: 'Error', message: 'User could not be entered:' + err};
-                    console.log("Error saving project data:" + err);
-                    res.json(message);
+                    console.log("Error saving project data: " + err);
+                    res.status(400).json(message);
                 } else {
                     let message = {status: 'Success', message: "New User Added"};
                     res.json(message);
@@ -177,28 +147,26 @@ router.post('/users', (req, res) => {
 //////edit user
 router.put('/users/editUser', async (req, res) => {
 
-    // console.log(req);
-    console.log('[Edit User]');
-    //params is ID followed, OKAY I GET
-    console.log(req.body._id)
+    //if password is not blank, hash the new password
+    if (req.body.password != null) {
+        req.body.password = bcrypt.hashSync('myPassword', 10);
+    }
 
-    //TODO hash password
+    //update the user document
+    User.findOneAndUpdate({_id: req.body._id}, {$set: req.body}, {new: true, runValidators: true},
+        (err, response) => {
 
-    const user = await User.findByIdAndUpdate(req.body._id,
-        {
-            title: req.body.title,
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            name_first: req.body.name_first,
-            admin: req.body.admin,
+            delete res.password;
+
+            if (!err) {
+                let message = {status: 'Success', message: "User Edited"};
+                res.json(message);
+
+            } else {
+                let message = {status: 'Error', message: "There was an issue editing the user"};
+                res.stauts(400).json(message);
+            }
         });
-
-    console.log(user);
-    if (!user) return res.status(404).send('User Does not exist');
-
-    res.send(user);
-
 });
 
 //////Delete user

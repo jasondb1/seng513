@@ -12,7 +12,7 @@ export class ConfigService {
   currentUser: string = "";
 
   constructor() {
-    console.log("[ConfigService instance initialized]" + this.displayChat);
+    //console.log("[ConfigService instance initialized]" + this.displayChat);
 
   }
 }

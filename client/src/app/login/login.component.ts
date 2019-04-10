@@ -32,7 +32,6 @@ export class LoginComponent {
 
       this.dataService.logIn(this.user).subscribe(
         (res) => {
-          console.log(res['status']);
           if (res['status'] === 'authenticated') {
 
             //set state variables

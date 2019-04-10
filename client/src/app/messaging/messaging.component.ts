@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Chatkit from '@pusher/chatkit-client';
+import {ConfigService} from "../config.service";
 import axios from 'axios';
 declare var $: any;
 
@@ -9,7 +10,7 @@ declare var $: any;
   styleUrls: ['./messaging.component.css']
 })
 
-export class MessagingComponent {
+export class MessagingComponent implements OnInit {
   //userId = '';
   uid = '';
   currentUser = <any>{};
@@ -24,6 +25,16 @@ export class MessagingComponent {
   };
   joinableRooms = [];
   newUser = '';
+
+  constructor(
+    private configService: ConfigService
+  ){}
+
+  ngOnInit(){
+    this.currentUser.id = this.configService.currentUser;
+    this.uid = this.currentUser.id;
+    this.addUser();
+  }
 
   scrollDown(){
     let scrollDiv = document.getElementById("chat-session");
@@ -139,15 +150,11 @@ export class MessagingComponent {
 
   addUser() {
 
-    console.log("[Add User]");
-
     const { uid } = this;
     axios.post('http://localhost:5200/users', { username: uid })
-    //axios.post('http://localhost:3000/users', { userId })
       .then(() => {
         const tokenProvider = new Chatkit.TokenProvider({
           url: 'http://localhost:5200/authenticate'
-          //url: 'http://localhost:3000/authenticate'
         });
 
         const chatManager = new Chatkit.ChatManager({

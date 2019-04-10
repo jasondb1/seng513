@@ -15,10 +15,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DataService {
-
-  //user: User[];
+  
   baseUrl: string = "http://localhost:3000";
-  //baseUrl: string = "http://localhost:5200";
   private EMPLOYEE_URL = '/api/auth/users';
   private PROJECT_URL = '/api/project/';
   private LOGIN_URL = '/api/auth/login';
@@ -30,9 +28,6 @@ export class DataService {
   //getEmployee ()
 
   getEmployees() {
-    console.log("[data service - getting data] from:" + this.baseUrl + this
-      .EMPLOYEE_URL);
-
     return this.httpClient.get(this.baseUrl + this.EMPLOYEE_URL);
   }
 
@@ -40,8 +35,6 @@ export class DataService {
   //deleteEmployee ()
 
   deleteEmployee(id: Number) {
-    console.log("[delete an employee]" + id);
-
     return this.httpClient.delete(this.baseUrl + this.EMPLOYEE_URL + "/" + id)
 
   }
@@ -50,8 +43,6 @@ export class DataService {
   //newEmployee ()
 
   newEmployee(user: User) {
-    console.log("[add an employee]" + user);
-
     return this.httpClient.post(this.baseUrl + this.EMPLOYEE_URL, user);
 
   }
@@ -60,19 +51,13 @@ export class DataService {
   //editEmployee ()
 
   editEmployee(user: User) {
-    console.log("[Edit an employee]");
-    console.log(user);
-
     return this.httpClient.put(this.baseUrl + this.EMPLOYEE_URL + "/editUser", user);
-
   }
 
   /////////////////////
   //deleteProject ()
 
   deleteProject(id: Number) {
-    console.log("[delete a project]" + id);
-
     return this.httpClient.delete(this.baseUrl + this.PROJECT_URL + "/" + id)
 
   }
@@ -81,7 +66,7 @@ export class DataService {
   //getProject ()
 
   getProjects() {
-    console.log("[data service - getting data] from:" + this.baseUrl + this.PROJECT_URL);
+    //console.log("[data service - getting data] from:" + this.baseUrl + this.PROJECT_URL);
 
     return this.httpClient.get(this.baseUrl + this.PROJECT_URL);
   }

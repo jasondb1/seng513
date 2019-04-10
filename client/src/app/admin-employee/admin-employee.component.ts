@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TableService} from "../table.service";
 import {User} from "../user";
 import {DataService} from "../data.service";
+
 declare var $: any;
 
 
@@ -12,15 +13,12 @@ declare var $: any;
 })
 export class AdminEmployeeComponent implements OnInit {
 
-
   DEBUG: boolean = true;
 
   user: User;
   selectedUser: User;
   users = [];
   displayForm: boolean = false;
-  //editUser: boolean = false; //
-
 
   constructor(private dataService: DataService) {
     this.user = <User>{};
@@ -57,11 +55,10 @@ export class AdminEmployeeComponent implements OnInit {
 
   updateTable(): void {
 
-    console.log("[Get Users]");
     this.dataService.getEmployees()
       .subscribe(
         (res: any[]) => {
-          console.log(res);
+          //console.log(res);
           this.users = res;
         },
         (err) => {
@@ -70,7 +67,6 @@ export class AdminEmployeeComponent implements OnInit {
           $("#status").html(status).attr('class', 'alert alert-danger');
         },
         () => {
-          console.log("Data finished loading.");
           this.displayTable();
           this.displaySelected(0);
         }
@@ -126,11 +122,6 @@ export class AdminEmployeeComponent implements OnInit {
       this.displayForm = true;
 
       $('#form-modal').modal('show');
-
-      // let id = event.currentTarget.href;
-      // let regex = /[^/]+$/; //matches everything after the last / to get the id
-      // id = id.match(regex)[0];
-
     })
   };
 
@@ -139,7 +130,7 @@ export class AdminEmployeeComponent implements OnInit {
 
   setupRowListener(): void {
 
-    $('#table-summary tr').on('click', event => {
+    $('#table-summary tr').on('mouseover', event => {
 
       let rowId = event.currentTarget.id;
       let regex = /[^R]+$/; //matches everything after the last / to get the id
@@ -159,7 +150,6 @@ export class AdminEmployeeComponent implements OnInit {
     //Add new user
 
     //edit the user instead of
-
     this.displayForm = false;
 
     //TODO: add functionality and change action when user is being edited instead of created.
@@ -182,8 +172,7 @@ export class AdminEmployeeComponent implements OnInit {
     //add new user or edit existing user
     if (_id != null) {
 
-      //this.editUser = false;
-
+      //edit user
       this.selectedUser.username = uname;
       this.selectedUser.password = pword;
       this.selectedUser.email = email;
@@ -207,10 +196,8 @@ export class AdminEmployeeComponent implements OnInit {
           $("#form-modal").modal("hide");
           this.resetForm();
           this.updateTable();
-
         }
       );
-
     } else {
 
       //compose the new user from the form fields
@@ -238,7 +225,7 @@ export class AdminEmployeeComponent implements OnInit {
 
         },
         () => {
-          //$("#form-modal").modal("hide");
+          $("#form-modal").modal("hide");
           this.resetForm();
           this.updateTable();
         }
@@ -246,11 +233,11 @@ export class AdminEmployeeComponent implements OnInit {
 
     }
   }
+
   /////////////////////////
   // resetForm()
 
   resetForm(): void {
-    console.log("Resetting Form");
     this.user = new User();
   }
 
@@ -261,10 +248,8 @@ export class AdminEmployeeComponent implements OnInit {
   /////////////////////////
   // displaySelected()
 
-  displaySelected(index){
-
+  displaySelected(index) {
     this.selectedUser = this.users[index];
   }
-
 
 }

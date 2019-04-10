@@ -5,6 +5,7 @@ import {Project} from "../project";
 import {DataService} from "../data.service";
 import {Invoice} from "../invoice";
 import {User} from "../user";
+import {ConfigService} from "../config.service";
 
 declare var $: any;
 
@@ -20,14 +21,14 @@ export class ProjectsComponent implements OnInit {
   selectedProject: Project;
   projects: Project[];
   users: [];
-  private displayForm: boolean = false;
-  stupidArray: Project[];
+  displayForm: boolean = false;
   invoice: Invoice;
   DEBUG: boolean = true;
   data: any = {};
-  selectedUsers: User[];
+  //selectedUsers: User[];
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService,
+              private configService: ConfigService) {
     this.project = <Project>{};
     this.selectedProject = <Project>{};
     this.invoice = <Invoice>{};
@@ -59,7 +60,6 @@ export class ProjectsComponent implements OnInit {
 
     this.selectedProject = this.projects[index];
 
-
     //console.log(this.users['_id'].indexOf(this.projects[index].employees));
     this.displayTable2();
     //TODO Enable this when project rooms are ready.
@@ -76,8 +76,6 @@ export class ProjectsComponent implements OnInit {
 
       let rowId = event.currentTarget.id;
       let regex = /[^R]+$/; //matches everything after the last / to get the id
-
-
 
       if (rowId !== null) {
         rowId = rowId.match(regex)[0];
@@ -241,7 +239,7 @@ export class ProjectsComponent implements OnInit {
 
     this.displayForm = false;
 
-    //TODO: add functionality and change action when user is being edited instead of created.
+    //TODO: add functionality and change action when project is being edited instead of created.
     if (this.DEBUG) {
       console.log("Submit Button Pressed");
     }
@@ -268,8 +266,6 @@ export class ProjectsComponent implements OnInit {
 
     };
 
-    console.log(newProject);
-
     //submit the data to the database via the dataService
     this.dataService.newProject(newProject).subscribe(
       (res: any) => {
@@ -290,10 +286,8 @@ export class ProjectsComponent implements OnInit {
 
   }
 
-
   //bring in emplopyee
    employeesDisplay(){
-    console.log("[Get Users]");
     this.dataService.getEmployees()
       .subscribe(
         (res: any) => {
@@ -306,8 +300,6 @@ export class ProjectsComponent implements OnInit {
           $("#status").html(status).attr('class', 'alert alert-danger');
         },
         () => {
-          console.log("Data finished loading.");
-          console.log(this.users);
           //this.formSetup();
 
         }
@@ -332,10 +324,13 @@ export class ProjectsComponent implements OnInit {
 //todo make this work.
   }
 
+  /**
+   * Submits the invoice form
+   */
   submitFormInvoice(): void {
 
     let proj_id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
-    let status = this.invoice.status
+    let status = this.invoice.status;
     let description = this.invoice.description;
     let invoiceDate = this.invoice.invoiceDate;
     let totalCost = this.invoice.totalCost;
@@ -352,9 +347,6 @@ export class ProjectsComponent implements OnInit {
 
     };
 
-
-
-
     this.dataService.newInvoice(id,newInvoice).subscribe(
       (res: any) => {
         let status = `<strong>${res.status}</strong> - ${res.message}`;
@@ -366,13 +358,12 @@ export class ProjectsComponent implements OnInit {
         $("#status").html(status).attr('class', 'alert alert-danger');
       },
       () => {
-        //$("#form-modal").modal("hide");
+        $("#form-modal").modal("hide");
         this.resetForm();
         this.updateTable();
       }
     );
   }
-
 
   submitFormPO(): void {
 //todo make this work.
