@@ -4,6 +4,7 @@ import {TableService} from "../table.service";
 import {Project} from "../project";
 import {DataService} from "../data.service";
 import {Invoice} from "../invoice";
+import {User} from "../user";
 
 declare var $: any;
 
@@ -24,6 +25,7 @@ export class ProjectsComponent implements OnInit {
   private invoice: Invoice;
   DEBUG: boolean = true;
   data: any = {};
+  selectedUsers: User[];
 
   constructor(private dataService: DataService) {
     this.project = <Project>{};
@@ -248,14 +250,22 @@ export class ProjectsComponent implements OnInit {
     let description: string = this.project.description;
     let projectManager: string = this.project.projectManager;
 
+//todo: update project status etc
 
+    let dateCreated = new Date();
 
     let newProject: Project ={
       'id': -1,
       'description': description,
-      'employees': null,
-      'projectManager': projectManager
+      'employees': selectedUsers,
+      'projectManager': projectManager,
+      'status': null,
+      'dateCreated': dateCreated,
+      'invoice': []
+
     };
+
+    console.lot(newProject);
 
     //submit the data to the database via the dataService
     this.dataService.newProject(newProject).subscribe(
@@ -327,6 +337,7 @@ export class ProjectsComponent implements OnInit {
     let invoiceDate = this.invoice.invoiceDate;
     let totalCost = this.invoice.totalCost;
     let seller = this.invoice.seller
+    let id = this.selectedProject.id;
 
     let newInvoice: Invoice={
       'projectId' : id,
@@ -356,9 +367,6 @@ export class ProjectsComponent implements OnInit {
         this.updateTable();
       }
     );
-
-
-
   }
 
 

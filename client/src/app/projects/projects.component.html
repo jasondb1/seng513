@@ -1,7 +1,13 @@
 <head>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+          integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+          crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+          integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+          crossorigin="anonymous"></script>
 
 
 
@@ -21,59 +27,65 @@
         <form id="project-form" method="post" name="project-form">
           <fieldset>
             <legend>General:</legend>
-              <div class="input-group">
-                  <div class="input-group-prepend">
-                      <div class="input-group-text">Status</div>
-                  </div>
-                    <select class="custom-select" id="form_status" name="form_status">
-                      <option value="wip">In Progress</option>
-                      <option value="completed">Completed</option>
-                      <option value="cancelled">Cancelled</option>
-                      <option value="closed">Closed</option>
-                    </select>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">Status</div>
               </div>
+              <select class="custom-select" id="form_status" name="form_status">
+                <option value="wip">In Progress</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+                <option value="closed">Closed</option>
+              </select>
+            </div>
 
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">Description</div>
-                  </div>
-                    <input [(ngModel)]="this.project.description" class="form-control" id="description" name="description"
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Description</div>
+                </div>
+                <input [(ngModel)]="this.project.description" class="form-control" id="description" name="description"
                        placeholder="description" type="text">
-                    </div>
-                  </div>
+              </div>
+            </div>
           </fieldset>
 
           <fieldset>
             <legend>Assigned To</legend>
-              <div class="form-group">
-                  <div class="input-group">
-                      <div class="input-group-prepend">
-                          <div class="input-group-text">Project Manager</div>
-                      </div>
-                      <select class="custom-select" id="employeeDropDown2" name="form_status">
-                            <!-- Put list of employees here here -->
-                      </select>
-                  </div>
-              </div>
-
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">Employees</div>
-                  </div>
-                  <select class="custom-select" id="employeeDropDown" multiple="multiple" name="form_status">
-
-                  </select>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Project Manager</div>
                 </div>
+                <select [(ngModel)]="project.projectManager" class="custom-select" id="employeeDropDown2" name="form_status">
+                  <!-- Put list of employees here here -->
+                  <option *ngFor="let e of users" [ngValue]="e._id">{{e.id}}</option>
+                </select>
               </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Employees</div>
+                </div>
+                <select [(ngModel)]="project.employees" class="custom-select" id="employeeDropDown" multiple="multiple"
+                        name="form_status">
+                  <option *ngFor="let e of users" [ngValue]="e._id" [value]="e.id">{{e.username}}</option>
+                </select>
+              </div>
+            </div>
 
           </fieldset>
         </form>
       </div>
       <div class="modal-footer">
-      <button (click)="submitForm()" type="button" class="btn btn-primary" id="submit-project-add" name="submit" >Submit</button>
-        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal" type="button">Cancel</button>
+        <button (click)="submitForm()" type="button" class="btn btn-primary" id="submit-project-add" name="submit">
+          Submit
+        </button>
+        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal"
+                type="button">Cancel
+        </button>
       </div>
     </div>
   </div>
@@ -81,8 +93,9 @@
 <!-- End of Modal for Projects-->
 
 
-<!-- Modal For Adding Employees-->
-<div aria-hidden="true" aria-labelledby="formModalInvoice" class="modal fade" id="form-modal-employee" role="dialog" tabindex="-1">
+<!-- Modal For Adding Invoices-->
+<div aria-hidden="true" aria-labelledby="formModalInvoice" class="modal fade" id="form-modal-employee" role="dialog"
+     tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -96,22 +109,26 @@
           <fieldset>
             <legend>Add Employee:</legend>
 
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">Employees</div>
-                  </div>
-                  <select class="custom-select" id="employeeDropDown" multiple="multiple" name="form_status">
-
-                  </select>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Employees</div>
                 </div>
+                <select class="custom-select" id="employeeDropDown" multiple="multiple" name="form_status">
+
+                </select>
               </div>
+            </div>
           </fieldset>
         </form>
       </div>
       <div class="modal-footer">
-      <button (click)="submitFormEmployee()" type="button" class="btn btn-primary" id="submit-invoice-add" name="submit" >Submit</button>
-        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal" type="button">Cancel</button>
+        <button (click)="submitFormEmployee()" type="button" class="btn btn-primary" id="submit-invoice-add"
+                name="submit">Submit
+        </button>
+        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal"
+                type="button">Cancel
+        </button>
       </div>
     </div>
   </div>
@@ -119,10 +136,9 @@
 <!-- End of Modal for Employees-->
 
 
-
-
 <!-- Modal For Invoice-->
-<div aria-hidden="true" aria-labelledby="formModalInvoice" class="modal fade" id="form-modal-invoice" role="dialog" tabindex="-1">
+<div aria-hidden="true" aria-labelledby="formModalInvoice" class="modal fade" id="form-modal-invoice" role="dialog"
+     tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -135,17 +151,17 @@
         <form id="project-form" method="post" name="project-form">
           <fieldset>
             <legend>Add Invoice:</legend>
-              <div class="input-group">
-                  <div class="input-group-prepend">
-                      <div class="input-group-text">Status</div>
-                  </div>
-                    <select class="custom-select" id="form_status" name="form_status">
-                      <option value="wip">In Progress</option>
-                      <option value="completed">Completed</option>
-                      <option value="cancelled">Cancelled</option>
-                      <option value="closed">Closed</option>
-                    </select>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">Status</div>
               </div>
+              <select class="custom-select" id="form_status" name="form_status">
+                <option value="wip">In Progress</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+                <option value="closed">Closed</option>
+              </select>
+            </div>
 
               <div class="form-group">
                 <div class="input-group">
@@ -196,8 +212,12 @@
         </form>
       </div>
       <div class="modal-footer">
-      <button (click)="submitFormInvoice()" type="button" class="btn btn-primary" id="submit-invoice-add" name="submit" >Submit</button>
-        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal" type="button">Cancel</button>
+        <button (click)="submitFormInvoice()" type="button" class="btn btn-primary" id="submit-invoice-add"
+                name="submit">Submit
+        </button>
+        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal"
+                type="button">Cancel
+        </button>
       </div>
     </div>
   </div>
@@ -219,41 +239,42 @@
         <form id="project-form" method="post" name="project-form">
           <fieldset>
             <legend>Add PO:</legend>
-              <div class="input-group">
-                  <div class="input-group-prepend">
-                      <div class="input-group-text">Status</div>
-                  </div>
-                    <select class="custom-select" id="form_status" name="form_status">
-                      <option value="wip">In Progress</option>
-                      <option value="completed">Completed</option>
-                      <option value="cancelled">Cancelled</option>
-                      <option value="closed">Closed</option>
-                    </select>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">Status</div>
               </div>
+              <select class="custom-select" id="form_status" name="form_status">
+                <option value="wip">In Progress</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+                <option value="closed">Closed</option>
+              </select>
+            </div>
 
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">Description</div>
-                  </div>
-                    <input [(ngModel)]="this.project.description" class="form-control" id="description" name="description"
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Description</div>
+                </div>
+                <input [(ngModel)]="this.project.description" class="form-control" id="description" name="description"
                        placeholder="description" type="text">
-                    </div>
-                  </div>
+              </div>
+            </div>
           </fieldset>
         </form>
       </div>
       <div class="modal-footer">
-      <button (click)="submitFormPO()" type="button" class="btn btn-primary" id="submit-invoice-add" name="submit" >Submit</button>
-        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal" type="button">Cancel</button>
+        <button (click)="submitFormPO()" type="button" class="btn btn-primary" id="submit-invoice-add" name="submit">
+          Submit
+        </button>
+        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal"
+                type="button">Cancel
+        </button>
       </div>
     </div>
   </div>
 </div>
 <!-- End of Modal for Purchase Order-->
-
-
-
 
 
 <!-- Main Content Area -->
@@ -280,7 +301,8 @@
           </div>
 
           <div class="text-center mt-3" id="action">
-            <button class="btn btn-success btn-rounded add-project-button" data-target="#form-modal" data-toggle="modal">
+            <button class="btn btn-success btn-rounded add-project-button" data-target="#form-modal"
+                    data-toggle="modal">
               <i class="far fa-plus-square"></i>Add Project
             </button>
           </div>
@@ -298,40 +320,40 @@
             </p>
 
             <div class="project-item border-top">
-                <h3><i class="fa fa-address-card"></i> Employees Assigned:</h3>
+              <h3><i class="fa fa-address-card"></i> Employees Assigned:</h3>
             </div>
 
             <div id="employee-summary" class="container-scrollable" style="max-height: 70%;">
-                         < <!-- table displayed here -->>
+              < <!-- table displayed here -->>
             </div>
 
             <div class="project-item border-top">
-                <h3><i class="fa fa-file-invoice-dollar"></i> Invoices:</h3>
+              <h3><i class="fa fa-file-invoice-dollar"></i> Invoices:</h3>
             </div>
 
             <div id="invoice-summary" class="container-scrollable" style="max-height: 70%;">
-                             < <!-- table displayed here -->>
+              < <!-- table displayed here -->>
             </div>
 
             <div class="project-item border-top">
-                <h3><i class="fa fa-inbox"></i> Purchase Orders:</h3>
+              <h3><i class="fa fa-inbox"></i> Purchase Orders:</h3>
             </div>
 
             <div id="purchase-summary" class="container-scrollable" style="max-height: 70%;">
-                            < <!-- table displayed here -->>
+              < <!-- table displayed here -->>
             </div>
 
             <div id="action" class="text-center mt-3">
               <button class="btn btn-success btn-rounded" data-target="#form-modal-employee" data-toggle="modal"><i
-                      class="far fa-plus-square"></i>Add Employee
+                class="far fa-plus-square"></i>Add Employee
               </button>
 
               <button class="btn btn-success btn-rounded" data-target="#form-modal-invoice" data-toggle="modal"><i
-                      class="far fa-plus-square"></i>Add Invoice
+                class="far fa-plus-square"></i>Add Invoice
               </button>
 
               <button class="btn btn-success btn-rounded" data-target="#form-modal-PO" data-toggle="modal"><i
-                      class="far fa-plus-square"></i>Add PO
+                class="far fa-plus-square"></i>Add PO
               </button>
             </div>
 
