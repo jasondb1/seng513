@@ -108,7 +108,7 @@ router.get('/users', (req, res) => {
                 delete temp_user['password'];
                 temp_users.push(temp_user);
             }
-            res.json(users);
+            res.json(temp_users);
         } else {
             console.log("Error retrieving users:" + err);
             let message = {status: 'Error', message: "Cannot Retrieve Users!"};

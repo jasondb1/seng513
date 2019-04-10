@@ -264,7 +264,6 @@ export class AdminEmployeeComponent implements OnInit {
   displaySelected(index){
 
     this.selectedUser = this.users[index];
-    console.log(this.selectedUser);
   }
 
 
