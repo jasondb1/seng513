@@ -59,7 +59,7 @@
                 </div>
                 <select [(ngModel)]="project.projectManager" class="custom-select" id="employeeDropDown2" name="form_status">
                   <!-- Put list of employees here here -->
-                  <option *ngFor="let e of users" [ngValue]="e._id">{{e.id}}</option>
+                  <option *ngFor="let e of users" [value]="e._id">{{e.username}}</option>
                 </select>
               </div>
             </div>
@@ -71,7 +71,7 @@
                 </div>
                 <select [(ngModel)]="project.employees" class="custom-select" id="employeeDropDown" multiple="multiple"
                         name="form_status">
-                  <option *ngFor="let e of users" [ngValue]="e._id" [value]="e.id">{{e.username}}</option>
+                  <option *ngFor="let e of users" [value]="e._id">{{e.username}}</option>
                 </select>
               </div>
             </div>

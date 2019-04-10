@@ -249,6 +249,7 @@ export class ProjectsComponent implements OnInit {
     //2 way data-binding
     let description: string = this.project.description;
     let projectManager: string = this.project.projectManager;
+    let employees: User[] = this.project.employees;
 
 //todo: update project status etc
 
@@ -256,8 +257,9 @@ export class ProjectsComponent implements OnInit {
 
     let newProject: Project ={
       'id': -1,
+      '_id': -1,
       'description': description,
-      'employees': selectedUsers,
+      'employees': employees,
       'projectManager': projectManager,
       'status': null,
       'dateCreated': dateCreated,
@@ -265,7 +267,7 @@ export class ProjectsComponent implements OnInit {
 
     };
 
-    console.lot(newProject);
+    console.log(newProject);
 
     //submit the data to the database via the dataService
     this.dataService.newProject(newProject).subscribe(
@@ -305,24 +307,24 @@ export class ProjectsComponent implements OnInit {
         () => {
           console.log("Data finished loading.");
           console.log(this.users);
-          this.formSetup();
+          //this.formSetup();
 
         }
       );
   }
 
-    formSetup(){
-      let html;
-      for (let i = 0; i < this.users.length; i++) {
-        html += '<option>';
-        html += this.users[i]['username'];
-        html += '</option>';
-      }
-
-
-      $('#employeeDropDown').html(html);
-      $('#employeeDropDown2').html(html);
-    }
+    // formSetup(){
+    //   let html;
+    //   for (let i = 0; i < this.users.length; i++) {
+    //     html += '<option>';
+    //     html += this.users[i]['username'];
+    //     html += '</option>';
+    //   }
+    //
+    //
+    //   $('#employeeDropDown').html(html);
+    //   $('#employeeDropDown2').html(html);
+    // }
 
 
   submitFormEmployee(): void {
@@ -331,7 +333,7 @@ export class ProjectsComponent implements OnInit {
 
   submitFormInvoice(): void {
 
-    let id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
+    let proj_id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
     let status = this.invoice.status
     let description = this.invoice.description;
     let invoiceDate = this.invoice.invoiceDate;
@@ -340,7 +342,7 @@ export class ProjectsComponent implements OnInit {
     let id = this.selectedProject.id;
 
     let newInvoice: Invoice={
-      'projectId' : id,
+      'projectId' : proj_id,
       'status': null,
       'description' : description,
       'invoiceDate' : invoiceDate,
