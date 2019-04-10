@@ -108,7 +108,7 @@ export class DataService {
   //Add Employees to Project
 
   addEmployeesProject(id: Number, userIDs: []){
-    return this.httpClient.put(this.baseUrl + this.projectUrl + "addEmployees/" +id, userIDs)
+    return this.httpClient.put(this.baseUrl + this.projectUrl + "/addEmployees/" +id, userIDs)
   }
 
 /*
@@ -130,7 +130,9 @@ removeEmployeesProject(id: Number, user: user?){
   /////////////////////
   //Add Invoice to Project
     newInvoice(id: Number, invoice: Invoice ){
-    return this.httpClient.put(this.baseUrl + this.projectUrl + "addEmployees/" +id, invoice)
+
+      console.log(this.baseUrl + this.projectUrl + "addInvoice");
+    return this.httpClient.put(this.baseUrl + this.projectUrl + "addInvoice", invoice)
   }
 
   /////////////////////

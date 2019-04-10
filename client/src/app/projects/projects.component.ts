@@ -30,12 +30,12 @@ export class ProjectsComponent implements OnInit {
   constructor(private dataService: DataService) {
     this.project = <Project>{};
     this.selectedProject = <Project>{};
+    this.invoice = <Invoice>{};
   }
 
   ngOnInit() {
     this.project = new Project;
-    //this.selectedUsers = [];
-
+    this.invoice = new Invoice;
     //update the table
     this.updateTable();
     this.employeesDisplay();
@@ -49,6 +49,7 @@ export class ProjectsComponent implements OnInit {
   resetForm(): void {
     console.log("Resetting Form");
     this.project = new Project();
+    this.invoice = new Invoice();
   }
 
   /////////////////////////
@@ -71,16 +72,29 @@ export class ProjectsComponent implements OnInit {
 
   setupRowListener(): void {
 
-    $('#table-summary tr').on('click', event => {
+    $('#table-summary tr').on('mouseover', event => {
 
       let rowId = event.currentTarget.id;
       let regex = /[^R]+$/; //matches everything after the last / to get the id
 
-      console.log(regex);
+
 
       if (rowId !== null) {
         rowId = rowId.match(regex)[0];
         this.displaySelected(rowId);
+      }
+
+    });
+
+    $('#invoice-summary tr').on('mouseover', event => {
+
+      let rowId = event.currentTarget.id;
+      let regex = /[^R]+$/; //matches everything after the last / to get the id
+
+      //needed for edit function.
+      if (rowId !== null) {
+        rowId = rowId.match(regex)[0];
+        this.invoice = this.selectedProject.invoice[rowId];
       }
 
     });
@@ -128,15 +142,44 @@ export class ProjectsComponent implements OnInit {
 
   setupEditListener(): void {
 
-    $('a.btn-edit').on('click', event => {
+    $('#table-summary a.btn-edit').on('click', event => {
       event.preventDefault();
 
       this.project = this.selectedProject;
       this.displayForm = true;
 
+
       $('#form-modal').modal('show');
 
-    })
+    });
+
+    $('#employee-summary a.btn-edit').on('click', event => {
+      event.preventDefault();
+
+
+      $('#form-modal-employee').modal('show');
+
+    });
+
+
+    $('#invoice-summary a.btn-edit').on('click', event => {
+      event.preventDefault();
+
+
+      $('#form-modal-invoice').modal('show');
+
+    });
+
+    $('#purchase-summary a.btn-edit').on('click', event => {
+      event.preventDefault();
+
+
+      $('#form-modal-PO').modal('show');
+
+    });
+
+
+
   };
 
 
@@ -157,16 +200,8 @@ export class ProjectsComponent implements OnInit {
 
   displayTable2(): void {
 
-
-    let html = TableService.tableHtml(this.stupidArray.slice(0,2), {'id': 'ID', 'description': 'Description'}, true, true);
-
-    $('#employee-summary').html(html);
-
-
-    //setup listeners for the icons on the table
-    this.setupDeleteListener();
-    this.setupRowListener();
-    this.setupEditListener();
+    let html = TableService.tableHtml(this.selectedProject.invoice, {'status' : 'Status', 'description': 'Description', 'invoiceDate': 'Invoice Date', 'totalCost' : 'totalCost'}, true, true);
+    $('#invoice-summary').html(html);
 
   }
 
@@ -296,18 +331,27 @@ export class ProjectsComponent implements OnInit {
 
   submitFormInvoice(): void {
 
+    let id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
+    let status = this.invoice.status
     let description = this.invoice.description;
+    let invoiceDate = this.invoice.invoiceDate;
+    let totalCost = this.invoice.totalCost;
+    let seller = this.invoice.seller
     let id = this.selectedProject.id;
 
     let newInvoice: Invoice={
-      'description' : description,
-      'invoiceDate' : null,
-      'dateCreated':  null,
+      'projectId' : id,
       'status': null,
-      'totalCost': null
+      'description' : description,
+      'invoiceDate' : invoiceDate,
+      'totalCost': totalCost,
+      'seller': seller
     };
 
-    this.dataService.newInvoice(id, newInvoice).subscribe(
+
+
+
+    this.dataService.newInvoice(id,newInvoice).subscribe(
       (res: any) => {
         let status = `<strong>${res.status}</strong> - ${res.message}`;
         $("#status").html(status).attr('class', 'alert alert-success');},

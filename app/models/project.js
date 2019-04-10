@@ -2,7 +2,58 @@ const mongoose=require('mongoose');
 let Schema = mongoose.Schema;
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 const {Users} = require('./users');
-const {Invoice} = require('./invoice');
+//const {invoiceSchema} = require('./invoice');
+
+const invoiceSchema = new Schema({
+
+//id field is created by Auto-increment, starts at 1 for all documents put in.
+    description: {
+        minlength: 2,
+        maxlength: 255,
+        type: String,
+        required: true
+    },
+
+    invoiceDate:{
+        type: Date,
+        required: true,
+        defualt: Date.now
+    },
+
+    dateCreated: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
+
+    status: {
+        type: String,
+        required: true,
+        default: "In Progress"
+    },
+
+    totalCost:{
+        type: Number,
+        required: true,
+        default: 0
+    },
+
+    seller: {
+        type: String
+    },
+
+    notes:{
+        type: String
+    }
+
+
+});
+
+
+
+
+
+
 const Project = new Schema({
 
 //id field is created by Auto-increment, starts at 1 for all documents put in.
@@ -34,14 +85,14 @@ const Project = new Schema({
         ref: 'Users'
     },
 
-    invoice: {
-        type:  [Invoice]
-    },
+    invoice: [invoiceSchema],
 
     purchaseOrder:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'purchaseOrder'
     }
+
+
 
 
 });

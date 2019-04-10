@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 let Schema = mongoose.Schema;
 
 
-const invoice = new Schema({
+const invoiceSchema = new Schema({
 
 //id field is created by Auto-increment, starts at 1 for all documents put in.
     description: {
@@ -40,7 +40,7 @@ const invoice = new Schema({
 
 
 
-module.exports = mongoose.model("invoice",invoice);
+module.exports = mongoose.model("invoiceSchema",invoiceSchema);
 
 
 

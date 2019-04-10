@@ -143,6 +143,7 @@ router.put('/users/editUser', async (req, res) => {
             admin: req.body.admin,
         });
 
+    console.log(user);
     if (!user) return res.status(404).send('User Does not exist');
 
     res.send(user);
