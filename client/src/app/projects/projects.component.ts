@@ -249,15 +249,18 @@ export class ProjectsComponent implements OnInit {
     //2 way data-binding
     let description: string = this.project.description;
     let projectManager: string = this.project.projectManager;
+    let employees: User[] = this.project.employees;
+
 
 //todo: update project status etc
 
     let dateCreated = new Date();
 
     let newProject: Project ={
+      '_id': -1,
       'id': -1,
       'description': description,
-      'employees': selectedUsers,
+      'employees': employees,
       'projectManager': projectManager,
       'status': null,
       'dateCreated': dateCreated,
@@ -265,7 +268,7 @@ export class ProjectsComponent implements OnInit {
 
     };
 
-    console.lot(newProject);
+    console.log(newProject);
 
     //submit the data to the database via the dataService
     this.dataService.newProject(newProject).subscribe(
@@ -331,21 +334,22 @@ export class ProjectsComponent implements OnInit {
 
   submitFormInvoice(): void {
 
-    let id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
-    let status = this.invoice.status
+    let proj_id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
+    let status = this.invoice.status;
     let description = this.invoice.description;
     let invoiceDate = this.invoice.invoiceDate;
     let totalCost = this.invoice.totalCost;
-    let seller = this.invoice.seller
+    let seller = this.invoice.seller;
     let id = this.selectedProject.id;
 
     let newInvoice: Invoice={
-      'projectId' : id,
+      'projectId' : proj_id,
       'status': null,
       'description' : description,
       'invoiceDate' : invoiceDate,
       'totalCost': totalCost,
-      'seller': seller
+      'seller': seller,
+
     };
 
 
