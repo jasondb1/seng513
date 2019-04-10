@@ -4,6 +4,7 @@ import {TableService} from "../table.service";
 import {Project} from "../project";
 import {DataService} from "../data.service";
 import {Invoice} from "../invoice";
+import {User} from "../user";
 
 declare var $: any;
 
@@ -24,6 +25,7 @@ export class ProjectsComponent implements OnInit {
   private invoice: Invoice;
   DEBUG: boolean = true;
   data: any = {};
+  selectedUsers: User[];
 
   constructor(private dataService: DataService) {
     this.project = <Project>{};
@@ -32,6 +34,7 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit() {
     this.project = new Project;
+    //this.selectedUsers = [];
 
     //update the table
     this.updateTable();
@@ -212,14 +215,22 @@ export class ProjectsComponent implements OnInit {
     let description: string = this.project.description;
     let projectManager: string = this.project.projectManager;
 
+//todo: update project status etc
 
+    let dateCreated = new Date();
 
     let newProject: Project ={
       'id': -1,
       'description': description,
-      'employees': "5c8f160293cec31f87612b61",
-      'projectManager': projectManager
+      'employees': selectedUsers,
+      'projectManager': projectManager,
+      'status': null,
+      'dateCreated': dateCreated,
+      'invoice': []
+
     };
+
+    console.lot(newProject);
 
     //submit the data to the database via the dataService
     this.dataService.newProject(newProject).subscribe(
@@ -286,7 +297,7 @@ export class ProjectsComponent implements OnInit {
   submitFormInvoice(): void {
 
     let description = this.invoice.description;
-   // let id = this.selectedProject.id;
+    let id = this.selectedProject.id;
 
     let newInvoice: Invoice={
       'description' : description,
@@ -296,7 +307,7 @@ export class ProjectsComponent implements OnInit {
       'totalCost': null
     };
 
-    this.dataService.newInvoice(newInvoice).subscribe(
+    this.dataService.newInvoice(id, newInvoice).subscribe(
       (res: any) => {
         let status = `<strong>${res.status}</strong> - ${res.message}`;
         $("#status").html(status).attr('class', 'alert alert-success');},
@@ -312,9 +323,6 @@ export class ProjectsComponent implements OnInit {
         this.updateTable();
       }
     );
-
-
-
   }
 
 
