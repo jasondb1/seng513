@@ -19,8 +19,9 @@ export class DataService {
   //user: User[];
   baseUrl: string = "http://localhost:3000";
   //baseUrl: string = "http://localhost:5200";
-  private employeeUrl = '/api/auth/users';
-  private projectUrl = '/api/project/';
+  private EMPLOYEE_URL = '/api/auth/users';
+  private PROJECT_URL = '/api/project/';
+  private LOGIN_URL = '/api/auth/login';
   loggedIn: boolean = false;
 
   constructor(private httpClient: HttpClient) { }
@@ -30,9 +31,9 @@ export class DataService {
 
   getEmployees() {
     console.log("[data service - getting data] from:" + this.baseUrl + this
-      .employeeUrl);
+      .EMPLOYEE_URL);
 
-    return this.httpClient.get(this.baseUrl + this.employeeUrl);
+    return this.httpClient.get(this.baseUrl + this.EMPLOYEE_URL);
   }
 
   /////////////////////
@@ -41,7 +42,7 @@ export class DataService {
   deleteEmployee(id: Number) {
     console.log("[delete an employee]" + id);
 
-    return this.httpClient.delete(this.baseUrl + this.employeeUrl + "/" + id)
+    return this.httpClient.delete(this.baseUrl + this.EMPLOYEE_URL + "/" + id)
 
   }
 
@@ -51,7 +52,7 @@ export class DataService {
   newEmployee(user: User) {
     console.log("[add an employee]" + user);
 
-    return this.httpClient.post(this.baseUrl + this.employeeUrl, user);
+    return this.httpClient.post(this.baseUrl + this.EMPLOYEE_URL, user);
 
   }
 
@@ -62,7 +63,7 @@ export class DataService {
     console.log("[Edit an employee]");
     console.log(user);
 
-    return this.httpClient.put(this.baseUrl + this.employeeUrl + "/editUser", user);
+    return this.httpClient.put(this.baseUrl + this.EMPLOYEE_URL + "/editUser", user);
 
   }
 
@@ -72,7 +73,7 @@ export class DataService {
   deleteProject(id: Number) {
     console.log("[delete a project]" + id);
 
-    return this.httpClient.delete(this.baseUrl + this.projectUrl + "/" + id)
+    return this.httpClient.delete(this.baseUrl + this.PROJECT_URL + "/" + id)
 
   }
 
@@ -80,9 +81,9 @@ export class DataService {
   //getProject ()
 
   getProjects() {
-    console.log("[data service - getting data] from:" + this.baseUrl + this.projectUrl);
+    console.log("[data service - getting data] from:" + this.baseUrl + this.PROJECT_URL);
 
-    return this.httpClient.get(this.baseUrl + this.projectUrl);
+    return this.httpClient.get(this.baseUrl + this.PROJECT_URL);
   }
 
   /////////////////////
@@ -91,7 +92,7 @@ export class DataService {
   newProject(project: Project) {
     console.log("[add a Project]" + project);
 
-    return this.httpClient.post(this.baseUrl + this.projectUrl, project);
+    return this.httpClient.post(this.baseUrl + this.PROJECT_URL, project);
 
   }
 
@@ -99,7 +100,7 @@ export class DataService {
   //Add Employees to Project
 
   updateProjects(id: Number, project: Project){
-    return this.httpClient.put(this.baseUrl + this.projectUrl + "/" +id, project);
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "/" +id, project);
   }
 
 
@@ -108,7 +109,7 @@ export class DataService {
   //Add Employees to Project
 
   addEmployeesProject(id: Number, userIDs: []){
-    return this.httpClient.put(this.baseUrl + this.projectUrl + "/addEmployees/" +id, userIDs)
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "/addEmployees/" +id, userIDs)
   }
 
 /*
@@ -131,8 +132,8 @@ removeEmployeesProject(id: Number, user: user?){
   //Add Invoice to Project
     newInvoice(id: Number, invoice: Invoice ){
 
-      console.log(this.baseUrl + this.projectUrl + "addInvoice");
-    return this.httpClient.put(this.baseUrl + this.projectUrl + "addInvoice", invoice)
+      console.log(this.baseUrl + this.PROJECT_URL + "addInvoice");
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "addInvoice", invoice)
   }
 
   /////////////////////
@@ -143,6 +144,8 @@ removeEmployeesProject(id: Number, user: user?){
   /////////////////////
   //Delete Work Order to Project
 
-
+  logIn(user: User){
+    return this.httpClient.post(this.baseUrl + this.LOGIN_URL, user);
+  }
 
 }

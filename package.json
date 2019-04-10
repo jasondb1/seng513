@@ -21,6 +21,7 @@
   "homepage": "https://github.com/jasondb1/seng513#readme",
   "dependencies": {
     "@pusher/chatkit-server": "^1.1.0",
+    "bcrypt": "^3.0.5",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
     "cookies": "^0.7.3",

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {ConfigService} from "../config.service";
 
-import { AuthGuardService } from './../auth-guard.service';
-import { DataService } from './../data.service';
+import {AuthGuardService} from './../auth-guard.service';
+import {DataService} from './../data.service';
 
 @Component({
   selector: 'app-login',
@@ -17,37 +18,41 @@ export class LoginComponent {
 
   constructor(private authGuardService: AuthGuardService,
               private dataService: DataService,
-              private router: Router) {
-    
+              private router: Router,
+              private configService: ConfigService) {
+
     this.user = {};
   }
 
+  /**
+   * Authenticates user with the node.js server
+   */
   validateLogin() {
-    if(this.user.username && this.user.password) {
-        this.dataService.getEmployees().subscribe((result : Array<any>) => { 
-        let returned = result.filter(obj => {
-          return obj.username === this.user.username
-        })
-        if (returned.length !== 0) {
-          if (returned[0].password === this.user.password) {
+    if (this.user.username && this.user.password) {
+
+      this.dataService.logIn(this.user).subscribe(
+        (res) => {
+          console.log(res['status']);
+          if (res['status'] === 'authenticated') {
+
+            //set state variables
+            this.configService.isAuthenticated = true;
+            this.configService.isAdmin = res['admin'];
+            this.configService.currentUser = res['username'];
+
             this.dataService.loggedIn = true;
             this.authGuardService.canActivate();
             this.router.navigateByUrl('/projects');
-          } else {
+          }
+          else {
             this.incorrectPass = true;
             this.emptyCreds = false;
           }
-        } else {
-          this.incorrectPass = true;
-          this.emptyCreds = false;
-        }
-      }, error => {
-        console.log(error);
-      });
+        });
     } else {
-        this.emptyCreds = true;
-        this.incorrectPass = false;
+      this.emptyCreds = true;
+      this.incorrectPass = false;
     }
   }
-  
+
 }

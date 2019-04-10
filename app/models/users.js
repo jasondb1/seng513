@@ -30,6 +30,11 @@ const Users = new Schema({    //mongoose.model('Users', {
     name_last: {
         type: String,
         required: false
+    },
+
+    admin: {
+        type: Boolean,
+        required: false
     }
 
 

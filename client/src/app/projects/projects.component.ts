@@ -16,13 +16,13 @@ declare var $: any;
 
 export class ProjectsComponent implements OnInit {
 
-  private project: Project;
-  private selectedProject: Project;
-  private projects: Project[];
-  private users: [];
+  project: Project;
+  selectedProject: Project;
+  projects: Project[];
+  users: [];
   private displayForm: boolean = false;
   stupidArray: Project[];
-  private invoice: Invoice;
+  invoice: Invoice;
   DEBUG: boolean = true;
   data: any = {};
   selectedUsers: User[];
@@ -259,7 +259,6 @@ export class ProjectsComponent implements OnInit {
     let newProject: Project ={
       '_id': -1,
       'id': -1,
-      '_id': -1,
       'description': description,
       'employees': employees,
       'projectManager': projectManager,

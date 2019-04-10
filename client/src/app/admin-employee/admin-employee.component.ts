@@ -15,11 +15,11 @@ export class AdminEmployeeComponent implements OnInit {
 
   DEBUG: boolean = true;
 
-  private user: User;
+  user: User;
   selectedUser: User;
   users = [];
   displayForm: boolean = false;
-  editUser: boolean = false; //
+  //editUser: boolean = false; //
 
 
   constructor(private dataService: DataService) {
@@ -118,7 +118,7 @@ export class AdminEmployeeComponent implements OnInit {
 
   setupEditListener(): void {
 
-    this.editUser = true;
+    //this.editUser = true;
     $('a.btn-edit').on('click', event => {
       event.preventDefault();
 
@@ -148,7 +148,6 @@ export class AdminEmployeeComponent implements OnInit {
         rowId = rowId.match(regex)[0];
         this.displaySelected(rowId);
       }
-
     });
 
   }
@@ -171,6 +170,7 @@ export class AdminEmployeeComponent implements OnInit {
     //event.preventDefault();
 
     //2 way data-binding
+    let _id = this.user._id;
     let uname = this.user.username;
     let pword = this.user.password;
     let email = this.user.email;
@@ -178,9 +178,11 @@ export class AdminEmployeeComponent implements OnInit {
     let name_last = this.user.name_last;
     let admin = this.user.admin;
 
-    if (this.editUser) {
 
-      this.editUser = false;
+    //add new user or edit existing user
+    if (_id != null) {
+
+      //this.editUser = false;
 
       this.selectedUser.username = uname;
       this.selectedUser.password = pword;
@@ -202,7 +204,7 @@ export class AdminEmployeeComponent implements OnInit {
 
         },
         () => {
-          //$("#form-modal").modal("hide");
+          $("#form-modal").modal("hide");
           this.resetForm();
           this.updateTable();
 
@@ -211,9 +213,9 @@ export class AdminEmployeeComponent implements OnInit {
 
     } else {
 
-
       //compose the new user from the form fields
       let newUser: User = {
+        '_id': -1,
         'username': uname,
         'password': pword,
         'email': email,

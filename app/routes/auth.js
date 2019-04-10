@@ -3,35 +3,36 @@ const router = express.Router();
 const path = require('path');
 const passport = require('passport');
 const User = require('../models/users');
+const bcrypt = require('bcrypt');
 
 
 router.get('/', function (req, res) {
     res.render('index', { user : req.user });
 });
 
-////The following are for authorization
-router.get('/register', function(req, res) {
-    res.render('register', { });
-});
-
-
-//////Register user
-router.post('/register', function(req, res) {
-    Users.register(new User({ username : req.body.username }), req.body.password, function(err, account) {
-        if (err) {
-            return res.render('register', { error: err.message });
-        }
-
-        passport.authenticate('local')(req, res, function () {
-            req.session.save(function (err) {
-                if (err) {
-                    return next(err);
-                }
-                res.redirect('/');
-            });
-        });
-    });
-});
+// ////The following are for authorization
+// router.get('/register', function(req, res) {
+//     res.render('register', { });
+// });
+//
+//
+// //////Register user
+// router.post('/register', function(req, res) {
+//     Users.register(new User({ username : req.body.username }), req.body.password, function(err, account) {
+//         if (err) {
+//             return res.render('register', { error: err.message });
+//         }
+//
+//         passport.authenticate('local')(req, res, function () {
+//             req.session.save(function (err) {
+//                 if (err) {
+//                     return next(err);
+//                 }
+//                 res.redirect('/');
+//             });
+//         });
+//     });
+// });
 
 //////login
 router.get('/login', function(req, res) {
@@ -40,8 +41,85 @@ router.get('/login', function(req, res) {
 
 
 //////Login
-router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/');
+router.post('/login', function(req, res) {
+
+    console.log(req.body);
+    //let username = req.body.username;
+    let password = req.body.password;
+
+    User.findOne( {'username': req.body.username}, 'username password admin', function (err, users) {
+
+        console.log(users);
+
+        if (err) {
+            console.log("Database Error:" + err);
+            let message = {status: 'Error', message: "Database Error"};
+            res.send(message);
+
+        } else {
+            if (users === null){
+                let message = {status: 'Error', message: "Username or password is invalid:"};
+                res.send(message);
+            } else {
+
+                //check if matches req.body.password
+
+                //check password
+                // bcrypt
+                //     .compare(req.body.password, hash)
+                //     .then(res => {
+                //         console.log(res);
+                //     })
+                //     .catch(err => console.error(err.message));
+
+                if(users.password === req.body.password){
+                    console.log ('authenticated');
+
+                    message = {status: 'authenticated', username: users.username, admin: users.admin};
+                    res.send(message);
+
+                }
+                else {
+                    let message = {status: 'Error', message: "Username or password is invalid:"};
+                    res.send(message);
+                }
+            }
+
+        }
+
+    });
+
+
+    // User.findOne({ username: req.body.username }, 'username password', function (err, user) {
+    //
+    //     console.log(user);
+    //
+    //     if (err) {
+    //         console.log("Error user doesn't exist." + err);
+    //         let message = {status: 'Error', message: "Invalid username or password."};
+    //         res.send(message);
+    //
+    //     } else {
+    //
+    //         console.log("user exists - check password");
+    //         console.log(user);
+            //check if matches req.body.password
+
+            //check password
+            // bcrypt
+            //     .compare(req.body.password, hash)
+            //     .then(res => {
+            //         console.log(res);
+            //     })
+            //     .catch(err => console.error(err.message));
+    //
+    //     }
+    //
+    // });
+
+    //authenticate???
+    //passport.authenticate('local'),
+
 });
 
 
@@ -118,11 +196,22 @@ router.post('/users', (req, res) => {
         password: req.body.password,
         email: req.body.email,
         name_first: req.body.name_first,
-        name_last: req.body.name_last
+        name_last: req.body.name_last,
+        admin: req.body.admin
     });
 
     //TODO: validation and hash password, test if username is unique etc, (mongo should check unique)
     //
+
+    bcrypt
+        .hash(newUser.password, 10)
+        .then(hash => {
+            console.log(`Hash: ${hash}`);
+
+            newUser.password = hash;
+            // Store hash in your password DB.
+        })
+        .catch(err => console.error(err.message));
 
     //save into database
     newUser.save( (err, user) => {
@@ -145,6 +234,8 @@ router.put('/users/editUser', async (req, res) => {
     console.log('[Edit User]');
     //params is ID followed, OKAY I GET
     console.log(req.body._id)
+
+    //TODO hash password
 
     const user = await User.findByIdAndUpdate(req.body._id,
         {
