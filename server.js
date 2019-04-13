@@ -19,7 +19,6 @@ const morgan = require('morgan');                 //a logger
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');//allows put and delete in some places it is not allowed
-const io = require('socket.io')(server);          //for realtime communication
 const cors = require('cors');
 const path = require('path');
 const index = require('./app/routes/index');
@@ -79,12 +78,11 @@ passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
-//routing 
+
+
+//chatkit routing
 app.post('/users', (req, res) => {
     const { username } = req.body;
-
-    console.log(req.body);
-
     chatkit
         .createUser({
             id: username,
@@ -112,7 +110,6 @@ app.post('/authenticate', (req, res) => {
 ////////////
 // start chat-server
 app.set('port', process.env.port || 5200);
-//app.set('port', 3000);
 const serv = app.listen(app.get('port'), () => {
     console.log(`express running → port ${serv.address().port}`);
 });
