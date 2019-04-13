@@ -25,6 +25,7 @@ export class ProjectsComponent implements OnInit {
   invoice: Invoice;
   DEBUG: boolean = true;
   data: any = {};
+  isUserAdmin: boolean = ConfigService.isAdmin;
   //selectedUsers: User[];
 
   constructor(private dataService: DataService,

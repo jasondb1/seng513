@@ -7,7 +7,7 @@ export class ConfigService {
 
   displayChat: boolean = false;
   projectNumber: number = null;
-  isAdmin: boolean = false;
+  public static isAdmin: boolean = false;
   isAuthenticated: boolean = false;
   currentUser: string = "";
 

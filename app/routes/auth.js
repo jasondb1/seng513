@@ -164,7 +164,7 @@ router.put('/users/editUser', async (req, res) => {
 
             } else {
                 let message = {status: 'Error', message: "There was an issue editing the user"};
-                res.stauts(400).json(message);
+                res.status(400).json(message);
             }
         });
 });
@@ -172,15 +172,33 @@ router.put('/users/editUser', async (req, res) => {
 //////Delete user
 router.delete('/users/:id', function (req, res) {
 
-    User.remove({_id: req.params.id}, (err, result) => {
-        if (err) {
-            let message = {status: 'Error', message: ("There was a problem deleting the user - " + err)};
-            res.json(message);
-        } else {
-            let message = {status: 'Success', message: "User Deleted"};
-            res.json(message);
-        }
-    });
+
+    User.findOneAndUpdate({_id: req.body._id}, {active: false}, {new: true, runValidators: true},
+        (err, response) => {
+
+            delete res.password;
+
+            if (!err) {
+                let message = {status: 'Success', message: "User Removed"};
+                res.json(message);
+
+            } else {
+                let message = {status: 'Error', message: "There was an issue removing the user"};
+                res.status(400).json(message);
+            }
+        });
+
+
+
+    // User.remove({_id: req.params.id}, (err, result) => {
+    //     if (err) {
+    //         let message = {status: 'Error', message: ("There was a problem deleting the user - " + err)};
+    //         res.json(message);
+    //     } else {
+    //         let message = {status: 'Success', message: "User Deleted"};
+    //         res.json(message);
+    //     }
+    // });
 });
 
 

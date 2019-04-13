@@ -65,20 +65,24 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-//routes ===========
-app.use('/', index);
-app.use('/api/auth', auth);
-app.use('/api/project', project);
-app.use('/api/invoice', invoice);
-
 // passport config
 var Account = require('./app/models/users');
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
+app.use((req, res, next) =>
+{
+    console.log("debug:");
+    console.log(req.user);
+    next();
+});
 
+//routes ===========
+app.use('/', index);
+app.use('/api/auth', auth);
+app.use('/api/project', project);
+app.use('/api/invoice', invoice);
 
 //chatkit routing
 app.post('/users', (req, res) => {
