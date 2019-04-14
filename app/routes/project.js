@@ -91,7 +91,7 @@ router.get('/:user/', async (req, res) => {
 
 //delete project
 router.delete('/:id', function(req, res) {
-    res.send('Need to fully implement this');
+
     Project.remove({_id: req.params.id}, (err, result) => {
         if (err) {
             let message = {status: 'Error', message: ("There was a problem deleting the project - " + err)};
@@ -124,53 +124,34 @@ router.put('/editProject', async (req, res) => {
 
 
 
+//delete Invoice I KNOW THI IS A PUT but delete didn't want to take my data.
+router.put('/deleteInvoice', function(req, res) {
+
+    console.log(req.body);
+
+    Project.findOneAndUpdate({'invoice._id': req.body._id}, {
+        $pull:{
+            'invoice.id': req.body._id
+        }
+    })
+    //todo
+});
+
+
 //////edit invoice
 router.put('/editInvoice', async (req, res) => {
+//todo add error handling
+    Project.findOneAndUpdate(
+        { _id: req.body.projectId, 'invoice._id': req.body._id },{
+        $set: { 'description': req.body.description,
+                "seller":req.body.seller,
+                'status': req.body.status,
+                'totalCost': req.body.totalCost
+            }})
 
-    //update the project
-    Project.findOneAndUpdate({_id: req.body._id}, {$set: req.body}, {new: true, runValidators: true},
-        (err, response) => {
-
-            if (!err) {
-                let message = {status: 'Success', message: "Project Edited"};
-                res.json(message);
-
-            } else {
-                let message = {status: 'Error', message: "There was an issue editing the Project"};
-                res.status(400).json(message);
-            }
-        });
 });
 
 
-
-
-/*//update project description/status
-router.put('/:id/', function(req, res) {
-    //TODO: Implement this method
-    res.send('Need to implement this');
-});
-
-router.put('addEmployees/:id/', function(req, res) {
-
-    console.log(req);
-    //
-    // async function addEmployee(projectId, employeeID){
-    //     const project= await Project.findById(projectId);
-    //     project.employees.push(employeeID);
-    //     project.save();
-    // }
-
-
-    res.send('Need to implement this');
-});*/
-
-/*
-router.put('removeEmployees/:id/', function(req, res) {
-    //TODO: Implement this method
-    res.send('Need to implement this');
-});
-*/
 
 
 router.put('/addInvoice',  async (req, res) => {

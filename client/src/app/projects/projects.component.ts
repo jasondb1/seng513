@@ -184,14 +184,13 @@ export class ProjectsComponent implements OnInit {
     let html = TableService.tableHtml(this.selectedProject.invoice, {'status' : 'Status', 'description': 'Description', 'invoiceDate': 'Invoice Date', 'totalCost' : 'totalCost', 'seller' : "Seller"}, true, true);
     $('#invoice-summary').html(html);
 
-    html = TableService.tableHtml(this.displayUsers, {'name_first' : 'First Name', 'name_last': 'Last Name', 'email': 'Email'}, false, false);
+    html = TableService.tableHtml(this.displayUsers, {'username': 'User Name', 'name_first' : 'First Name', 'name_last': 'Last Name', 'email': 'Email'}, false, false);
     $('#employee-summary').html(html);
 
 
     $('#invoice-summary a.btn-edit').on('click', event => {
       event.preventDefault();
 
-      console.log("ducky");
       $('#form-modal-invoice').modal('show');
 
     });
@@ -217,6 +216,34 @@ export class ProjectsComponent implements OnInit {
         this.invoice = this.selectedProject.invoice[rowId];
       }
 
+    });
+
+    $('a.btn-delete').on('click', event => {
+
+      event.preventDefault();
+      console.log("ducky");
+      //TODO Possibly make a better confirmation dialog
+      let isConfirmed = confirm('Delete This Invoice?');
+
+      if (isConfirmed) {
+        this.invoice.projectId = this.selectedProject._id;
+        console.log(this.invoice);
+
+        this.dataService.deleteInvoice(this.invoice).subscribe((res: any) => {
+
+            let status = `<strong>${res.status}</strong> - ${res.message}`;
+            $("#status").html(status).attr('class', 'alert alert-success');
+
+          },
+          (res: any) => {
+            let status = `<strong>${res.status}</strong> - ${res.message}`;
+            $("#status").html(status).attr('class', 'alert alert-danger');
+          },
+          () => {
+            console.log("[Deletion complete]");
+            this.displayTable2();
+          });
+      }
     });
 
 
@@ -396,6 +423,7 @@ export class ProjectsComponent implements OnInit {
     // @ts-ignore
     let id = this.invoice._id;
 
+      console.log(this.invoice);
     if (id != null) {
       this.invoice.projectId = proj_id; // this is used to pass over the project that the invoice is associated with.
 

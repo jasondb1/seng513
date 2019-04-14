@@ -139,10 +139,14 @@ removeEmployeesProject(id: Number, user: user?){
 
   editInvoice(invoice: Invoice ){
 
-    console.log(this.baseUrl + this.PROJECT_URL + "addInvoice");
     return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editInvoice", invoice)
   }
 
+
+  deleteInvoice(invoice: Invoice ){
+
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "deleteInvoice", invoice)
+  }
 
 
   /////////////////////
