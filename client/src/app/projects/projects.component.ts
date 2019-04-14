@@ -181,16 +181,16 @@ export class ProjectsComponent implements OnInit {
 
     //console.log(this.selectedProject.invoice);
 
-    let html = TableService.tableHtml(this.selectedProject.invoice, {'status' : 'Status', 'description': 'Description', 'dateCreated': 'Invoice Date', 'totalCost' : 'totalCost', 'seller' : "Seller"}, true, true);
+    let html = TableService.tableHtml(this.selectedProject.invoice, {'status' : 'Status', 'description': 'Description', 'dateCreated': 'Invoice Date', 'totalCost' : 'Price', 'seller' : "Vendor"}, true, true);
     $('#invoice-summary').html(html);
 
     html = TableService.tableHtml(this.displayUsers, {'username': 'User Name', 'name_first' : 'First Name', 'name_last': 'Last Name', 'email': 'Email'}, false, false);
     $('#employee-summary').html(html);
 
-    html = TableService.tableHtml(this.selectedProject.task, {'description': 'Description', 'status' : 'Status', 'totalTime' : 'totalTime'}, true, true);
+    html = TableService.tableHtml(this.selectedProject.task, {'description': 'Description', 'status' : 'Status', 'time' : 'hours'}, true, true);
     $('#task-summary').html(html);
 
-    html = TableService.tableHtml(this.selectedProject.purchaseOrder, {'status' : 'Status', 'description': 'Description', 'dateCreated': 'Invoice Date', 'totalCost' : 'totalCost', 'buyer' : "Buyer"}, true, true);
+    html = TableService.tableHtml(this.selectedProject.purchaseOrder, {'status' : 'Status', 'description': 'Description', 'dateCreated': 'Invoice Date', 'totalCost' : 'Cost', 'buyer' : "Customer"}, true, true);
     $('#purchase-summary').html(html);
 
     $('#task-summary a.btn-edit').on('click', event => {

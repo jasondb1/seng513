@@ -33,6 +33,7 @@ export class MessagingComponent implements OnInit {
   ngOnInit(){
     this.currentUser.id = this.configService.currentUser;
     this.uid = this.currentUser.id;
+    console.log(this.currentUser.id);
     this.addUser();
   }
 

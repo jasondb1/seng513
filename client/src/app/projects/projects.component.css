@@ -18,9 +18,23 @@ button :focus{
 
 h2 {
     color: rgb(93, 106, 119);
- 
+    font-size: 2em;
+    margin-bottom: 0.3em;
+}
+
+h3 {
+  font-size: 1.3em;
+  margin-bottom: 0.3em;
 }
 
 .modal-header {
   color: #ddd;
+}
+
+.table {
+  font-size: 0.9em;
+}
+
+.table thead {
+  background-color: #145fa0;
 }
