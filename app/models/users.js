@@ -37,11 +37,6 @@ const Users = new Schema({    //mongoose.model('Users', {
         type: Boolean,
         required: false,
         default: false
-    },
-
-    active: {
-        type: Boolean,
-        default: true
     }
 
 

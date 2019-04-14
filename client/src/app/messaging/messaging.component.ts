@@ -154,7 +154,7 @@ export class MessagingComponent implements OnInit {
     axios.post('http://localhost:5200/users', { username: uid })
       .then(() => {
         const tokenProvider = new Chatkit.TokenProvider({
-          url: this.configService.messagingUrl
+          url: 'http://localhost:5200/authenticate'
         });
 
         const chatManager = new Chatkit.ChatManager({

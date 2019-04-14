@@ -36,7 +36,7 @@ export class LoginComponent {
 
             //set state variables
             this.configService.isAuthenticated = true;
-            ConfigService.isAdmin = res['admin'];
+            this.configService.isAdmin = res['admin'];
             this.configService.currentUser = res['username'];
 
             this.dataService.loggedIn = true;
