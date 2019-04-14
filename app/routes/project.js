@@ -54,8 +54,7 @@ router.post('/', function(req, res){
 });
 
 router.get('/:user/', (req, res) => {
-
-    //console.log (req.params);
+    
     let user = req.params.user;
 
     //  console.log(User.findOne({username: user}, (err, user) => {
