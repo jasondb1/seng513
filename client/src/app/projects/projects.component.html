@@ -173,27 +173,6 @@
               </div>
             </div>
 
-          <form method="post">
-            <div class="form-group"> <!-- Date input -->
-            <div class="input-group">
-             <div class="input-group-prepend">
-             <div class="input-group-text">Date</div>
-             </div>
-              <div class="input-group date">
-                <input [(ngModel)] = "this.invoice.invoiceDate" type="date" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th" id = "ducky" ></i></span>
-              </div>
-
-
-           </div>
-           </div>
-           </form>
-
-          <script>    $('#ducky .input-group.date').datepicker({
-               keyboardNavigation: false,
-               forceParse: false
-             });</script>
-
-
 
               <div class="form-group">
                     <div class="input-group">
@@ -237,11 +216,12 @@
 
 
 <!-- Modal For Purchase Order-->
-<div aria-hidden="true" aria-labelledby="formModalInvoice" class="modal fade" id="form-modal-PO" role="dialog" tabindex="-1">
+<div aria-hidden="true" aria-labelledby="formModalPO" class="modal fade" id="form-modal-PO" role="dialog"
+     tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalTitle">Add PO</h5>
+        <h5 class="modal-title" id="modalTitle">Add Purchase Order</h5>
         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -249,14 +229,14 @@
       <div class="modal-body">
         <form id="project-form" method="post" name="project-form">
           <fieldset>
-            <legend>Add PO:</legend>
+            <legend>Add Purchase Order:</legend>
             <div class="input-group">
               <div class="input-group-prepend">
                 <div class="input-group-text">Status</div>
               </div>
-              <select class="custom-select" id="form_status" name="form_status">
-                <option value="wip">In Progress</option>
-                <option value="completed">Completed</option>
+             <select [(ngModel)]="this.purchaseOrder.status" class="custom-select" id="Purchase_status" name="form_status">
+                <option value="wip">Outstanding</option>
+                <option value="completed">Paid</option>
                 <option value="cancelled">Cancelled</option>
                 <option value="closed">Closed</option>
               </select>
@@ -267,16 +247,42 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Description</div>
                 </div>
-                <input [(ngModel)]="this.project.description" class="form-control" id="description" name="description"
+                <input [(ngModel)]="this.purchaseOrder.description" class="form-control" id="description_invoice" name="description_Invoice"
                        placeholder="description" type="text">
               </div>
             </div>
+
+
+              <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                         <div class="input-group-text">Total Cost</div>
+                      </div>
+                        <input [(ngModel)]="this.purchaseOrder.totalCost" class="form-control" id="total_cost" name="Total Cost Purchase Order"
+                           placeholder="Enter Cost" type="text">
+                    </div>
+              </div>
+
+
+              <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                         <div class="input-group-text">Buy</div>
+                      </div>
+                        <input [(ngModel)]="this.purchaseOrder.buyer" class="form-control" id="seller" name="buyer"
+                           placeholder="Enter Seller" type="text">
+                    </div>
+              </div>
+
+
+
+
           </fieldset>
         </form>
       </div>
       <div class="modal-footer">
-        <button (click)="submitFormPO()" type="button" class="btn btn-primary" id="submit-invoice-add" name="submit">
-          Submit
+        <button (click)="submitFormPo()" type="button" class="btn btn-primary" id="submit-purchaseOrder-add"
+                name="submit">Submit
         </button>
         <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal"
                 type="button">Cancel

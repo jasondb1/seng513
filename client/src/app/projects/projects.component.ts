@@ -6,6 +6,7 @@ import {DataService} from "../data.service";
 import {Invoice} from "../invoice";
 import {User} from "../user";
 import {ConfigService} from "../config.service";
+import {PurchaseOrder} from "../purchaseOrder";
 
 declare var $: any;
 
@@ -24,6 +25,7 @@ export class ProjectsComponent implements OnInit {
   displayUsers = new Array();
   displayForm: boolean = false;
   invoice: Invoice;
+  purchaseOrder: PurchaseOrder;
   DEBUG: boolean = true;
   data: any = {};
   isUserAdmin: boolean = ConfigService.isAdmin;
@@ -34,12 +36,14 @@ export class ProjectsComponent implements OnInit {
     this.project = <Project>{};
     this.selectedProject = <Project>{};
     this.invoice = <Invoice>{};
+    this.purchaseOrder =<PurchaseOrder>{};
 
   }
 
   ngOnInit() {
     this.project = new Project;
     this.invoice = new Invoice;
+    this.purchaseOrder = new PurchaseOrder;
     //update the table
     this.updateTable();
     this.employeesDisplay();
@@ -54,6 +58,7 @@ export class ProjectsComponent implements OnInit {
     console.log("Resetting Form");
     this.project = new Project();
     this.invoice = new Invoice();
+    this.purchaseOrder = new PurchaseOrder();
   }
 
   /////////////////////////
@@ -177,13 +182,19 @@ export class ProjectsComponent implements OnInit {
 
   displayTable2(): void {
 
-    let html = TableService.tableHtml(this.selectedProject.invoice, {'status' : 'Status', 'description': 'Description', 'invoiceDate': 'Invoice Date', 'totalCost' : 'totalCost', 'seller' : "Seller"}, true, true);
+    console.log(this.selectedProject.invoice);
+
+    let html = TableService.tableHtml(this.selectedProject.invoice, {'status' : 'Status', 'description': 'Description', 'dateCreated': 'Invoice Date', 'totalCost' : 'totalCost', 'seller' : "Seller"}, true, true);
     $('#invoice-summary').html(html);
 
     html = TableService.tableHtml(this.displayUsers, {'username': 'User Name', 'name_first' : 'First Name', 'name_last': 'Last Name', 'email': 'Email'}, false, false);
     $('#employee-summary').html(html);
 
+    html = TableService.tableHtml(this.selectedProject.purchaseOrder, {'status' : 'Status', 'description': 'Description', 'dateCreated': 'Invoice Date', 'totalCost' : 'totalCost', 'buyer' : "Buyer"}, true, true);
+    $('#purchase-summary').html(html);
 
+    
+    
     $('#invoice-summary a.btn-edit').on('click', event => {
       event.preventDefault();
 
@@ -214,7 +225,24 @@ export class ProjectsComponent implements OnInit {
 
     });
 
-    $('a.btn-delete').on('click', event => {
+
+    //listen to the rows
+    $('#purchase-summary tr').on('mouseover', event => {
+
+      let rowId = event.currentTarget.id;
+      let regex = /[^R]+$/; //matches everything after the last / to get the id
+
+      //needed for edit function.
+      if (rowId !== null) {
+        rowId = rowId.match(regex)[0];
+        this.invoice = this.selectedProject.invoice[rowId];
+      }
+
+    });
+
+    
+    //delete invoice
+    $('#invoice-summary a.btn-delete').on('click', event => {
 
       event.preventDefault();
       console.log("ducky");
@@ -474,10 +502,72 @@ export class ProjectsComponent implements OnInit {
 
     }
   }
+  submitFormPo(): void {
 
-  submitFormPO(): void {
-//todo make this work.
+    let proj_id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
+    let status = "Paid";
+    let description = this.purchaseOrder.description;
+    let totalCost = this.purchaseOrder.totalCost;
+    let buyer = this.purchaseOrder.buyer;
+    // @ts-ignore
+    let id = this.purchaseOrder._id;
+
+    console.log(this.purchaseOrder);
+    if (id != null) {
+      this.purchaseOrder.projectId = proj_id; // this is used to pass over the project that the purchaseOrder is associated with.
+
+      this.dataService.editPurchaseOrder(this.purchaseOrder).subscribe(
+        (res: any) => {
+          let status = `<strong>${res.status}</strong> - ${res.message}`;
+          $("#status").html(status).attr('class', 'alert alert-success');},
+        (err: any) => {
+          this.resetForm();
+          //display error message in status
+          let status = `<strong>${err.status}</strong> - ${err.message}`;
+          $("#status").html(status).attr('class', 'alert alert-danger');
+        },
+        () => {
+          $("#form-modal").modal("hide");
+          this.updateTable();
+        }
+      );
+
+
+    }
+    else{
+
+
+
+      let newPurchaseOrder: PurchaseOrder={
+        'projectId' : proj_id,
+        'status': status,
+        'description' : description,
+        'purchaseOrderDate' : null,
+        'totalCost': totalCost,
+        'buyer': buyer,
+
+      };
+
+      console.log(newPurchaseOrder);
+
+      this.dataService.newPurchaseOrder(id,newPurchaseOrder).subscribe(
+        (res: any) => {
+          let status = `<strong>${res.status}</strong> - ${res.message}`;
+          $("#status").html(status).attr('class', 'alert alert-success');},
+        (err: any) => {
+          this.resetForm();
+          //display error message in status
+          let status = `<strong>${err.status}</strong> - ${err.message}`;
+          $("#status").html(status).attr('class', 'alert alert-danger');
+        },
+        () => {
+          $("#form-modal").modal("hide");
+          this.resetForm();
+          this.displayTable2();
+        }
+      );
+
+    }
   }
-
 
 }
