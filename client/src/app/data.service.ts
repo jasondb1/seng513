@@ -144,6 +144,11 @@ removeEmployeesProject(id: Number, user: user?){
   }
 
 
+  deleteInvoice(invoice: Invoice ){
+
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "deleteInvoice", invoice)
+  }
+
 
   /////////////////////
   //Log the user in
