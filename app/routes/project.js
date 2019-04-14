@@ -55,21 +55,39 @@ router.post('/', function(req, res){
     });
 });
 
-router.get('/:id/', (req, res) => {
-   //check if id exists in db
-    if (!ObjectId.isValid(req.params.id))
-       return res.status(400).send('No record matches id: ' + req.params.id);
+router.get('/:user/', (req, res) => {
 
-        Project.findById(req.params.id, (err, project) => {
-            if(err){
-                console.log ("Error saving project data:" + err);
-            }
-            else {
-                res.send(project);
-            }
-        });
+    let user = req.params.user;
+
+    //  console.log(User.findOne({username: user}, (err, user) => {
+    //      if (!err){
+    //          return user._id;
+    //      }
+    //  })
+    //  );
+    //
+
+    let uid = User.findOne({username: user}, (err, user) => {
+        if (!err) {
+            console.log(user._id);
+            return user._id;
+        }
+    });
+
+    //check if id exists in db
+    Project.find({"employees.$oid": uid}, (err, projects) => {
+
+        if (err) {
+            console.log("Error loading project data:" + err);
+        } else {
+            console.log(projects);
+            res.send(projects);
+        }
+
+    });
 
 });
+
 
 //delete project
 router.delete('/:id', function(req, res) {
