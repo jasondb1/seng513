@@ -87,7 +87,7 @@ export class DataService {
   }
 
   /////////////////////
-  //edidProject ()
+  //editProject ()
 
   editProject(project: Project) {
     return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editProject", project, {withCredentials: true});
@@ -129,13 +129,12 @@ removeEmployeesProject(id: Number, user: user?){
   /////////////////////
   //Add Invoice to Project
     newInvoice(id: Number, invoice: Invoice ){
-
       console.log(this.baseUrl + this.PROJECT_URL + "addInvoice");
     return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "addInvoice", invoice, {withCredentials: true})
   }
 
   /////////////////////
-  //Add Work Order to Project
+  //edit invoice
 
   editInvoice(invoice: Invoice ){
 
@@ -144,9 +143,12 @@ removeEmployeesProject(id: Number, user: user?){
   }
 
 
-  deleteInvoice(invoice: Invoice ){
+  /////////////////////
+  //delete invoice
 
-    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "deleteInvoice", invoice)
+  deleteInvoice(invoice: Invoice ){
+    console.log(this.baseUrl + this.PROJECT_URL + "delInvoice");
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "deleteInvoice", invoice, {withCredentials: true})
   }
 
 

@@ -62,7 +62,6 @@ export class ProjectsComponent implements OnInit {
   displaySelected(index){
 
     this.selectedProject = this.projects[index];
-    //console.log(this.selectedProject.employees);
     this.displayUsers.length = 0; //reset the array lol this is an interesting way to code this.
 
     //array to popualte displayUsers
@@ -76,9 +75,7 @@ export class ProjectsComponent implements OnInit {
         }
       }
     }
-    //console.log(this.displayUsers);
 
-    //console.log(this.users['_id'].indexOf(this.projects[index].employees));
     this.displayTable2();
     //TODO Enable this when project rooms are ready.
     //this.chatService.changeProject(this.selectedProject.id);
@@ -114,7 +111,6 @@ export class ProjectsComponent implements OnInit {
 
       event.preventDefault();
 
-      //TODO Possibly make a better confirmation dialog
       let isConfirmed = confirm('Delete This Project');
 
       if (isConfirmed) {
