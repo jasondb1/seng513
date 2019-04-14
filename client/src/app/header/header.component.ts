@@ -9,8 +9,11 @@ import { ConfigService } from '../config.service';
 export class HeaderComponent implements OnInit {
 
   displayMenu: boolean;
+  displayAdmin: boolean;
 
-  constructor(private configService: ConfigService) { }
+  constructor(private configService: ConfigService) {
+    this.displayAdmin = ConfigService.isAdmin;
+  }
 
   //Toggles the chat box on the side
   toggleChat(): void {
