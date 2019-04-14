@@ -17,7 +17,6 @@ const server = require('http').Server(app);
 const mongoose = require('mongoose');             //to access mongo database
 const morgan = require('morgan');                 //a logger
 const bodyParser = require('body-parser');
-//const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');//allows put and delete in some places it is not allowed
 const cors = require('cors');
 const path = require('path');
@@ -53,7 +52,6 @@ mongoose.connection.on('error', (err) => {
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(cors({origin:['http://localhost:4200'], credentials: true})); // Use this after the variable declaration
 app.use(morgan('dev'));
-//app.use(cookieParser());
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(methodOverride());
@@ -71,21 +69,21 @@ passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
-app.use( (req, res, next) => {
-    console.log('debug');
-    console.log(req.session.id);
-   console.log(req.session.name);
-   console.log(req.session);
-next();
-});
-
-
+// app.use( (req, res, next) => {
+//     console.log('debug');
+//     console.log(req.session.id);
+//    console.log(req.session.name);
+//    console.log(req.session);
+// next();
+// });
 
 //routes ===========
 app.use('/', index);
 app.use('/api/auth', auth);
 
 //method to check if user is logged in.
+//everything behind here requires authentication
+
 app.use( function isLoggedIn(req, res, next) {
     console.log(req.session);
     if (req.session.name)
@@ -98,8 +96,6 @@ app.use( function isLoggedIn(req, res, next) {
 app.use('/api/users', users);
 app.use('/api/project', project);
 app.use('/api/invoice', invoice);
-
-
 
 //routing 
 app.post('/users', (req, res) => {
