@@ -137,7 +137,7 @@ export class ProjectsComponent implements OnInit {
             $("#status").html(status).attr('class', 'alert alert-danger');
           },
           () => {
-            console.log("[Deletion complete]");
+            //console.log("[Deletion complete]");
             this.updateTable();
           });
       }
@@ -187,7 +187,7 @@ export class ProjectsComponent implements OnInit {
     html = TableService.tableHtml(this.displayUsers, {'username': 'User Name', 'name_first' : 'First Name', 'name_last': 'Last Name', 'email': 'Email'}, false, false);
     $('#employee-summary').html(html);
 
-    html = TableService.tableHtml(this.selectedProject.tasks, {'description': 'Description', 'status' : 'Status', 'totalTime' : 'totalTime'}, true, true);
+    html = TableService.tableHtml(this.selectedProject.task, {'description': 'Description', 'status' : 'Status', 'totalTime' : 'totalTime'}, true, true);
     $('#task-summary').html(html);
 
     html = TableService.tableHtml(this.selectedProject.purchaseOrder, {'status' : 'Status', 'description': 'Description', 'dateCreated': 'Invoice Date', 'totalCost' : 'totalCost', 'buyer' : "Buyer"}, true, true);
@@ -237,7 +237,7 @@ export class ProjectsComponent implements OnInit {
       //needed for edit function.
       if (rowId != null) {
         rowId = rowId.match(regex)[0];
-        this.task = this.selectedProject.tasks[rowId];
+        this.task = this.selectedProject.task[rowId];
       }
 
     });
@@ -435,7 +435,7 @@ export class ProjectsComponent implements OnInit {
         'dateCreated': dateCreated,
         'invoice': [],
         'purchaseOrder': [],
-        'tasks': [],
+        'task': [],
 
       };
 

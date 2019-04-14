@@ -295,10 +295,10 @@ router.put('/addTask',  async (req, res) => {
     console.log('add task');
     console.log(req.body);
 
-    const task = await Project.findByIdAndUpdate(req.body.projectId,
+    await Project.findByIdAndUpdate(req.body.projectId,
         {
             $push:{
-                tasks:{
+                task:{
                     description: req.body.description,
                     taskDate: req.body.invoiceDate,
                     dateCreated: req.body.dateCreated,

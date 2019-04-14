@@ -12,7 +12,7 @@ export class Project {
   dateCreated: Date;
   invoice: Invoice[];
   purchaseOrder: PurchaseOrder[];
-  tasks: Task[];
+  task: Task[];
   _id: any;
 
   constructor() {}
