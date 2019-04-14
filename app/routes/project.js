@@ -52,7 +52,7 @@ router.post('/', function (req, res) {
 
 
 ////////////////////////////////////////
-// Get list of users
+// Get list of projects
 router.get('/:user/', async (req, res) => {
 
     let user = req.params.user;
@@ -83,7 +83,7 @@ router.get('/:user/', async (req, res) => {
     });
 });
 
-
+////////////////////////
 //delete project
 router.delete('/:id', function (req, res) {
 
@@ -99,7 +99,7 @@ router.delete('/:id', function (req, res) {
 });
 
 /////////////////////
-//////edit Project
+//edit Project
 router.put('/editProject', async (req, res) => {
 
     //update the project
@@ -111,6 +111,7 @@ router.put('/editProject', async (req, res) => {
                 res.json(message);
 
             } else {
+                console.log(err);
                 let message = {status: 'Error', message: "There was an issue editing the Project"};
                 res.status(400).json(message);
             }
@@ -120,9 +121,6 @@ router.put('/editProject', async (req, res) => {
 ////////////////////////////
 //delete Invoice
 router.delete('/invoice/:id', async function (req, res) {
-
-    // console.log('delete invoice');
-    // console.log(req.params.id);
 
     filter = {"invoice._id": ObjectId(req.params.id)};
 
@@ -141,6 +139,7 @@ router.delete('/invoice/:id', async function (req, res) {
     });
 });
 
+//////////////////////////
 //////edit invoice
 router.put('/editInvoice', async (req, res) => {
 //todo add error handling
@@ -157,9 +156,11 @@ router.put('/editInvoice', async (req, res) => {
 });
 
 
+////////////////////////////
+// Add invoice
 router.put('/addInvoice', async (req, res) => {
 
-    console.log(req.body);
+    //console.log(req.body);
 
     const project = await Project.findByIdAndUpdate(req.body.projectId,
         {
@@ -181,13 +182,9 @@ router.put('/addInvoice', async (req, res) => {
 
 });
 
-
-
+///////////////////////////
 //add Purchase Order
 router.put('/addPurchaseOrder',  async (req, res) => {
-
-    console.log("ducky");
-    console.log(req.body);
 
     const project = await Project.findByIdAndUpdate(req.body.projectId,
         {
@@ -208,8 +205,9 @@ router.put('/addPurchaseOrder',  async (req, res) => {
 
 });
 
+//////////////////////////////////////////////////
 //////edit purchaseOrder
-router.put('editPurchaseOrder', async (req, res) => {
+router.put('/editPurchaseOrder', async (req, res) => {
 //todo add error handling
     Project.findOneAndUpdate(
         { _id: req.body.projectId, 'purchaseOrder._id': req.body._id },{
@@ -221,18 +219,29 @@ router.put('editPurchaseOrder', async (req, res) => {
 
 });
 
+////////////////////////////
+//delete Invoice
+router.delete('/po/:id', async function (req, res) {
 
+    // console.log('delete invoice');
+    // console.log(req.params.id);
 
+    filter = {"purcahseOrder._id": ObjectId(req.params.id)};
 
-/*
-db.posts.update({_id: ObjectId("5121908755734d2f29000123")}, {
-    $push: {
-        comments: {
-            "authorId": ObjectId("50d013076a2208d3060000a7"),
-            "content": "Some content again"
-        }
-    }
-})
-*/
+    Project.updateOne(filter,
+        { $pull: {"purchaseOrder": {_id: ObjectId(req.params.id)} } },
+        (err, response) => {
+
+            if (!err) {
+                let message = {status: 'Success', message: "PO Deleted"};
+                res.json(message);
+
+            } else {
+                let message = {status: 'Error', message: "There was an issue deleting the po:"};
+                res.status(400).json(message);
+            }
+        });
+});
+
 
 module.exports = router;

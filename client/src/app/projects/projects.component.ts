@@ -49,8 +49,6 @@ export class ProjectsComponent implements OnInit {
     this.employeesDisplay();
   }
 
-
-
   /////////////////////////
   // resetForm()
 
@@ -69,14 +67,17 @@ export class ProjectsComponent implements OnInit {
     this.selectedProject = this.projects[index];
     this.displayUsers.length = 0; //reset the array lol this is an interesting way to code this.
 
-    //array to popualte displayUsers
-    let count = 0;
-    for(let i = 0; i<this.selectedProject.employees.length; i++){
-      for(let j = 0; j<this.users.length; j++){
-        if(this.selectedProject.employees[i] === this.users[j]._id){
-          this.displayUsers.push(this.users[j]);
-          count++;
-          break;
+
+    if(this.selectedProject.employees.length !== undefined) {
+      //array to popualte displayUsers
+      let count = 0;
+      for (let i = 0; i < this.selectedProject.employees.length; i++) {
+        for (let j = 0; j < this.users.length; j++) {
+          if (this.selectedProject.employees[i] === this.users[j]._id) {
+            this.displayUsers.push(this.users[j]);
+            count++;
+            break;
+          }
         }
       }
     }
@@ -168,8 +169,6 @@ export class ProjectsComponent implements OnInit {
     let html = TableService.tableHtml(this.projects, {'id': 'ID', 'description': 'Description'}, true, true);
     $('#table-summary').html(html);
 
-
-
     //console.log(this.projects);
     //console.log(this.users);
     //setup listeners for the icons on the table
@@ -201,9 +200,7 @@ export class ProjectsComponent implements OnInit {
 
     $('#purchase-summary a.btn-edit').on('click', event => {
       event.preventDefault();
-
-
-      $('#form-modal-PO').modal('show');
+      $('#form-modal-po').modal('show');
 
     });
 
@@ -215,7 +212,7 @@ export class ProjectsComponent implements OnInit {
       let regex = /[^R]+$/; //matches everything after the last / to get the id
 
       //needed for edit function.
-      if (rowId !== null) {
+      if (rowId != null) {
         rowId = rowId.match(regex)[0];
         this.invoice = this.selectedProject.invoice[rowId];
       }
@@ -230,9 +227,9 @@ export class ProjectsComponent implements OnInit {
       let regex = /[^R]+$/; //matches everything after the last / to get the id
 
       //needed for edit function.
-      if (rowId !== null) {
+      if (rowId != null) {
         rowId = rowId.match(regex)[0];
-        this.invoice = this.selectedProject.invoice[rowId];
+        this.purchaseOrder = this.selectedProject.purchaseOrder[rowId];
       }
 
     });
@@ -240,7 +237,6 @@ export class ProjectsComponent implements OnInit {
     
     //delete invoice
     $('#invoice-summary a.btn-delete').on('click', event => {
-
       event.preventDefault();
 
       let isConfirmed = confirm('Delete This Invoice?');
@@ -250,10 +246,6 @@ export class ProjectsComponent implements OnInit {
         let id = event.currentTarget.href;
         let regex = /[^/]+$/; //matches everything after the last / to get the id
         id = id.match(regex);
-
-        //this.invoice.projectId = this.selectedProject._id;
-
-        console.log(id[0]);
 
         this.dataService.deleteInvoice(id[0]).subscribe((res: any) => {
 
@@ -267,20 +259,49 @@ export class ProjectsComponent implements OnInit {
           },
           () => {
             console.log("[Deletion complete]");
-            this.displayTable2();
+            this.updateTable();
           });
       }
     });
 
 
+    //delete poo
+    $('#purchase-summary a.btn-delete').on('click', event => {
+      event.preventDefault();
+
+      let isConfirmed = confirm('Delete This PO?');
+
+      if (isConfirmed) {
+
+        let id = event.currentTarget.href;
+        let regex = /[^/]+$/; //matches everything after the last / to get the id
+        id = id.match(regex);
+
+        this.dataService.deletePo(id[0]).subscribe((res: any) => {
+
+            let status = `<strong>${res.status}</strong> - ${res.message}`;
+            $("#status").html(status).attr('class', 'alert alert-success');
+
+          },
+          (res: any) => {
+            let status = `<strong>${res.status}</strong> - ${res.message}`;
+            $("#status").html(status).attr('class', 'alert alert-danger');
+          },
+          () => {
+            //console.log("[Deletion complete]");
+            this.updateTable();
+          });
+      }
+    });
+
   }
-
-
 
   ////////////////
   // updateTable()
 
   updateTable(): void {
+
+    //this.selectedProject = null;
     //console.log("[Get Projects]");
     this.dataService.getProjects(this.configService.currentUser)
       .subscribe(
@@ -296,6 +317,7 @@ export class ProjectsComponent implements OnInit {
           //console.log("Data finished loading.");
           this.displayTable();
           this.displayTable2();
+          this.displaySelected(0);
           //this.displaySelected();
         }
       );
@@ -308,6 +330,7 @@ export class ProjectsComponent implements OnInit {
     //Add new user
 
     this.displayForm = false;
+    $("#form-modal").modal("hide");
 
     if (this.DEBUG) {
       console.log("Submit Button Pressed");
@@ -326,7 +349,6 @@ export class ProjectsComponent implements OnInit {
       this.selectedProject.projectManager = projectManager;
       this.selectedProject.employees = employees;
       this.selectedProject.status = status;
-
 
       //submit the data to the database via the dataService
       this.dataService.editProject(this.selectedProject).subscribe(
@@ -412,6 +434,8 @@ export class ProjectsComponent implements OnInit {
    */
   submitFormInvoice(): void {
 
+    $("#form-modal-invoice").modal("hide");
+
     let proj_id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
     let status = this.invoice.status;
     let description = this.invoice.description;
@@ -484,7 +508,8 @@ export class ProjectsComponent implements OnInit {
 
   submitFormPo(): void {
 
-    console.log('submit form po');
+    //console.log('submit form po');
+    $("#form-modal").modal("hide");
 
     let proj_id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
     let status = "Paid";
@@ -546,7 +571,7 @@ export class ProjectsComponent implements OnInit {
         () => {
           $("#form-modal-po").modal("hide");
           this.resetForm();
-          this.displayTable2();
+          this.updateTable();
         }
       );
 

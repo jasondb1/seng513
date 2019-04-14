@@ -14,7 +14,7 @@ const invoiceSchema = new Schema({
 
     invoiceDate:{
         type: Date,
-        required: true,
+        required: false,
         defualt: Date.now
     },
 

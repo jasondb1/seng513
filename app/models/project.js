@@ -16,7 +16,7 @@ const invoiceSchema = new Schema({
 
     invoiceDate:{
         type: Date,
-        required: true,
+        required: false,
         defualt: Date.now
     },
 
@@ -29,7 +29,7 @@ const invoiceSchema = new Schema({
     status: {
         type: String,
         required: true,
-        default: "In Progress"
+        default: "Outstanding"
     },
 
     totalCost:{
@@ -61,9 +61,9 @@ const purchaseOrderSchema = new Schema({
         required: true
     },
 
-    invoiceDate:{
+    poDate:{
         type: Date,
-        required: true,
+        required: false,
         defualt: Date.now
     },
 
@@ -76,7 +76,7 @@ const purchaseOrderSchema = new Schema({
     status: {
         type: String,
         required: true,
-        default: "In Progress"
+        default: "Outstanding"
     },
 
     totalCost:{

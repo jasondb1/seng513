@@ -77,27 +77,8 @@ passport.deserializeUser(Account.deserializeUser());
 // next();
 // });
 
-//routes ===========
-app.use('/', index);
-app.use('/api/auth', auth);
-
-//method to check if user is logged in.
-//everything behind here requires authentication
-
-app.use( function isLoggedIn(req, res, next) {
-    //console.log(req.session);
-    if (req.session.name)
-        return next();
-    res.status(400).json({
-        'message': 'access denied'
-    });
-});
-
-app.use('/api/users', users);
-app.use('/api/project', project);
-app.use('/api/invoice', invoice);
-
-//routing 
+///////////////////////
+// chat routes
 app.post('/users', (req, res) => {
     const { username } = req.body;
 
@@ -127,11 +108,15 @@ app.post('/authenticate', (req, res) => {
     res.status(authData.status).send(authData.body);
 });
 
-//method to check if user is logged in.
-//everything behind here requires authentication
+//routes ===========
+app.use('/', index);
+app.use('/api/auth', auth);
 
+
+//middleware to check if user is logged in.
+//everything behind here requires authentication
 app.use( function isLoggedIn(req, res, next) {
-    console.log(req.session);
+    //console.log(req.session);
     if (req.session.name)
         return next();
     res.status(400).json({
@@ -139,11 +124,10 @@ app.use( function isLoggedIn(req, res, next) {
     });
 });
 
+//Protected Routes
 app.use('/api/users', users);
 app.use('/api/project', project);
 app.use('/api/invoice', invoice);
-
-
 
 ////////////
 // start chat-server

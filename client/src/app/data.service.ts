@@ -34,7 +34,7 @@ export class DataService {
   //getEmployee ()
 
   getEmployees() {
-    console.log(this.baseUrl + this.EMPLOYEE_URL);
+    //console.log(this.baseUrl + this.EMPLOYEE_URL);
     return this.httpClient.get(this.baseUrl + this.EMPLOYEE_URL, {withCredentials: true});
   }
 
@@ -93,6 +93,8 @@ export class DataService {
   //editProject ()
 
   editProject(project: Project) {
+    console.log(this.baseUrl + this.PROJECT_URL + "editProject");
+    console.log(project);
     return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editProject", project, {withCredentials: true});
   }
 
@@ -142,7 +144,7 @@ removeEmployeesProject(id: Number, user: user?){
   /////////////////////
   //Add Invoice to Project
     newInvoice(id: Number, invoice: Invoice ){
-      console.log(this.baseUrl + this.PROJECT_URL + "addInvoice");
+      //console.log(this.baseUrl + this.PROJECT_URL + "addInvoice");
     return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "addInvoice", invoice, {withCredentials: true})
   }
 
@@ -151,7 +153,7 @@ removeEmployeesProject(id: Number, user: user?){
 
   editInvoice(invoice: Invoice ){
 
-    console.log(this.baseUrl + this.PROJECT_URL + "addInvoice");
+    //console.log(this.baseUrl + this.PROJECT_URL + "addInvoice");
     return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editInvoice", invoice, {withCredentials: true})
   }
 
@@ -160,10 +162,17 @@ removeEmployeesProject(id: Number, user: user?){
   //delete invoice
 
   deleteInvoice(invoiceNum: Number){
-    console.log(this.baseUrl + this.PROJECT_URL + "invoice/" + invoiceNum);
+    //console.log(this.baseUrl + this.PROJECT_URL + "invoice/" + invoiceNum);
     return this.httpClient.delete(this.baseUrl + this.PROJECT_URL + "invoice/" + invoiceNum, {withCredentials: true})
   }
 
+  /////////////////////
+  //delete invoice
+
+  deletePo(poNum: Number){
+    //console.log(this.baseUrl + this.PROJECT_URL + "po/" + poNum);
+    return this.httpClient.delete(this.baseUrl + this.PROJECT_URL + "po/" + poNum, {withCredentials: true})
+  }
 
   /////////////////////
   //Log the user in
