@@ -30,7 +30,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text">Status</div>
               </div>
-                <select [(ngModel)]="this.project.status" class="custom-select" id="project_status" name="form_status">
+                <select [(ngModel)]="project.status" class="custom-select" id="project_status" name="form_status">
                    <option value="WIP">In Progress</option>
                    <option value="Completed">Completed</option>
                    <option value="Cancelled">Cancelled</option>
@@ -44,7 +44,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Description</div>
                 </div>
-                <input [(ngModel)]="this.project.description" class="form-control" id="description" name="description"
+                <input [(ngModel)]="project.description" class="form-control" id="description" name="description"
                        placeholder="description" type="text">
               </div>
             </div>
@@ -83,7 +83,7 @@
         <button (click)="submitForm()" type="button" class="btn btn-primary" id="submit-project-add" name="submit">
           Submit
         </button>
-        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal"
+        <button (click)="displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal"
                 type="button">Cancel
         </button>
       </div>
@@ -158,7 +158,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text">Status</div>
               </div>
-             <select [(ngModel)]="this.invoice.status" class="custom-select" id="invoice_status" name="form_status">
+             <select [(ngModel)]="invoice.status" class="custom-select" id="invoice_status" name="form_status">
                 <option value="Outstanding">Outstanding</option>
                 <option value="Paid">Paid</option>
                 <option value="Cancelled">Cancelled</option>
@@ -172,7 +172,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Description</div>
                 </div>
-                <input [(ngModel)]="this.invoice.description" class="form-control" id="description_invoice" name="description_Invoice"
+                <input [(ngModel)]="invoice.description" class="form-control" id="description_invoice" name="description_Invoice"
                        placeholder="description" type="text">
               </div>
             </div>
@@ -183,7 +183,7 @@
                       <div class="input-group-prepend">
                          <div class="input-group-text">Total Cost</div>
                       </div>
-                        <input [(ngModel)]="this.invoice.totalCost" class="form-control" id="total_cost" name="Total Cost"
+                        <input [(ngModel)]="invoice.totalCost" class="form-control" id="total_cost" name="Total Cost"
                            placeholder="Enter Cost" type="text">
                     </div>
               </div>
@@ -193,7 +193,7 @@
                       <div class="input-group-prepend">
                          <div class="input-group-text">Seller</div>
                       </div>
-                        <input [(ngModel)]="this.invoice.seller" class="form-control" id="seller" name="seller"
+                        <input [(ngModel)]="invoice.seller" class="form-control" id="seller" name="seller"
                            placeholder="Enter Seller" type="text">
                     </div>
               </div>
@@ -205,7 +205,7 @@
         <button (click)="submitFormInvoice()" type="button" class="btn btn-primary" id="submit-invoice-add"
                 name="submit">Submit
         </button>
-        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel_inv" data-dismiss="modal"
+        <button (click)="displayForm = false;" class="btn btn-secondary" id="btn-cancel_inv" data-dismiss="modal"
                 type="button">Cancel
         </button>
       </div>
@@ -236,7 +236,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text">Status</div>
               </div>
-             <select [(ngModel)]="this.purchaseOrder.status" class="custom-select" id="Purchase_status" name="form_status">
+             <select [(ngModel)]="purchaseOrder.status" class="custom-select" id="Purchase_status" name="form_status">
                 <option value="Outstanding">Outstanding</option>
                 <option value="Paid">Paid</option>
                 <option value="Cancelled">Cancelled</option>
@@ -250,7 +250,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">Description</div>
                 </div>
-                <input [(ngModel)]="this.purchaseOrder.description" class="form-control" id="description_po" name="description_Invoice"
+                <input [(ngModel)]="purchaseOrder.description" class="form-control" id="description_po" name="description_Invoice"
                        placeholder="description" type="text">
               </div>
             </div>
@@ -260,7 +260,7 @@
                       <div class="input-group-prepend">
                          <div class="input-group-text">Total Cost</div>
                       </div>
-                        <input [(ngModel)]="this.purchaseOrder.totalCost" class="form-control" id="total_cost_po" name="Total Cost Purchase Order"
+                        <input [(ngModel)]="purchaseOrder.totalCost" class="form-control" id="total_cost_po" name="Total Cost Purchase Order"
                            placeholder="Enter Cost" type="text">
                     </div>
               </div>
@@ -271,7 +271,7 @@
                       <div class="input-group-prepend">
                          <div class="input-group-text">Vendor</div>
                       </div>
-                        <input [(ngModel)]="this.purchaseOrder.buyer" class="form-control" id="buyer_po" name="buyer"
+                        <input [(ngModel)]="purchaseOrder.buyer" class="form-control" id="buyer_po" name="buyer"
                            placeholder="Enter vendor" type="text">
                     </div>
               </div>
@@ -282,7 +282,7 @@
         <button (click)="submitFormPo();"  type="button" class="btn btn-primary" id="submit-purchaseOrder-add"
                 name="submit">Submit
         </button>
-        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel_po" data-dismiss="modal"
+        <button (click)="displayForm = false;" class="btn btn-secondary" id="btn-cancel_po" data-dismiss="modal"
                 type="button">Cancel
         </button>
       </div>
@@ -326,13 +326,22 @@
 
         <div class="col-md-8 project-details">
           <h2 class="detail-text">Project Details</h2>
+          <div id="action" class="text-center mt-3">
+            <button (click)="resetForm();" class="btn btn-success btn-rounded" data-target="#form-modal-invoice" data-toggle="modal"><i
+              class="far fa-plus-square"></i>Add Invoice
+            </button>
+
+            <button (click)="resetForm();" class="btn btn-success btn-rounded" data-target="#form-modal-po" data-toggle="modal"><i
+              class="far fa-plus-square"></i>Add PO
+            </button>
+          </div>
 
           <div class="project-item border-top">
             <!-- <h3><i class="fa fa-tasks"></i> Details:</h3> -->
-            <h2>
-              Project ID: {{selectedProject.id}}
-              Description: {{selectedProject.description}}<br>
-            </h2>
+            <p>
+              Project #: {{selectedProject.id}} - {{selectedProject.description}}<br>
+              Status: {{selectedProject.status}}
+            </p>
 
             <div class="project-item border-top">
               <h3><i class="fa fa-address-card"></i> Employees Assigned:</h3>
@@ -358,17 +367,7 @@
               Loading...
             </div>
 
-            <div id="action" class="text-center mt-3">
 
-
-              <button (click)="resetForm();" class="btn btn-success btn-rounded" data-target="#form-modal-invoice" data-toggle="modal"><i
-                class="far fa-plus-square"></i>Add Invoice
-              </button>
-
-              <button (click)="resetForm();" class="btn btn-success btn-rounded" data-target="#form-modal-po" data-toggle="modal"><i
-                class="far fa-plus-square"></i>Add PO
-              </button>
-            </div>
 
           </div>
 

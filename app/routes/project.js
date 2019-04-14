@@ -226,7 +226,7 @@ router.delete('/po/:id', async function (req, res) {
     // console.log('delete invoice');
     // console.log(req.params.id);
 
-    filter = {"purcahseOrder._id": ObjectId(req.params.id)};
+    filter = {"purchaseOrder._id": ObjectId(req.params.id)};
 
     Project.updateOne(filter,
         { $pull: {"purchaseOrder": {_id: ObjectId(req.params.id)} } },
