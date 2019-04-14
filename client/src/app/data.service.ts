@@ -8,8 +8,7 @@ import { ConfigService} from "./config.service";
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import {PurchaseOrder} from "./purchaseOrder";
-
-;
+import { Task } from './task';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -139,7 +138,13 @@ removeEmployeesProject(id: Number, user: user?){
     return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editPurchaseOrder", purchaseOrder, {withCredentials: true})
   }
 
+  /////////////////////
+  //delete po
 
+  deletePo(poNum: Number){
+    //console.log(this.baseUrl + this.PROJECT_URL + "po/" + poNum);
+    return this.httpClient.delete(this.baseUrl + this.PROJECT_URL + "po/" + poNum, {withCredentials: true})
+  }
 
   /////////////////////
   //Add Invoice to Project
@@ -166,13 +171,35 @@ removeEmployeesProject(id: Number, user: user?){
     return this.httpClient.delete(this.baseUrl + this.PROJECT_URL + "invoice/" + invoiceNum, {withCredentials: true})
   }
 
+
+
+  /////////////////////
+  //Add Task to Project
+  newTask(id: Number, task: Task ){
+    //console.log(this.baseUrl + this.PROJECT_URL + "addInvoice");
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "addTask", task, {withCredentials: true})
+  }
+
+  /////////////////////
+  //edit invoice
+
+  editTask(task: Task ){
+
+    //console.log(this.baseUrl + this.PROJECT_URL + "addInvoice");
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editTask", task, {withCredentials: true})
+  }
+
+
   /////////////////////
   //delete invoice
 
-  deletePo(poNum: Number){
-    //console.log(this.baseUrl + this.PROJECT_URL + "po/" + poNum);
-    return this.httpClient.delete(this.baseUrl + this.PROJECT_URL + "po/" + poNum, {withCredentials: true})
+  deleteTask(taskNum: Number){
+    //console.log(this.baseUrl + this.PROJECT_URL + "invoice/" + invoiceNum);
+    return this.httpClient.delete(this.baseUrl + this.PROJECT_URL + "task/" + taskNum, {withCredentials: true})
   }
+
+
+
 
   /////////////////////
   //Log the user in

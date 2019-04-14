@@ -151,6 +151,17 @@ router.put('/editInvoice', async (req, res) => {
                 'status': req.body.status,
                 'totalCost': req.body.totalCost
             }
+        },
+        (err, response) => {
+
+            if (!err) {
+                let message = {status: 'Success', message: "Invoice Edited"};
+                res.json(message);
+
+            } else {
+                let message = {status: 'Error', message: "There was an issue editing the invoice"};
+                res.status(400).json(message);
+            }
         })
 
 });
@@ -175,10 +186,21 @@ router.put('/addInvoice', async (req, res) => {
                 }
             }
 
+        },
+        (err, response) => {
+
+            if (!err) {
+                let message = {status: 'Success', message: "Invoice Added"};
+                res.json(message);
+
+            } else {
+                let message = {status: 'Error', message: "There was an issue adding the Invoice"};
+                res.status(400).json(message);
+            }
         });
 
-    console.log(project);
-    res.send(project);
+    //console.log(project);
+    //res.send(project);
 
 });
 
@@ -199,9 +221,20 @@ router.put('/addPurchaseOrder',  async (req, res) => {
                 }
             }
 
+        },
+        (err, response) => {
+
+            if (!err) {
+                let message = {status: 'Success', message: "PO Added"};
+                res.json(message);
+
+            } else {
+                let message = {status: 'Error', message: "There was an issue adding the PO:"};
+                res.status(400).json(message);
+            }
         });
 
-    res.send(project);
+    //res.send(project);
 
 });
 
@@ -215,12 +248,23 @@ router.put('/editPurchaseOrder', async (req, res) => {
                 "seller":req.body.buyer,
                 'status': req.body.status,
                 'totalCost': req.body.totalCost
-            }})
+            }},
+        (err, response) => {
+
+            if (!err) {
+                let message = {status: 'Success', message: "PO Edited"};
+                res.json(message);
+
+            } else {
+                let message = {status: 'Error', message: "There was an issue editing the PO:"};
+                res.status(400).json(message);
+            }
+        })
 
 });
 
 ////////////////////////////
-//delete Invoice
+//delete po
 router.delete('/po/:id', async function (req, res) {
 
     // console.log('delete invoice');
@@ -238,6 +282,92 @@ router.delete('/po/:id', async function (req, res) {
 
             } else {
                 let message = {status: 'Error', message: "There was an issue deleting the po:"};
+                res.status(400).json(message);
+            }
+        });
+});
+
+
+///////////////////////////
+//add task
+router.put('/addTask',  async (req, res) => {
+
+    console.log('add task');
+    console.log(req.body);
+
+    const task = await Project.findByIdAndUpdate(req.body.projectId,
+        {
+            $push:{
+                tasks:{
+                    description: req.body.description,
+                    taskDate: req.body.invoiceDate,
+                    dateCreated: req.body.dateCreated,
+                    status: req.body.status,
+                    time: req.body.time,
+                    employee: req.body.employee
+                }
+            }
+        },
+        (err, response) => {
+
+            console.log(response);
+            if (!err) {
+                let message = {status: 'Success', message: "Task Added"};
+                res.json(message);
+
+            } else {
+                console.log(err);
+                let message = {status: 'Error', message: "There was an issue adding the task:"};
+                res.status(400).json(message);
+            }
+        });
+
+    //res.send(task);
+
+});
+
+//////////////////////////////////////////////////
+//////edit task
+router.put('/editTask', async (req, res) => {
+//todo add error handling
+    Project.findOneAndUpdate(
+        { _id: req.body.projectId, 'task._id': req.body._id },{
+            $set: { 'description': req.body.description,
+                'status': req.body.status,
+                'time': req.body.time,
+                'employee': req.body.employee
+            }},
+        (err, response) => {
+            if (!err) {
+                let message = {status: 'Success', message: "Task Edited"};
+                res.json(message);
+
+            } else {
+                let message = {status: 'Error', message: "There was an issue editing the task:"};
+                res.status(400).json(message);
+            }
+        })
+
+});
+
+////////////////////////////
+//delete po
+router.delete('/task/:id', async function (req, res) {
+
+    // console.log('delete invoice');
+    // console.log(req.params.id);
+
+    filter = {"task._id": ObjectId(req.params.id)};
+
+    Project.updateOne(filter,
+        { $pull: {"task": {_id: ObjectId(req.params.id)} } },
+        (err, response) => {
+            if (!err) {
+                let message = {status: 'Success', message: "Task Deleted"};
+                res.json(message);
+
+            } else {
+                let message = {status: 'Error', message: "There was an issue deleting the task:"};
                 res.status(400).json(message);
             }
         });

@@ -45,10 +45,49 @@ const invoiceSchema = new Schema({
     notes:{
         type: String
     }
-
-
 });
 
+
+const taskSchema = new Schema({
+
+//id field is created by Auto-increment, starts at 1 for all documents put in.
+    description: {
+        minlength: 2,
+        maxlength: 255,
+        type: String,
+        required: true
+    },
+
+    taskDate:{
+        type: Date,
+        required: false,
+        defualt: Date.now
+    },
+
+    dateCreated: {
+        type: Date,
+        required: false,
+        default: Date.now
+    },
+
+    status: {
+        type: String,
+        required: true,
+        default: "In Progress"
+    },
+
+    time:{
+        type: Number,
+        required: true,
+        default: 0
+    },
+
+    employee:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
+    }
+
+});
 
 
 const purchaseOrderSchema = new Schema({
@@ -93,11 +132,7 @@ const purchaseOrderSchema = new Schema({
         type: String
     }
 
-
 });
-
-
-
 
 const Project = new Schema({
 
@@ -124,7 +159,6 @@ const Project = new Schema({
       type: String
     },
 
-
     projectManager:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users'
@@ -132,41 +166,12 @@ const Project = new Schema({
 
     invoice: [invoiceSchema],
 
-    purchaseOrder: [purchaseOrderSchema]
+    purchaseOrder: [purchaseOrderSchema],
 
-
+    task: [taskSchema],
 
 
 });
-
-
-
-
-async function addEmployee(projectId, employeeID){
-    const project= await Project.findById(projectId);
-    project.employees.push(employeeID);
-    project.save();
-}
-
-async function removeEmployee(projectId, employeeID){
-    const project= await Project.findById(projectId);
-    const employee = project.employees.id(employeeID);
-    employee.remove();
-    project.save();
-}
-
-async function addPurchaseOrder(projectId, employeeID){
-
-}
-
-async function removePurchaseOrder(projectId, employeeID){
-
-}
-
-async function addPurchaseOrder(projectId, employeeID){
-
-}
-
 
 Project.plugin(AutoIncrement, {inc_field: 'id'});
 

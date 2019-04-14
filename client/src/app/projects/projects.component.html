@@ -92,50 +92,83 @@
 </div>
 <!-- End of Modal for Projects-->
 
-
-<!-- Modal For Adding Employees
-<div aria-hidden="true" aria-labelledby="formModalInvoice" class="modal fade" id="form-modal-employee" role="dialog"
+<!-- Modal For Invoice-->
+<div aria-hidden="true" aria-labelledby="formModalInvoice" class="modal fade" id="form-modal-task" role="dialog"
      tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalTitle">Add Employees</h5>
+        <h5 class="modal-title" id="modalTitle_task">Task</h5>
         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form id="project-form" method="post" name="project-form">
+        <form id="task-form" method="post" name="project-form">
           <fieldset>
-            <legend>Add Employee:</legend>
+            <legend>Task:</legend>
 
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">Employees</div>
+                  <div class="input-group-text">Status</div>
                 </div>
-                <select class="custom-select" id="employeeDropDown" multiple="multiple" name="form_status">
-
+                <select [(ngModel)]="task.status" class="custom-select" id="task_status" name="form_status">
+                  <option value="In Progress">In Progress</option>
+                  <option value="Complete">Complete</option>
+                  <option value="Cancelled">Cancelled</option>
+                  <option value="Closed">Closed</option>
                 </select>
               </div>
             </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Description</div>
+                </div>
+                <input [(ngModel)]="task.description" class="form-control" id="description_task" name="description_Invoice"
+                       placeholder="description" type="text">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Employee</div>
+                </div>
+                <select [(ngModel)]="task.employee" class="custom-select" id="employeeDropDown3" name="form_status">
+                  <!-- Put list of employees here here -->
+                  <option *ngFor="let e of users" [value]="e._id">{{e.username}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Total Hours</div>
+                </div>
+                <input [(ngModel)]="task.time" class="form-control" id="total_time" name="Total Hours"
+                       placeholder="Enter Cost" type="text">
+              </div>
+            </div>
+
           </fieldset>
         </form>
       </div>
       <div class="modal-footer">
-        <button (click)="submitFormEmployee()" type="button" class="btn btn-primary" id="submit-invoice-add"
+        <button (click)="submitFormTask()" type="button" class="btn btn-primary" id="submit-task-add"
                 name="submit">Submit
         </button>
-        <button (click)="this.displayForm = false;" class="btn btn-secondary" id="btn-cancel" data-dismiss="modal"
+        <button (click)="displayForm = false;" class="btn btn-secondary" id="btn-cancel_task" data-dismiss="modal"
                 type="button">Cancel
         </button>
       </div>
     </div>
   </div>
 </div>
--->
-<!-- End of Modal for Employees-->
-
+<!-- End of Modal for Task-->
 
 <!-- Modal For Invoice-->
 <div aria-hidden="true" aria-labelledby="formModalInvoice" class="modal fade" id="form-modal-invoice" role="dialog"
@@ -327,6 +360,11 @@
         <div class="col-md-8 project-details">
           <h2 class="detail-text">Project Details</h2>
           <div id="action" class="text-center mt-3">
+
+            <button (click)="resetForm();" class="btn btn-success btn-rounded" data-target="#form-modal-task" data-toggle="modal"><i
+              class="far fa-plus-square"></i>Add Tasks
+            </button>
+
             <button (click)="resetForm();" class="btn btn-success btn-rounded" data-target="#form-modal-invoice" data-toggle="modal"><i
               class="far fa-plus-square"></i>Add Invoice
             </button>
@@ -348,6 +386,14 @@
             </div>
 
             <div id="employee-summary" class="container-scrollable" style="max-height: 70%;">
+              Loading...
+            </div>
+
+            <div class="project-item border-top">
+              <h3><i class="fa fa-file-invoice"></i> Tasks:</h3>
+            </div>
+
+            <div id="task-summary" class="container-scrollable" style="max-height: 70%;">
               Loading...
             </div>
 

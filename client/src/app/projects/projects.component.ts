@@ -4,6 +4,7 @@ import {TableService} from "../table.service";
 import {Project} from "../project";
 import {DataService} from "../data.service";
 import {Invoice} from "../invoice";
+import {Task} from "../task";
 import {User} from "../user";
 import {ConfigService} from "../config.service";
 import {PurchaseOrder} from "../purchaseOrder";
@@ -25,6 +26,7 @@ export class ProjectsComponent implements OnInit {
   displayUsers = new Array();
   displayForm: boolean = false;
   invoice: Invoice;
+  task: Task;
   purchaseOrder: PurchaseOrder;
   DEBUG: boolean = true;
   data: any = {};
@@ -37,6 +39,7 @@ export class ProjectsComponent implements OnInit {
     this.selectedProject = <Project>{};
     this.invoice = <Invoice>{};
     this.purchaseOrder =<PurchaseOrder>{};
+    this.task = <Task>{};
 
   }
 
@@ -44,6 +47,7 @@ export class ProjectsComponent implements OnInit {
     this.project = new Project;
     this.invoice = new Invoice;
     this.purchaseOrder = new PurchaseOrder;
+    this.task = new Task;
     //update the table
     this.updateTable();
     this.employeesDisplay();
@@ -57,6 +61,7 @@ export class ProjectsComponent implements OnInit {
     this.project = new Project();
     this.invoice = new Invoice();
     this.purchaseOrder = new PurchaseOrder();
+    this.task = new Task();
   }
 
   /////////////////////////
@@ -66,7 +71,6 @@ export class ProjectsComponent implements OnInit {
 
     this.selectedProject = this.projects[index];
     this.displayUsers.length = 0; //reset the array lol this is an interesting way to code this.
-
 
     if(this.selectedProject.employees.length !== undefined) {
       //array to popualte displayUsers
@@ -83,8 +87,6 @@ export class ProjectsComponent implements OnInit {
     }
 
     this.displayTable2();
-    //TODO Enable this when project rooms are ready.
-    //this.chatService.changeProject(this.selectedProject.id);
   }
 
 
@@ -169,9 +171,6 @@ export class ProjectsComponent implements OnInit {
     let html = TableService.tableHtml(this.projects, {'id': 'ID', 'description': 'Description'}, true, true);
     $('#table-summary').html(html);
 
-    //console.log(this.projects);
-    //console.log(this.users);
-    //setup listeners for the icons on the table
     this.setupDeleteListener();
     this.setupRowListener();
     this.setupEditListener();
@@ -188,8 +187,18 @@ export class ProjectsComponent implements OnInit {
     html = TableService.tableHtml(this.displayUsers, {'username': 'User Name', 'name_first' : 'First Name', 'name_last': 'Last Name', 'email': 'Email'}, false, false);
     $('#employee-summary').html(html);
 
+    html = TableService.tableHtml(this.selectedProject.tasks, {'description': 'Description', 'status' : 'Status', 'totalTime' : 'totalTime'}, true, true);
+    $('#task-summary').html(html);
+
     html = TableService.tableHtml(this.selectedProject.purchaseOrder, {'status' : 'Status', 'description': 'Description', 'dateCreated': 'Invoice Date', 'totalCost' : 'totalCost', 'buyer' : "Buyer"}, true, true);
     $('#purchase-summary').html(html);
+
+    $('#task-summary a.btn-edit').on('click', event => {
+      event.preventDefault();
+
+      $('#form-modal-task').modal('show');
+
+    });
 
     $('#invoice-summary a.btn-edit').on('click', event => {
       event.preventDefault();
@@ -215,6 +224,20 @@ export class ProjectsComponent implements OnInit {
       if (rowId != null) {
         rowId = rowId.match(regex)[0];
         this.invoice = this.selectedProject.invoice[rowId];
+      }
+
+    });
+
+    //listen to the task rows
+    $('#task-summary tr').on('mouseover', event => {
+
+      let rowId = event.currentTarget.id;
+      let regex = /[^R]+$/; //matches everything after the last / to get the id
+
+      //needed for edit function.
+      if (rowId != null) {
+        rowId = rowId.match(regex)[0];
+        this.task = this.selectedProject.tasks[rowId];
       }
 
     });
@@ -248,6 +271,35 @@ export class ProjectsComponent implements OnInit {
         id = id.match(regex);
 
         this.dataService.deleteInvoice(id[0]).subscribe((res: any) => {
+
+            let status = `<strong>${res.status}</strong> - ${res.message}`;
+            $("#status").html(status).attr('class', 'alert alert-success');
+
+          },
+          (res: any) => {
+            let status = `<strong>${res.status}</strong> - ${res.message}`;
+            $("#status").html(status).attr('class', 'alert alert-danger');
+          },
+          () => {
+            console.log("[Deletion complete]");
+            this.updateTable();
+          });
+      }
+    });
+
+    //delete task
+    $('#task-summary a.btn-delete').on('click', event => {
+      event.preventDefault();
+
+      let isConfirmed = confirm('Delete This Task?');
+
+      if (isConfirmed) {
+
+        let id = event.currentTarget.href;
+        let regex = /[^/]+$/; //matches everything after the last / to get the id
+        id = id.match(regex);
+
+        this.dataService.deleteTask(id[0]).subscribe((res: any) => {
 
             let status = `<strong>${res.status}</strong> - ${res.message}`;
             $("#status").html(status).attr('class', 'alert alert-success');
@@ -383,6 +435,7 @@ export class ProjectsComponent implements OnInit {
         'dateCreated': dateCreated,
         'invoice': [],
         'purchaseOrder': [],
+        'tasks': [],
 
       };
 
@@ -503,16 +556,87 @@ export class ProjectsComponent implements OnInit {
 
 
   /**
-   * Submits the invoice form
+   * Submits the task form
+   */
+  submitFormTask(): void {
+
+    console.log ('submit task');
+
+    $("#form-modal-task").modal("hide");
+
+    let proj_id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
+    let status = this.task.status;
+    let description = this.task.description;
+    let taskTime = this.task.time;
+    let employee = this.task.employee;
+    //@ts-ignore
+    let id = this.task._id;
+
+    console.log(this.task);
+    if (id != null) {
+      this.invoice.projectId = proj_id; // this is used to pass over the project that the invoice is associated with.
+
+      this.dataService.editTask(this.task).subscribe(
+        (res: any) => {
+          let status = `<strong>${res.status}</strong> - ${res.message}`;
+          $("#status").html(status).attr('class', 'alert alert-success');},
+        (err: any) => {
+          this.resetForm();
+          //display error message in status
+          let status = `<strong>${err.status}</strong> - ${err.message}`;
+          $("#status").html(status).attr('class', 'alert alert-danger');
+        },
+        () => {
+          this.resetForm();
+          $("#form-modal-task").modal("hide");
+          this.updateTable();
+        }
+      );
+    } else{
+
+      let newTask: Task = {
+        'projectId' : proj_id,
+        'status': status,
+        'description' : description,
+        'time': taskTime,
+        'employee': employee
+
+      };
+
+      this.dataService.newTask(id,newTask).subscribe(
+        (res: any) => {
+          let status = `<strong>${res.status}</strong> - ${res.message}`;
+          $("#status").html(status).attr('class', 'alert alert-success');},
+        (err: any) => {
+          this.resetForm();
+          //display error message in status
+          let status = `<strong>${err.status}</strong> - ${err.message}`;
+          $("#status").html(status).attr('class', 'alert alert-danger');
+        },
+        () => {
+          $("#form-modal-task").modal("hide");
+          this.resetForm();
+          this.updateTable();
+
+        }
+      );
+
+    }
+  }
+
+
+
+  /**
+   * Submits the po form
    */
 
   submitFormPo(): void {
 
-    //console.log('submit form po');
+    console.log('submit form po');
     $("#form-modal").modal("hide");
 
     let proj_id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
-    let status = "Paid";
+    let status = this.purchaseOrder.status;
     let description = this.purchaseOrder.description;
     let totalCost = this.purchaseOrder.totalCost;
     let buyer = this.purchaseOrder.buyer;
