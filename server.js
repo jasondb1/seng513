@@ -19,7 +19,6 @@ const morgan = require('morgan');                 //a logger
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');//allows put and delete in some places it is not allowed
-const io = require('socket.io')(server);          //for realtime communication
 const cors = require('cors');
 const path = require('path');
 const index = require('./app/routes/index');
@@ -27,6 +26,8 @@ const auth = require('./app/routes/auth');
 const project = require('./app/routes/project');  //used for creating, retrieving, updating and deleting
 const invoice = require('./app/routes/invoice');  //used for creating, retrieving, updating and deleting
 const Chatkit = require('@pusher/chatkit-server');
+const expressSession = require('express-session');
+//const FileStore = require('session-file-store')(expressSession);
 
 const port = 3000;
 
@@ -52,19 +53,42 @@ mongoose.connection.on('error', (err) => {
 
 //stack ===========
 app.use(express.static(path.join(__dirname, '/public')));
-app.use(cors()); // Use this after the variable declaration
-app.use(morgan('dev'));
 app.use(cookieParser());
+app.use(expressSession({
+    secret: 'rotten fish',
+    resave: true,
+    saveUninitialized: false,
+    cookie: { maxAge: 3600000, secure: false, httpOnly: false }
+}));
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(methodOverride());
-app.use(require('express-session')({
-    secret: 'rotten fish',
-    resave: false,
-    saveUninitialized: false
-}));
+app.use(cors({credentials: true})); // Use this after the variable declaration
+app.use(morgan('dev'));
 app.use(passport.initialize());
 app.use(passport.session());
+
+// passport config
+var Account = require('./app/models/users');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+
+// app.use(function(req, res, next) {
+//     //res.header('Access-Control-Allow-Origin', req.headers.origin);
+//     //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
+
+// app.use((req, res, next) =>
+// {
+//     console.log("debug:");
+//     console.log(req.session.id);
+//     console.log(req.cookies);
+//     next();
+// });
+
 
 
 //routes ===========
@@ -73,18 +97,9 @@ app.use('/api/auth', auth);
 app.use('/api/project', project);
 app.use('/api/invoice', invoice);
 
-// passport config
-var Account = require('./app/models/users');
-passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
-
-//routing 
+//chatkit routing
 app.post('/users', (req, res) => {
     const { username } = req.body;
-
-    console.log(req.body);
-
     chatkit
         .createUser({
             id: username,
@@ -112,7 +127,6 @@ app.post('/authenticate', (req, res) => {
 ////////////
 // start chat-server
 app.set('port', process.env.port || 5200);
-//app.set('port', 3000);
 const serv = app.listen(app.get('port'), () => {
     console.log(`express running → port ${serv.address().port}`);
 });
