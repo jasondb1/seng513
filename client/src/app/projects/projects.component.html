@@ -31,12 +31,12 @@
               <div class="input-group-prepend">
                 <div class="input-group-text">Status</div>
               </div>
-              <select class="custom-select" id="form_status" name="form_status">
-                <option value="wip">In Progress</option>
-                <option value="completed">Completed</option>
-                <option value="cancelled">Cancelled</option>
-                <option value="closed">Closed</option>
-              </select>
+                <select [(ngModel)]="this.project.status" class="custom-select" id="project_status" name="form_status">
+                   <option value="wip">In Progress</option>
+                   <option value="completed">Completed</option>
+                   <option value="cancelled">Cancelled</option>
+                   <option value="closed">Closed</option>
+                 </select>
             </div>
 
             <div class="form-group">
@@ -93,13 +93,13 @@
 <!-- End of Modal for Projects-->
 
 
-<!-- Modal For Adding Invoices-->
+<!-- Modal For Adding Employees-->
 <div aria-hidden="true" aria-labelledby="formModalInvoice" class="modal fade" id="form-modal-employee" role="dialog"
      tabindex="-1">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalTitle">Add Invoice</h5>
+        <h5 class="modal-title" id="modalTitle">Add Employees</h5>
         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -155,7 +155,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text">Status</div>
               </div>
-              <select class="custom-select" id="form_status" name="form_status">
+             <select [(ngModel)]="this.invoice.status" class="custom-select" id="invoice_status" name="form_status">
                 <option value="wip">In Progress</option>
                 <option value="completed">Completed</option>
                 <option value="cancelled">Cancelled</option>
@@ -163,26 +163,37 @@
               </select>
             </div>
 
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                     <div class="input-group-text">Description</div>
-                  </div>
-                    <input [(ngModel)]="this.invoice.description" class="form-control" id="description" name="description"
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Description</div>
+                </div>
+                <input [(ngModel)]="this.invoice.description" class="form-control" id="description_invoice" name="description_Invoice"
                        placeholder="description" type="text">
-                </div>
-              </div>`
+              </div>
+            </div>
 
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                     <div class="input-group-text">Invoice Date</div>
-                  </div>
-                    <label for="Invoice_Date">Invoice Date</label><input [(ngModel)]="this.invoice.invoiceDate" type="date" id="start" name="Invoice_Date"
-                           value="2019-04-07"
-                           min="2018-01-01" max="2020-12-31">
-                </div>
-              </div>`
+          <form method="post">
+            <div class="form-group"> <!-- Date input -->
+            <div class="input-group">
+             <div class="input-group-prepend">
+             <div class="input-group-text">Date</div>
+             </div>
+              <div class="input-group date">
+                <input [(ngModel)] = "this.invoice.invoiceDate" type="date" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th" id = "ducky" ></i></span>
+              </div>
+
+
+           </div>
+           </div>
+           </form>
+
+          <script>    $('#ducky .input-group.date').datepicker({
+               keyboardNavigation: false,
+               forceParse: false
+             });</script>
+
+
 
               <div class="form-group">
                     <div class="input-group">

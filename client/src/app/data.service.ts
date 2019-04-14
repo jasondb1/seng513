@@ -82,6 +82,14 @@ export class DataService {
   }
 
   /////////////////////
+  //edidProject ()
+
+  editProject(project: Project) {
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editProject", project);
+  }
+
+
+  /////////////////////
   //Add Employees to Project
 
   updateProjects(id: Number, project: Project){
@@ -123,6 +131,12 @@ removeEmployeesProject(id: Number, user: user?){
 
   /////////////////////
   //Add Work Order to Project
+
+  editInvoice(invoice: Invoice ){
+
+    console.log(this.baseUrl + this.PROJECT_URL + "addInvoice");
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editInvoice", invoice)
+  }
 
 
 

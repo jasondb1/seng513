@@ -36,7 +36,8 @@ router.post('/', function(req, res){
         id: req.body.id,
         dateCreated: req.body.dateCreated,
         employees: req.body.employees,
-        projectManager: req.body.projectManager
+        projectManager: req.body.projectManager,
+        status: req.body.status
     });
 
     //save into database
@@ -75,14 +76,57 @@ router.delete('/:id', function(req, res) {
     //TODO: Implement this method
     res.send('Need to fully implement this');
     Project.remove({_id: req.params.id}, (err, result) => {
-        if(err) {
-            res.json(err);
-        }
-        else {
-            res.json(result);
+        if (err) {
+            let message = {status: 'Error', message: ("There was a problem deleting the project - " + err)};
+            res.json(message);
+        } else {
+            let message = {status: 'Success', message: "Project Deleted"};
+            res.json(message);
         }
     });
 });
+
+
+//////edit Project
+router.put('/editProject', async (req, res) => {
+
+    //update the project
+    Project.findOneAndUpdate({_id: req.body._id}, {$set: req.body}, {new: true, runValidators: true},
+        (err, response) => {
+
+            if (!err) {
+                let message = {status: 'Success', message: "Project Edited"};
+               res.json(message);
+
+            } else {
+                let message = {status: 'Error', message: "There was an issue editing the Project"};
+                res.status(400).json(message);
+            }
+        });
+});
+
+
+
+//////edit invoice
+router.put('/editInvoice', async (req, res) => {
+
+    //update the project
+    Project.findOneAndUpdate({_id: req.body._id}, {$set: req.body}, {new: true, runValidators: true},
+        (err, response) => {
+
+            if (!err) {
+                let message = {status: 'Success', message: "Project Edited"};
+                res.json(message);
+
+            } else {
+                let message = {status: 'Error', message: "There was an issue editing the Project"};
+                res.status(400).json(message);
+            }
+        });
+});
+
+
+
 
 /*//update project description/status
 router.put('/:id/', function(req, res) {

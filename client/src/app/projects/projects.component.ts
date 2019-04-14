@@ -20,7 +20,8 @@ export class ProjectsComponent implements OnInit {
   project: Project;
   selectedProject: Project;
   projects: Project[];
-  users: [];
+  users: User[];
+  displayUsers = new Array();
   displayForm: boolean = false;
   invoice: Invoice;
   DEBUG: boolean = true;
@@ -32,6 +33,7 @@ export class ProjectsComponent implements OnInit {
     this.project = <Project>{};
     this.selectedProject = <Project>{};
     this.invoice = <Invoice>{};
+
   }
 
   ngOnInit() {
@@ -59,6 +61,21 @@ export class ProjectsComponent implements OnInit {
   displaySelected(index){
 
     this.selectedProject = this.projects[index];
+    //console.log(this.selectedProject.employees);
+    this.displayUsers.length = 0; //reset the array lol this is an interesting way to code this.
+
+    //array to popualte displayUsers
+    let count = 0;
+    for(let i = 0; i<this.selectedProject.employees.length; i++){
+      for(let j = 0; j<this.users.length; j++){
+        if(this.selectedProject.employees[i] === this.users[j]._id){
+          this.displayUsers.push(this.users[j]);
+          count++;
+          break;
+        }
+      }
+    }
+    console.log(this.displayUsers);
 
     //console.log(this.users['_id'].indexOf(this.projects[index].employees));
     this.displayTable2();
@@ -84,18 +101,6 @@ export class ProjectsComponent implements OnInit {
 
     });
 
-    $('#invoice-summary tr').on('mouseover', event => {
-
-      let rowId = event.currentTarget.id;
-      let regex = /[^R]+$/; //matches everything after the last / to get the id
-
-      //needed for edit function.
-      if (rowId !== null) {
-        rowId = rowId.match(regex)[0];
-        this.invoice = this.selectedProject.invoice[rowId];
-      }
-
-    });
 
   }
 
@@ -151,19 +156,41 @@ export class ProjectsComponent implements OnInit {
 
     });
 
-    $('#employee-summary a.btn-edit').on('click', event => {
-      event.preventDefault();
+
+  };
 
 
-      $('#form-modal-employee').modal('show');
+  ////////////////
+  // displayTable()
 
-    });
+  displayTable(): void {
+    let html = TableService.tableHtml(this.projects, {'id': 'ID', 'description': 'Description'}, true, true);
+    $('#table-summary').html(html);
+
+
+
+    console.log(this.projects);
+    console.log(this.users);
+    //setup listeners for the icons on the table
+    this.setupDeleteListener();
+    this.setupRowListener();
+    this.setupEditListener();
+
+  }
+
+  displayTable2(): void {
+
+    let html = TableService.tableHtml(this.selectedProject.invoice, {'status' : 'Status', 'description': 'Description', 'invoiceDate': 'Invoice Date', 'totalCost' : 'totalCost', 'seller' : "Seller"}, true, true);
+    $('#invoice-summary').html(html);
+
+    html = TableService.tableHtml(this.displayUsers, {'name_first' : 'First Name', 'name_last': 'Last Name', 'email': 'Email'}, false, false);
+    $('#employee-summary').html(html);
 
 
     $('#invoice-summary a.btn-edit').on('click', event => {
       event.preventDefault();
 
-
+      console.log("ducky");
       $('#form-modal-invoice').modal('show');
 
     });
@@ -177,29 +204,20 @@ export class ProjectsComponent implements OnInit {
     });
 
 
+    //listen to the rows
+    $('#invoice-summary tr').on('mouseover', event => {
 
-  };
+      let rowId = event.currentTarget.id;
+      let regex = /[^R]+$/; //matches everything after the last / to get the id
 
+      //needed for edit function.
+      if (rowId !== null) {
+        rowId = rowId.match(regex)[0];
+        this.invoice = this.selectedProject.invoice[rowId];
+      }
 
-  ////////////////
-  // displayTable()
+    });
 
-  displayTable(): void {
-    let html = TableService.tableHtml(this.projects, {'id': 'ID', 'description': 'Description'}, true, true);
-    $('#table-summary').html(html);
-
-    console.log(this.projects);
-    //setup listeners for the icons on the table
-    this.setupDeleteListener();
-    this.setupRowListener();
-    this.setupEditListener();
-
-  }
-
-  displayTable2(): void {
-
-    let html = TableService.tableHtml(this.selectedProject.invoice, {'status' : 'Status', 'description': 'Description', 'invoiceDate': 'Invoice Date', 'totalCost' : 'totalCost'}, true, true);
-    $('#invoice-summary').html(html);
 
   }
 
@@ -209,6 +227,8 @@ export class ProjectsComponent implements OnInit {
   // updateTable()
 
   updateTable(): void {
+
+
 
     console.log("[Get Projects]");
     this.dataService.getProjects()
@@ -239,60 +259,97 @@ export class ProjectsComponent implements OnInit {
 
     this.displayForm = false;
 
-    //TODO: add functionality and change action when project is being edited instead of created.
+    //TODO: add functionality and change action when project is bei`ng edited instead of created.
     if (this.DEBUG) {
       console.log("Submit Button Pressed");
     }
 
+
+
     //2 way data-binding
+    let _id = this.project._id;
     let description: string = this.project.description;
     let projectManager: string = this.project.projectManager;
     let employees: User[] = this.project.employees;
+    let status: string = this.project.status;
+
+    //Edit an existing Project
+    if (_id != null) {
+      this.selectedProject.description = description;
+      this.selectedProject.projectManager = projectManager;
+      this.selectedProject.employees = employees;
+      this.selectedProject.status = status;
+
+
+      //submit the data to the database via the dataService
+      this.dataService.editProject(this.selectedProject).subscribe(
+        (res: any) => {
+          let status = `<strong>${res.status}</strong> - ${res.message}`;
+          $("#status").html(status).attr('class', 'alert alert-success');
+        },
+        (err: any) => {
+
+          //display error message in status
+          let status = `<strong>${err.status}</strong> - ${err.message}`;
+          $("#status").html(status).attr('class', 'alert alert-danger');
+        },
+        () => {
+          //$("#form-modal").modal("hide");
+
+          this.updateTable();
+        }
+      );
+
+    }
+    else {
 
 
 //todo: update project status etc
 
-    let dateCreated = new Date();
+      let dateCreated = new Date();
 
-    let newProject: Project ={
-      '_id': -1,
-      'id': -1,
-      'description': description,
-      'employees': employees,
-      'projectManager': projectManager,
-      'status': null,
-      'dateCreated': dateCreated,
-      'invoice': []
+      let newProject: Project = {
+        '_id': -1,
+        'id': -1,
+        'description': description,
+        'employees': employees,
+        'projectManager': projectManager,
+        'status': status,
+        'dateCreated': dateCreated,
+        'invoice': []
 
-    };
+      };
 
-    //submit the data to the database via the dataService
-    this.dataService.newProject(newProject).subscribe(
-      (res: any) => {
-        let status = `<strong>${res.status}</strong> - ${res.message}`;
-        $("#status").html(status).attr('class', 'alert alert-success');},
-      (err: any) => {
-        this.resetForm();
-        //display error message in status
-        let status = `<strong>${err.status}</strong> - ${err.message}`;
-        $("#status").html(status).attr('class', 'alert alert-danger');
-      },
-      () => {
-        //$("#form-modal").modal("hide");
-        this.resetForm();
-        this.updateTable();
-      }
-    );
+      //submit the data to the database via the dataService
+      this.dataService.newProject(newProject).subscribe(
+        (res: any) => {
+          let status = `<strong>${res.status}</strong> - ${res.message}`;
+          $("#status").html(status).attr('class', 'alert alert-success');
+        },
+        (err: any) => {
+          this.resetForm();
+          //display error message in status
+          let status = `<strong>${err.status}</strong> - ${err.message}`;
+          $("#status").html(status).attr('class', 'alert alert-danger');
+        },
+        () => {
+          //$("#form-modal").modal("hide");
+          this.resetForm();
+          this.updateTable();
+        }
+      );
+    }
 
   }
 
   //bring in emplopyee
-   employeesDisplay(){
+  employeesDisplay(){
     this.dataService.getEmployees()
       .subscribe(
         (res: any) => {
 
           this.users = res;
+
         },
         (err) => {
           //Display error in status area
@@ -306,18 +363,18 @@ export class ProjectsComponent implements OnInit {
       );
   }
 
-    // formSetup(){
-    //   let html;
-    //   for (let i = 0; i < this.users.length; i++) {
-    //     html += '<option>';
-    //     html += this.users[i]['username'];
-    //     html += '</option>';
-    //   }
-    //
-    //
-    //   $('#employeeDropDown').html(html);
-    //   $('#employeeDropDown2').html(html);
-    // }
+  // formSetup(){
+  //   let html;
+  //   for (let i = 0; i < this.users.length; i++) {
+  //     html += '<option>';
+  //     html += this.users[i]['username'];
+  //     html += '</option>';
+  //   }
+  //
+  //
+  //   $('#employeeDropDown').html(html);
+  //   $('#employeeDropDown2').html(html);
+  // }
 
 
   submitFormEmployee(): void {
@@ -335,11 +392,37 @@ export class ProjectsComponent implements OnInit {
     let invoiceDate = this.invoice.invoiceDate;
     let totalCost = this.invoice.totalCost;
     let seller = this.invoice.seller;
-    let id = this.selectedProject.id;
+    // @ts-ignore
+    let id = this.invoice._id;
+
+    if (id != null) {
+      this.invoice.projectId = proj_id; // this is used to pass over the project that the invoice is associated with.
+
+      this.dataService.editInvoice(this.invoice).subscribe(
+        (res: any) => {
+          let status = `<strong>${res.status}</strong> - ${res.message}`;
+          $("#status").html(status).attr('class', 'alert alert-success');},
+        (err: any) => {
+          this.resetForm();
+          //display error message in status
+          let status = `<strong>${err.status}</strong> - ${err.message}`;
+          $("#status").html(status).attr('class', 'alert alert-danger');
+        },
+        () => {
+          $("#form-modal").modal("hide");
+          this.updateTable();
+        }
+      );
+
+
+    }
+    else{
+
+
 
     let newInvoice: Invoice={
       'projectId' : proj_id,
-      'status': null,
+      'status': status,
       'description' : description,
       'invoiceDate' : invoiceDate,
       'totalCost': totalCost,
@@ -363,6 +446,8 @@ export class ProjectsComponent implements OnInit {
         this.updateTable();
       }
     );
+
+    }
   }
 
   submitFormPO(): void {
