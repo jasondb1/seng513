@@ -83,9 +83,7 @@ router.get('/:user/', async (req, res) => {
             console.log(projects);
             res.send(projects);
         }
-
     });
-
 });
 
 

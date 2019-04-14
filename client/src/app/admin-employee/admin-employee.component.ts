@@ -101,7 +101,7 @@ export class AdminEmployeeComponent implements OnInit {
             $("#status").html(status).attr('class', 'alert alert-danger');
           },
           () => {
-            console.log("[Deletion complete]");
+            //console.log("[Deletion complete]");
             this.updateTable();
           });
       }

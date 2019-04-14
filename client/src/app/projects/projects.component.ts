@@ -76,7 +76,7 @@ export class ProjectsComponent implements OnInit {
         }
       }
     }
-    console.log(this.displayUsers);
+    //console.log(this.displayUsers);
 
     //console.log(this.users['_id'].indexOf(this.projects[index].employees));
     this.displayTable2();
