@@ -24,7 +24,7 @@
     <a (click)="displayMenu = false;" class="closebtn" href="javascript:void(0)">&times;</a>
     <a (click)="displayMenu = false;" routerLink="/projects"><i class="fa fa-2x fa-fw fa-archive"></i>Projects</a>
     <hr class="white">
-    <a *ngIf="displayAdmin" (click)="displayMenu = false;" routerLink="/admin"><i class="fa fa-2x fa-fw fa-user-ninja"></i>Admin</a>
+    <a *ngIf="configService.isAdmin" (click)="displayMenu = false;" routerLink="/admin"><i class="fa fa-2x fa-fw fa-user-ninja"></i>Admin</a>
     <hr class="white">
     <a (click)="displayMenu = false;" routerLink="/login"><i class="fa fa-2x fa-fw fa-sign-out-alt"></i>Logout</a>
   </nav>

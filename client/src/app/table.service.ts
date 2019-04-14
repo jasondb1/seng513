@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ConfigService } from "./config.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TableService {
 
-  constructor() {  }
+  constructor() { }
 
   /*
 *  Outputs table HTML
@@ -66,7 +65,7 @@ export class TableService {
         html += '<td><a class="btn-edit" href="'+ data_json[i]['_id'] + '" ><span style="color:#092;">\n' +
           '    <i style="color:#90C048;" class="fa fa-edit fa-lg fa-fw"></i></span></a></td>';
 
-      if (delColumn && ConfigService.isAdmin)
+      if (delColumn)
         html += '<td><a class="btn-delete" href="' + data_json[i]['_id'] + '"><span\n' +
           '    style="color:#f00;">\n' +
           '    <i style="color:#ED4337;" class="fa fa-trash-alt fa-fw"></i></span></a></td>';
