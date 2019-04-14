@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../config.service';
+import { DataService} from "../data.service";
 
 @Component({
   selector: 'app-header',
@@ -11,8 +12,14 @@ export class HeaderComponent implements OnInit {
   displayMenu: boolean;
   displayAdmin: boolean;
 
-  constructor(private configService: ConfigService) {
+  constructor(private configService: ConfigService,
+              private dataService: DataService) {
     this.displayAdmin = ConfigService.isAdmin;
+
+  }
+
+  logOut(): void {
+    this.dataService.logOut();
   }
 
   //Toggles the chat box on the side

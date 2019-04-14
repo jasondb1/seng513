@@ -26,6 +26,6 @@
     <hr class="white">
     <a  *ngIf="displayAdmin" (click)="displayMenu = false;" routerLink="/admin"><i class="fa fa-2x fa-fw fa-user-ninja"></i>Admin</a>
     <hr class="white">
-    <a (click)="displayMenu = false;" routerLink="/login"><i class="fa fa-2x fa-fw fa-sign-out-alt"></i>Logout</a>
+    <a (click)="displayMenu = false; logOut();" routerLink="/login"><i class="fa fa-2x fa-fw fa-sign-out-alt"></i>Logout</a>
   </nav>
 </div>

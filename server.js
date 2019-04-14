@@ -17,17 +17,16 @@ const server = require('http').Server(app);
 const mongoose = require('mongoose');             //to access mongo database
 const morgan = require('morgan');                 //a logger
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+//const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');//allows put and delete in some places it is not allowed
-const io = require('socket.io')(server);          //for realtime communication
 const cors = require('cors');
 const path = require('path');
 const index = require('./app/routes/index');
 const auth = require('./app/routes/auth');
+const users = require('./app/routes/users');
 const project = require('./app/routes/project');  //used for creating, retrieving, updating and deleting
 const invoice = require('./app/routes/invoice');  //used for creating, retrieving, updating and deleting
 const Chatkit = require('@pusher/chatkit-server');
-
 const port = 3000;
 
 //setup authentication
@@ -52,32 +51,55 @@ mongoose.connection.on('error', (err) => {
 
 //stack ===========
 app.use(express.static(path.join(__dirname, '/public')));
-app.use(cors()); // Use this after the variable declaration
+app.use(cors({origin:['http://localhost:4200'], credentials: true})); // Use this after the variable declaration
 app.use(morgan('dev'));
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(require('express-session')({
     secret: 'rotten fish',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true,
+    cookie: {httpOnly: false, secure: false, maxAge: 3600000}
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-
-//routes ===========
-app.use('/', index);
-app.use('/api/auth', auth);
-app.use('/api/project', project);
-app.use('/api/invoice', invoice);
-
 // passport config
 var Account = require('./app/models/users');
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
+
+app.use( (req, res, next) => {
+    console.log('debug');
+    console.log(req.session.id);
+   console.log(req.session.name);
+   console.log(req.session);
+next();
+});
+
+
+
+//routes ===========
+app.use('/', index);
+app.use('/api/auth', auth);
+
+//method to check if user is logged in.
+app.use( function isLoggedIn(req, res, next) {
+    console.log(req.session);
+    if (req.session.name)
+        return next();
+    res.status(400).json({
+        'message': 'access denied'
+    });
+});
+
+app.use('/api/users', users);
+app.use('/api/project', project);
+app.use('/api/invoice', invoice);
+
+
 
 //routing 
 app.post('/users', (req, res) => {

@@ -17,9 +17,9 @@ const httpOptions = {
 })
 export class DataService {
 
-  private EMPLOYEE_URL = '/api/auth/users';
+  private EMPLOYEE_URL = '/api/users';
   private PROJECT_URL = '/api/project/';
-  private LOGIN_URL = '/api/auth/login';
+  private AUTH_URL = '/api/auth';
   loggedIn: boolean = false;
   baseUrl: string;
 
@@ -31,14 +31,15 @@ export class DataService {
   //getEmployee ()
 
   getEmployees() {
-    return this.httpClient.get(this.baseUrl + this.EMPLOYEE_URL);
+    console.log(this.baseUrl + this.EMPLOYEE_URL);
+    return this.httpClient.get(this.baseUrl + this.EMPLOYEE_URL, {withCredentials: true});
   }
 
   /////////////////////
   //deleteEmployee ()
 
   deleteEmployee(id: Number) {
-    return this.httpClient.delete(this.baseUrl + this.EMPLOYEE_URL + "/" + id)
+    return this.httpClient.delete(this.baseUrl + this.EMPLOYEE_URL + "/" + id, {withCredentials: true})
 
   }
 
@@ -46,7 +47,7 @@ export class DataService {
   //newEmployee ()
 
   newEmployee(user: User) {
-    return this.httpClient.post(this.baseUrl + this.EMPLOYEE_URL, user);
+    return this.httpClient.post(this.baseUrl + this.EMPLOYEE_URL, user, {withCredentials: true});
 
   }
 
@@ -54,14 +55,14 @@ export class DataService {
   //editEmployee ()
 
   editEmployee(user: User) {
-    return this.httpClient.put(this.baseUrl + this.EMPLOYEE_URL + "/editUser", user);
+    return this.httpClient.put(this.baseUrl + this.EMPLOYEE_URL + "/editUser", user, {withCredentials: true});
   }
 
   /////////////////////
   //deleteProject ()
 
   deleteProject(id: Number) {
-    return this.httpClient.delete(this.baseUrl + this.PROJECT_URL + "/" + id)
+    return this.httpClient.delete(this.baseUrl + this.PROJECT_URL + "/" + id, {withCredentials: true})
 
   }
 
@@ -73,16 +74,15 @@ export class DataService {
     //console.log("[data service - getting data] from:" + this.baseUrl + this.PROJECT_URL);
 
     //return this.httpClient.get(this.baseUrl + this.PROJECT_URL);
-    return this.httpClient.get(this.baseUrl + this.PROJECT_URL + user);
+    return this.httpClient.get(this.baseUrl + this.PROJECT_URL + user, {withCredentials: true});
   }
 
   /////////////////////
   //newProject ()
 
   newProject(project: Project) {
-    console.log("[add a Project]" + project);
 
-    return this.httpClient.post(this.baseUrl + this.PROJECT_URL, project);
+    return this.httpClient.post(this.baseUrl + this.PROJECT_URL, project, {withCredentials: true});
 
   }
 
@@ -90,7 +90,7 @@ export class DataService {
   //edidProject ()
 
   editProject(project: Project) {
-    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editProject", project);
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editProject", project, {withCredentials: true});
   }
 
 
@@ -98,7 +98,7 @@ export class DataService {
   //Add Employees to Project
 
   updateProjects(id: Number, project: Project){
-    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "/" +id, project);
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "/" +id, project, {withCredentials: true});
   }
 
 
@@ -107,7 +107,7 @@ export class DataService {
   //Add Employees to Project
 
   addEmployeesProject(id: Number, userIDs: []){
-    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "/addEmployees/" +id, userIDs)
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "/addEmployees/" +id, userIDs, {withCredentials: true})
   }
 
 /*
@@ -131,7 +131,7 @@ removeEmployeesProject(id: Number, user: user?){
     newInvoice(id: Number, invoice: Invoice ){
 
       console.log(this.baseUrl + this.PROJECT_URL + "addInvoice");
-    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "addInvoice", invoice)
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "addInvoice", invoice, {withCredentials: true})
   }
 
   /////////////////////
@@ -140,16 +140,23 @@ removeEmployeesProject(id: Number, user: user?){
   editInvoice(invoice: Invoice ){
 
     console.log(this.baseUrl + this.PROJECT_URL + "addInvoice");
-    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editInvoice", invoice)
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editInvoice", invoice, {withCredentials: true})
   }
 
 
 
   /////////////////////
-  //Delete Work Order to Project
+  //Log the user in
 
   logIn(user: User){
-    return this.httpClient.post(this.baseUrl + this.LOGIN_URL, user);
+    return this.httpClient.post(this.baseUrl + this.AUTH_URL + '/login', user, {withCredentials: true});
+  }
+
+  /////////////////////
+  //Log the user out
+
+  logOut(){
+    return this.httpClient.get(this.baseUrl + this.AUTH_URL + '/logout', {withCredentials: true});
   }
 
 }
