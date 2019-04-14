@@ -29,15 +29,31 @@ router.post('/login', function (req, res) {
                 let message = {status: 'Error', message: "Username or password is invalid:"};
                 res.send(message);
             } else {
-
                 //check password
                 bcrypt
                     .compare(req.body.password, users.password)
                     .then(isAuthenticated => {
-
                         if (isAuthenticated) {
+
+                            req.session.user = users.user;
+
+                            // req.logIn(users, function(err) {
+                            //     if (err) return next(err);
+                            //     console.log('is authenticated?: ' + req.isAuthenticated());
+                            //     console.log(users);
+                            // });
+
+                            console.log(req.session);
+                            //req.session = users.username;
+                            console.log(req.sessionID);
+                            console.log('------');
+
+                            res.cookie('user', users.username,  { maxAge: 3600000, secure: false, httpOnly: false });
+                            //res.session.user = users.user;
+
                             message = {status: 'authenticated', username: users.username, admin: users.admin};
                             res.send(message);
+
                         } else {
                             let message = {status: 'Error', message: "Username or password is invalid:"};
                             res.send(message);
@@ -172,6 +188,7 @@ router.put('/users/editUser', async (req, res) => {
 //////Delete user
 router.delete('/users/:id', function (req, res) {
 
+    console.log(req.body);
 
     User.findOneAndUpdate({_id: req.body._id}, {active: false}, {new: true, runValidators: true},
         (err, response) => {

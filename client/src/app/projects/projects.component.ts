@@ -43,8 +43,6 @@ export class ProjectsComponent implements OnInit {
     this.employeesDisplay();
   }
 
-
-
   /////////////////////////
   // resetForm()
 
@@ -212,7 +210,7 @@ export class ProjectsComponent implements OnInit {
   updateTable(): void {
 
     console.log("[Get Projects]");
-    this.dataService.getProjects()
+    this.dataService.getProjects(this.configService.currentUser)
       .subscribe(
         (res: any[]) => {
 
