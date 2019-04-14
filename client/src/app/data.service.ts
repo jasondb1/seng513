@@ -6,7 +6,10 @@ import { Invoice } from './invoice';
 import { ConfigService} from "./config.service";
 
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';;
+import { catchError, map, tap } from 'rxjs/operators';
+import {PurchaseOrder} from "./purchaseOrder";
+
+;
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -118,11 +121,21 @@ removeEmployeesProject(id: Number, user: user?){
 }
 */
 
-  /////////////////////
-  //Delete Employee from Project
 
 /////////////////////
-  //Delete Employee from Project
+  //Add Invoice to Project
+  newPurchaseOrder(id: Number, purchaseOrder: PurchaseOrder ){
+
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + 'addPurchaseOrder', purchaseOrder, {withCredentials: true})
+  }
+
+  /////////////////////
+  //edit invoice
+
+  editPurchaseOrder(purchaseOrder: PurchaseOrder ){
+
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "editPurchaseOrder", purchaseOrder, {withCredentials: true})
+  }
 
 
 

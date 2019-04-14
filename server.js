@@ -127,6 +127,24 @@ app.post('/authenticate', (req, res) => {
     res.status(authData.status).send(authData.body);
 });
 
+//method to check if user is logged in.
+//everything behind here requires authentication
+
+app.use( function isLoggedIn(req, res, next) {
+    console.log(req.session);
+    if (req.session.name)
+        return next();
+    res.status(400).json({
+        'message': 'access denied'
+    });
+});
+
+app.use('/api/users', users);
+app.use('/api/project', project);
+app.use('/api/invoice', invoice);
+
+
+
 ////////////
 // start chat-server
 app.set('port', process.env.port || 5200);
