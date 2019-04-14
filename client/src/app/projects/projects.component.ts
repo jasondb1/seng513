@@ -25,6 +25,7 @@ export class ProjectsComponent implements OnInit {
   invoice: Invoice;
   DEBUG: boolean = true;
   data: any = {};
+  isUserAdmin: boolean = ConfigService.isAdmin;
   //selectedUsers: User[];
 
   constructor(private dataService: DataService,
@@ -41,8 +42,6 @@ export class ProjectsComponent implements OnInit {
     this.updateTable();
     this.employeesDisplay();
   }
-
-
 
   /////////////////////////
   // resetForm()
@@ -211,7 +210,7 @@ export class ProjectsComponent implements OnInit {
   updateTable(): void {
 
     console.log("[Get Projects]");
-    this.dataService.getProjects()
+    this.dataService.getProjects(this.configService.currentUser)
       .subscribe(
         (res: any[]) => {
 

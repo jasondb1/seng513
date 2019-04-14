@@ -6,6 +6,7 @@ import { Invoice } from './invoice';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';;
+import { ConfigService} from "./config.service";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,13 +17,16 @@ const httpOptions = {
 })
 export class DataService {
   
-  baseUrl: string = "http://localhost:3000";
+  baseUrl: string;
   private EMPLOYEE_URL = '/api/auth/users';
   private PROJECT_URL = '/api/project/';
   private LOGIN_URL = '/api/auth/login';
   loggedIn: boolean = false;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private configService: ConfigService) {
+    this.baseUrl = configService.baseUrl;
+  }
 
   /////////////////////
   //getEmployee ()
@@ -65,10 +69,10 @@ export class DataService {
   /////////////////////
   //getProject ()
 
-  getProjects() {
+  getProjects(user: string) {
     //console.log("[data service - getting data] from:" + this.baseUrl + this.PROJECT_URL);
 
-    return this.httpClient.get(this.baseUrl + this.PROJECT_URL);
+    return this.httpClient.get(this.baseUrl + this.PROJECT_URL + user);
   }
 
   /////////////////////
@@ -85,16 +89,15 @@ export class DataService {
   //Add Employees to Project
 
   updateProjects(id: Number, project: Project){
-    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "/" +id, project);
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "/" + id, project);
   }
-
 
 
   /////////////////////
   //Add Employees to Project
 
   addEmployeesProject(id: Number, userIDs: []){
-    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "/addEmployees/" +id, userIDs)
+    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "/addEmployees/" + id, userIDs)
   }
 
 /*

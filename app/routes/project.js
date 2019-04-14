@@ -3,6 +3,7 @@ const router = express.Router();
 let ObjectId = require('mongoose').Types.ObjectId;
 const mongoose = require('mongoose');
 const Project = require('../models/project');
+const User = require('../models/users');
 
 
 ///////////////////////////////////////////////////////////
@@ -10,6 +11,9 @@ const Project = require('../models/project');
 
 ///get/display all projects
 router.get('/', function(req, res) {
+
+    console.log('[in proj');
+    console.log(req.query['user_id']);
 
     Project.find( (err, projects) => {
         if (!err) {
@@ -24,11 +28,6 @@ router.get('/', function(req, res) {
 
 //save project
 router.post('/', function(req, res){
-    //TODO: Implement this method
-    //TODO: if id is -1 assign a number
-
-    //THis comment
-   // res.send('Need to fully implement this');
 
     //construct a new project
     let newProject = new Project({
@@ -54,35 +53,71 @@ router.post('/', function(req, res){
     });
 });
 
-router.get('/:id/', (req, res) => {
-   //check if id exists in db
-    if (!ObjectId.isValid(req.params.id))
-       return res.status(400).send('No record matches id: ' + req.params.id);
+router.get('/:user/', (req, res) => {
 
-        Project.findById(req.params.id, (err, project) => {
-            if(err){
-                console.log ("Error saving project data:" + err);
-            }
-            else {
-                res.send(project);
+    //console.log (req.params);
+    let user = req.params.user;
+
+    //  console.log(User.findOne({username: user}, (err, user) => {
+    //      if (!err){
+    //          return user._id;
+    //      }
+    //  })
+    //  );
+    //
+
+    let uid = User.findOne({username: user}, (err, user) => {
+        if (!err) {
+            console.log(user._id);
+            return user._id;
+        }
+    });
+
+    //check if id exists in db
+    Project.find({"employees.$oid": uid}, (err, projects) => {
+
+        if (err) {
+            console.log("Error loading project data:" + err);
+        } else {
+            console.log(projects);
+            res.send(projects);
+        }
+
+    });
+
+});
+
+//////edit project
+router.put('/', (req, res) => {
+
+    //update the project
+    Project.findOneAndUpdate({_id: req.body._id}, {$set: req.body}, {new: true, runValidators: true},
+        (err, response) => {
+
+            if (!err) {
+                let message = {status: 'Success', message: "User Edited"};
+                res.json(message);
+
+            } else {
+                let message = {status: 'Error', message: "There was an issue editing the project"};
+                res.status(400).json(message);
             }
         });
-
 });
 
 //delete project
 router.delete('/:id', function(req, res) {
-    //TODO: Implement this method
-    res.send('Need to fully implement this');
     Project.remove({_id: req.params.id}, (err, result) => {
-        if(err) {
-            res.json(err);
-        }
-        else {
-            res.json(result);
+        if (err) {
+            let message = {status: 'Error', message: ("There was a problem deleting the project - " + err)};
+            res.json(message);
+        } else {
+            let message = {status: 'Success', message: "Project Deleted"};
+            res.json(message);
         }
     });
 });
+
 
 /*//update project description/status
 router.put('/:id/', function(req, res) {
