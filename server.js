@@ -85,7 +85,7 @@ app.use('/api/auth', auth);
 //everything behind here requires authentication
 
 app.use( function isLoggedIn(req, res, next) {
-    console.log(req.session);
+    //console.log(req.session);
     if (req.session.name)
         return next();
     res.status(400).json({

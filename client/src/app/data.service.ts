@@ -146,9 +146,9 @@ removeEmployeesProject(id: Number, user: user?){
   /////////////////////
   //delete invoice
 
-  deleteInvoice(invoice: Invoice ){
-    console.log(this.baseUrl + this.PROJECT_URL + "delInvoice");
-    return this.httpClient.put(this.baseUrl + this.PROJECT_URL + "deleteInvoice", invoice, {withCredentials: true})
+  deleteInvoice(invoiceNum: Number){
+    console.log(this.baseUrl + this.PROJECT_URL + "invoice/" + invoiceNum);
+    return this.httpClient.delete(this.baseUrl + this.PROJECT_URL + "invoice/" + invoiceNum, {withCredentials: true})
   }
 
 

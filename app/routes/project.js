@@ -10,23 +10,21 @@ const User = require('../models/users');
 //Projects
 
 ///get/display all projects
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
 
-    Project.find( (err, projects) => {
+    Project.find((err, projects) => {
         if (!err) {
             res.json(projects);
-        }
-        else {
+        } else {
             console.log("Error retrieving project:" + err);
         }
 
     });
 });
 
+/////////////////////
 //save project
-router.post('/', function(req, res){
-    //THis comment
-   // res.send('Need to fully implement this');
+router.post('/', function (req, res) {
 
     //construct a new project
     let newProject = new Project({
@@ -39,20 +37,22 @@ router.post('/', function(req, res){
     });
 
     //save into database
-    newProject.save( (err, project) => {
-       if(err){
-           let message = {status: 'Error', message: 'Project Could Not Be Added:' + err};
-           console.log ("Error saving project data:" + err);
-           res.json(message);
-       }
-       else {
-           let message = {status: 'Success', message: "New Project Added"};
-           res.json(message);
-       }
+    newProject.save((err, project) => {
+        if (err) {
+            let message = {status: 'Error', message: 'Project Could Not Be Added:' + err};
+            console.log("Error saving project data:" + err);
+            res.json(message);
+        } else {
+            let message = {status: 'Success', message: "New Project Added"};
+            res.json(message);
+        }
 
     });
 });
 
+
+////////////////////////////////////////
+// Get list of users
 router.get('/:user/', async (req, res) => {
 
     let user = req.params.user;
@@ -65,7 +65,7 @@ router.get('/:user/', async (req, res) => {
     });
 
     let filter = {};
-    if (usr.admin !== true){
+    if (usr.admin !== true) {
         filter = {"employees": ObjectId(usr._id)};
     }
 
@@ -85,7 +85,7 @@ router.get('/:user/', async (req, res) => {
 
 
 //delete project
-router.delete('/:id', function(req, res) {
+router.delete('/:id', function (req, res) {
 
     Project.remove({_id: req.params.id}, (err, result) => {
         if (err) {
@@ -98,7 +98,7 @@ router.delete('/:id', function(req, res) {
     });
 });
 
-
+/////////////////////
 //////edit Project
 router.put('/editProject', async (req, res) => {
 
@@ -108,7 +108,7 @@ router.put('/editProject', async (req, res) => {
 
             if (!err) {
                 let message = {status: 'Success', message: "Project Edited"};
-               res.json(message);
+                res.json(message);
 
             } else {
                 let message = {status: 'Error', message: "There was an issue editing the Project"};
@@ -117,19 +117,28 @@ router.put('/editProject', async (req, res) => {
         });
 });
 
+////////////////////////////
+//delete Invoice
+router.delete('/invoice/:id', async function (req, res) {
 
+    // console.log('delete invoice');
+    // console.log(req.params.id);
+    
+    filter = {"invoice._id": ObjectId(req.params.id)};
 
-//delete Invoice I KNOW THI IS A PUT but delete didn't want to take my data.
-router.put('/deleteInvoice', function(req, res) {
+    Project.updateOne(filter,
+        { $pull: {"invoice": {_id: ObjectId(req.params.id)} } },
+        (err, response) => {
 
-    console.log(req.body);
+            if (!err) {
+                let message = {status: 'Success', message: "Invoice Deleted"};
+                res.json(message);
 
-    Project.findOneAndUpdate({'invoice._id': req.body._id}, {
-        $pull:{
-            'invoice.id': req.body._id
-        }
-    })
-    //todo
+            } else {
+                let message = {status: 'Error', message: "There was an issue editing deleting the invoice:" +err};
+                res.status(400).json(message);
+            }
+    });
 });
 
 
@@ -137,34 +146,34 @@ router.put('/deleteInvoice', function(req, res) {
 router.put('/editInvoice', async (req, res) => {
 //todo add error handling
     Project.findOneAndUpdate(
-        { _id: req.body.projectId, 'invoice._id': req.body._id },{
-        $set: { 'description': req.body.description,
-                "seller":req.body.seller,
+        {_id: req.body.projectId, 'invoice._id': req.body._id}, {
+            $set: {
+                'description': req.body.description,
+                "seller": req.body.seller,
                 'status': req.body.status,
                 'totalCost': req.body.totalCost
-            }})
+            }
+        })
 
 });
 
 
-
-
-router.put('/addInvoice',  async (req, res) => {
+router.put('/addInvoice', async (req, res) => {
 
     console.log(req.body);
 
     const project = await Project.findByIdAndUpdate(req.body.projectId,
         {
-           $push:{
-               invoice:{
-                   description: req.body.description,
-                   invoiceDate: req.body.invoiceDate,
-                   dateCreated: req.body.dateCreated,
-                   status: req.body.status,
-                   totalCost: req.body.totalCost,
-                   seller: req.body.seller
-               }
-           }
+            $push: {
+                invoice: {
+                    description: req.body.description,
+                    invoiceDate: req.body.invoiceDate,
+                    dateCreated: req.body.dateCreated,
+                    status: req.body.status,
+                    totalCost: req.body.totalCost,
+                    seller: req.body.seller
+                }
+            }
 
         });
 

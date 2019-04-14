@@ -148,7 +148,6 @@ export class ProjectsComponent implements OnInit {
       this.project = this.selectedProject;
       this.displayForm = true;
 
-
       $('#form-modal').modal('show');
 
     });
@@ -217,15 +216,20 @@ export class ProjectsComponent implements OnInit {
     $('a.btn-delete').on('click', event => {
 
       event.preventDefault();
-      console.log("ducky");
-      //TODO Possibly make a better confirmation dialog
+
       let isConfirmed = confirm('Delete This Invoice?');
 
       if (isConfirmed) {
-        this.invoice.projectId = this.selectedProject._id;
-        console.log(this.invoice);
 
-        this.dataService.deleteInvoice(this.invoice).subscribe((res: any) => {
+        let id = event.currentTarget.href;
+        let regex = /[^/]+$/; //matches everything after the last / to get the id
+        id = id.match(regex);
+
+        //this.invoice.projectId = this.selectedProject._id;
+
+        console.log(id[0]);
+
+        this.dataService.deleteInvoice(id[0]).subscribe((res: any) => {
 
             let status = `<strong>${res.status}</strong> - ${res.message}`;
             $("#status").html(status).attr('class', 'alert alert-success');
@@ -252,13 +256,9 @@ export class ProjectsComponent implements OnInit {
 
   updateTable(): void {
 
-
-
-    console.log("[Get Projects]");
     this.dataService.getProjects(this.configService.currentUser)
       .subscribe(
         (res: any[]) => {
-
           this.projects = res;
         },
         (err) => {

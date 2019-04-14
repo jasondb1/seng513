@@ -7,6 +7,7 @@ export class Invoice {
   status: string;
   totalCost: number;
   seller: string;
+
   constructor() {}
 
 }
