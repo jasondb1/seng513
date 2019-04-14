@@ -123,7 +123,7 @@ router.delete('/invoice/:id', async function (req, res) {
 
     // console.log('delete invoice');
     // console.log(req.params.id);
-    
+
     filter = {"invoice._id": ObjectId(req.params.id)};
 
     Project.updateOne(filter,
@@ -140,7 +140,6 @@ router.delete('/invoice/:id', async function (req, res) {
             }
     });
 });
-
 
 //////edit invoice
 router.put('/editInvoice', async (req, res) => {
