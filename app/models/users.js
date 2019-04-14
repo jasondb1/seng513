@@ -1,4 +1,4 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 require('mongoose-type-email');
 let passportLocalMongoose = require('passport-local-mongoose');
@@ -14,13 +14,13 @@ const Users = new Schema({    //mongoose.model('Users', {
 
     password: {
         type: String,
-        required:  [true, 'Password required']
+        required: [true, 'Password required']
     },
 
     email: {
         type: mongoose.SchemaTypes.Email,
         unique: true,
-        required:  [true, 'Email required']
+        required: [true, 'Email required']
     },
 
     name_first: {
@@ -37,6 +37,11 @@ const Users = new Schema({    //mongoose.model('Users', {
         type: Boolean,
         required: false,
         default: false
+    },
+
+    active: {
+        type: Boolean,
+        default: true
     }
 
 

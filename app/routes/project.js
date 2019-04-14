@@ -3,6 +3,7 @@ const router = express.Router();
 let ObjectId = require('mongoose').Types.ObjectId;
 const mongoose = require('mongoose');
 const Project = require('../models/project');
+const User = require('../models/users');
 
 
 ///////////////////////////////////////////////////////////
@@ -91,7 +92,6 @@ router.get('/:user/', (req, res) => {
 
 //delete project
 router.delete('/:id', function(req, res) {
-    //TODO: Implement this method
     res.send('Need to fully implement this');
     Project.remove({_id: req.params.id}, (err, result) => {
         if (err) {

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { User } from './user';
 import { Project } from './project';
 import { Invoice } from './invoice';
+import { ConfigService} from "./config.service";
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';;
@@ -15,15 +16,17 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DataService {
-  
-  baseUrl: string = "http://localhost:3000";
+
   private EMPLOYEE_URL = '/api/auth/users';
   private PROJECT_URL = '/api/project/';
   private LOGIN_URL = '/api/auth/login';
   loggedIn: boolean = false;
+  baseUrl: string;
 
-  constructor(private httpClient: HttpClient) { }
-
+  constructor(private httpClient: HttpClient,
+              private configService: ConfigService) {
+    this.baseUrl = configService.baseUrl;
+  }
   /////////////////////
   //getEmployee ()
 
@@ -65,10 +68,12 @@ export class DataService {
   /////////////////////
   //getProject ()
 
-  getProjects() {
+  //getProjects() {
+  getProjects(user:string){
     //console.log("[data service - getting data] from:" + this.baseUrl + this.PROJECT_URL);
 
-    return this.httpClient.get(this.baseUrl + this.PROJECT_URL);
+    //return this.httpClient.get(this.baseUrl + this.PROJECT_URL);
+    return this.httpClient.get(this.baseUrl + this.PROJECT_URL + user);
   }
 
   /////////////////////
