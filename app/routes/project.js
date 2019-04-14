@@ -56,27 +56,26 @@ router.post('/', function(req, res){
     });
 });
 
-router.get('/:user/', (req, res) => {
+router.get('/:user/', async (req, res) => {
 
     let user = req.params.user;
 
-    //  console.log(User.findOne({username: user}, (err, user) => {
-    //      if (!err){
-    //          return user._id;
-    //      }
-    //  })
-    //  );
-    //
-
-    let uid = User.findOne({username: user}, (err, user) => {
+    //get the user
+    usr = await User.findOne({username: user}, (err, tempuser) => {
         if (!err) {
-            console.log(user._id);
-            return user._id;
+            return tempuser._id;
         }
     });
 
-    //check if id exists in db
-    Project.find({"employees.$oid": uid}, (err, projects) => {
+    let filter = {};
+    if (usr.admin !== true){
+        filter = {"employees": ObjectId(usr._id)};
+    }
+
+    // filter = {"employees": ObjectId(usr._id)};
+    // console.log(filter);
+
+    Project.find(filter, (err, projects) => {
 
         if (err) {
             console.log("Error loading project data:" + err);
