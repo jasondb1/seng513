@@ -143,9 +143,7 @@ router.put('/editInvoice', async (req, res) => {
                 'status': req.body.status,
                 'totalCost': req.body.totalCost
             }})
-
 });
-
 
 
 
@@ -178,7 +176,7 @@ router.put('/addInvoice',  async (req, res) => {
 //add Purchase Order
 router.put('/addPurchaseOrder',  async (req, res) => {
 
-    comsole.log("ducky");
+    console.log("ducky");
     console.log(req.body);
 
     const project = await Project.findByIdAndUpdate(req.body.projectId,

@@ -171,8 +171,8 @@ export class ProjectsComponent implements OnInit {
 
 
 
-    console.log(this.projects);
-    console.log(this.users);
+    //console.log(this.projects);
+    //console.log(this.users);
     //setup listeners for the icons on the table
     this.setupDeleteListener();
     this.setupRowListener();
@@ -182,7 +182,7 @@ export class ProjectsComponent implements OnInit {
 
   displayTable2(): void {
 
-    console.log(this.selectedProject.invoice);
+    //console.log(this.selectedProject.invoice);
 
     let html = TableService.tableHtml(this.selectedProject.invoice, {'status' : 'Status', 'description': 'Description', 'dateCreated': 'Invoice Date', 'totalCost' : 'totalCost', 'seller' : "Seller"}, true, true);
     $('#invoice-summary').html(html);
@@ -193,8 +193,6 @@ export class ProjectsComponent implements OnInit {
     html = TableService.tableHtml(this.selectedProject.purchaseOrder, {'status' : 'Status', 'description': 'Description', 'dateCreated': 'Invoice Date', 'totalCost' : 'totalCost', 'buyer' : "Buyer"}, true, true);
     $('#purchase-summary').html(html);
 
-    
-    
     $('#invoice-summary a.btn-edit').on('click', event => {
       event.preventDefault();
 
@@ -279,10 +277,7 @@ export class ProjectsComponent implements OnInit {
   // updateTable()
 
   updateTable(): void {
-
-
-
-    console.log("[Get Projects]");
+    //console.log("[Get Projects]");
     this.dataService.getProjects(this.configService.currentUser)
       .subscribe(
         (res: any[]) => {
@@ -295,13 +290,13 @@ export class ProjectsComponent implements OnInit {
           $("#status").html(status).attr('class', 'alert alert-danger');
         },
         () => {
-          console.log("Data finished loading.");
+          //console.log("Data finished loading.");
           this.displayTable();
+          this.displayTable2();
           //this.displaySelected();
         }
       );
   }
-
 
   ///////////////////////////////////////
   //Submit Form
@@ -311,12 +306,9 @@ export class ProjectsComponent implements OnInit {
 
     this.displayForm = false;
 
-    //TODO: add functionality and change action when project is bei`ng edited instead of created.
     if (this.DEBUG) {
       console.log("Submit Button Pressed");
     }
-
-
 
     //2 way data-binding
     let _id = this.project._id;
@@ -346,7 +338,7 @@ export class ProjectsComponent implements OnInit {
           $("#status").html(status).attr('class', 'alert alert-danger');
         },
         () => {
-          //$("#form-modal").modal("hide");
+          $("#form-modal").modal("hide");
 
           this.updateTable();
         }
@@ -354,10 +346,6 @@ export class ProjectsComponent implements OnInit {
 
     }
     else {
-
-
-//todo: update project status etc
-
       let dateCreated = new Date();
 
       let newProject: Project = {
@@ -368,7 +356,8 @@ export class ProjectsComponent implements OnInit {
         'projectManager': projectManager,
         'status': status,
         'dateCreated': dateCreated,
-        'invoice': []
+        'invoice': [],
+        'purchaseOrder': [],
 
       };
 
@@ -385,7 +374,7 @@ export class ProjectsComponent implements OnInit {
           $("#status").html(status).attr('class', 'alert alert-danger');
         },
         () => {
-          //$("#form-modal").modal("hide");
+          $("#form-modal").modal("hide");
           this.resetForm();
           this.updateTable();
         }
@@ -415,24 +404,6 @@ export class ProjectsComponent implements OnInit {
       );
   }
 
-  // formSetup(){
-  //   let html;
-  //   for (let i = 0; i < this.users.length; i++) {
-  //     html += '<option>';
-  //     html += this.users[i]['username'];
-  //     html += '</option>';
-  //   }
-  //
-  //
-  //   $('#employeeDropDown').html(html);
-  //   $('#employeeDropDown2').html(html);
-  // }
-
-
-  submitFormEmployee(): void {
-//todo make this work.
-  }
-
   /**
    * Submits the invoice form
    */
@@ -444,7 +415,7 @@ export class ProjectsComponent implements OnInit {
     let invoiceDate = this.invoice.invoiceDate;
     let totalCost = this.invoice.totalCost;
     let seller = this.invoice.seller;
-    // @ts-ignore
+    //@ts-ignore
     let id = this.invoice._id;
 
       console.log(this.invoice);
@@ -462,7 +433,8 @@ export class ProjectsComponent implements OnInit {
           $("#status").html(status).attr('class', 'alert alert-danger');
         },
         () => {
-          $("#form-modal").modal("hide");
+          this.resetForm();
+          $("#form-modal-inv").modal("hide");
           this.updateTable();
         }
       );
@@ -471,9 +443,7 @@ export class ProjectsComponent implements OnInit {
     }
     else{
 
-
-
-    let newInvoice: Invoice={
+    let newInvoice: Invoice = {
       'projectId' : proj_id,
       'status': status,
       'description' : description,
@@ -494,15 +464,24 @@ export class ProjectsComponent implements OnInit {
         $("#status").html(status).attr('class', 'alert alert-danger');
       },
       () => {
-        $("#form-modal").modal("hide");
+        $("#form-modal-invoice").modal("hide");
         this.resetForm();
         this.updateTable();
+
       }
     );
 
     }
   }
+
+
+  /**
+   * Submits the invoice form
+   */
+
   submitFormPo(): void {
+
+    console.log('submit form po');
 
     let proj_id = this.selectedProject._id; // this is used to pass over the project that the invoice is associated with.
     let status = "Paid";
@@ -513,6 +492,7 @@ export class ProjectsComponent implements OnInit {
     let id = this.purchaseOrder._id;
 
     console.log(this.purchaseOrder);
+
     if (id != null) {
       this.purchaseOrder.projectId = proj_id; // this is used to pass over the project that the purchaseOrder is associated with.
 
@@ -527,7 +507,8 @@ export class ProjectsComponent implements OnInit {
           $("#status").html(status).attr('class', 'alert alert-danger');
         },
         () => {
-          $("#form-modal").modal("hide");
+          this.resetForm();
+          $("#form-modal-po").modal("hide");
           this.updateTable();
         }
       );
@@ -536,9 +517,7 @@ export class ProjectsComponent implements OnInit {
     }
     else{
 
-
-
-      let newPurchaseOrder: PurchaseOrder={
+      let newPurchaseOrder: PurchaseOrder = {
         'projectId' : proj_id,
         'status': status,
         'description' : description,
@@ -548,6 +527,7 @@ export class ProjectsComponent implements OnInit {
 
       };
 
+      console.log('new po')
       console.log(newPurchaseOrder);
 
       this.dataService.newPurchaseOrder(id,newPurchaseOrder).subscribe(
@@ -561,7 +541,7 @@ export class ProjectsComponent implements OnInit {
           $("#status").html(status).attr('class', 'alert alert-danger');
         },
         () => {
-          $("#form-modal").modal("hide");
+          $("#form-modal-po").modal("hide");
           this.resetForm();
           this.displayTable2();
         }
@@ -570,4 +550,4 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
-}
+}//end class
