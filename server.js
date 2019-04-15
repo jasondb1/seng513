@@ -92,7 +92,7 @@ app.use('/', index);
 
 ///////////////////////
 // chat routes
-app.post('/users', (req, res) => {
+app.post('/api/msg/users', (req, res) => {
     const { username } = req.body;
 
     console.log(req.body);
@@ -114,7 +114,7 @@ app.post('/users', (req, res) => {
         });
 });
 
-app.post('/authenticate', (req, res) => {
+app.post('/api/msg/authenticate', (req, res) => {
     const authData = chatkit.authenticate({
         userId: req.query.user_id,
     });
@@ -122,6 +122,7 @@ app.post('/authenticate', (req, res) => {
 });
 
 
+//Main App authentication
 app.use('/api/auth', auth);
 
 

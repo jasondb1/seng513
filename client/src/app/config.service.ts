@@ -12,7 +12,7 @@ export class ConfigService {
   currentUser: string = "";
   // messagingUrl: string = 'http://localhost:5200/authenticate';
   // baseUrl: string = "http://localhost:3000";
-  messagingUrl: string = '';
+  messagingUrl: string = '/api/msg/authenticate';
   baseUrl: string = "";
 
 

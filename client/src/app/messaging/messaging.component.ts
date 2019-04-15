@@ -152,7 +152,7 @@ export class MessagingComponent implements OnInit {
   addUser() {
 
     const { uid } = this;
-    axios.post('http://localhost:5200/users', { username: uid })
+    axios.post('/api/msg/users', { username: uid })
       .then(() => {
         const tokenProvider = new Chatkit.TokenProvider({
           url: this.configService.messagingUrl

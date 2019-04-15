@@ -294,7 +294,7 @@ router.put('/addTask',  async (req, res) => {
         },
         (err, response) => {
 
-            console.log(response);
+            //console.log(response);
             if (!err) {
                 let message = {status: 'Success', message: "Task Added"};
                 res.json(message);

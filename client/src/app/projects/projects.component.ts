@@ -31,6 +31,7 @@ export class ProjectsComponent implements OnInit {
   DEBUG: boolean = true;
   data: any = {};
   isUserAdmin: boolean = ConfigService.isAdmin;
+  projIndex: Number = 0;
   //selectedUsers: User[];
 
   constructor(private dataService: DataService,
@@ -68,6 +69,7 @@ export class ProjectsComponent implements OnInit {
 
   displaySelected(index){
 
+    this.projIndex = index;
     this.selectedProject = this.projects[index];
     this.displayUsers.length = 0; //reset the array lol this is an interesting way to code this.
 
@@ -103,10 +105,7 @@ export class ProjectsComponent implements OnInit {
         rowId = rowId.match(regex)[0];
         this.displaySelected(rowId);
       }
-
     });
-
-
   }
 
   ///////////////////////////
@@ -359,8 +358,8 @@ export class ProjectsComponent implements OnInit {
         () => {
           this.displayTable();
           this.displayTable2();
-          this.displaySelected(0);
-          //this.displaySelected();
+          //console.log (this.selectedProject);
+          this.displaySelected(this.projIndex);
         }
       );
   }
@@ -374,9 +373,9 @@ export class ProjectsComponent implements OnInit {
     this.displayForm = false;
     $("#form-modal").modal("hide");
 
-    if (this.DEBUG) {
-      console.log("Submit Button Pressed");
-    }
+    // if (this.DEBUG) {
+    //   console.log("Submit Button Pressed");
+    // }
 
     //2 way data-binding
     let _id = this.project._id;
@@ -550,7 +549,7 @@ export class ProjectsComponent implements OnInit {
    */
   submitFormTask(): void {
 
-    console.log ('submit task');
+    //console.log ('submit task');
 
     $("#form-modal-task").modal("hide");
 
@@ -562,7 +561,7 @@ export class ProjectsComponent implements OnInit {
     //@ts-ignore
     let id = this.task._id;
 
-    console.log(this.task);
+    //console.log(this.task);
     if (id != null) {
       this.invoice.projectId = proj_id; // this is used to pass over the project that the invoice is associated with.
 
@@ -632,7 +631,7 @@ export class ProjectsComponent implements OnInit {
     // @ts-ignore
     let id = this.purchaseOrder._id;
 
-    console.log(this.purchaseOrder);
+    //console.log(this.purchaseOrder);
 
     if (id != null) {
       this.purchaseOrder.projectId = proj_id; // this is used to pass over the project that the purchaseOrder is associated with.
@@ -668,8 +667,8 @@ export class ProjectsComponent implements OnInit {
 
       };
 
-      console.log('new po')
-      console.log(newPurchaseOrder);
+      //console.log('new po')
+      //console.log(newPurchaseOrder);
 
       this.dataService.newPurchaseOrder(id,newPurchaseOrder).subscribe(
         (res: any) => {
