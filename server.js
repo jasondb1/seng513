@@ -49,8 +49,13 @@ mongoose.connection.on('error', (err) => {
 } );
 
 //stack ===========
-app.use(express.static(path.join(__dirname, '/public')));
-app.use(cors({origin:['http://localhost:4200'], credentials: true})); // Use this after the variable declaration
+//app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/client/dist/client/')));
+//app.use(cors({origin:'http://192.168.1.165:4200',
+//     credentials: true,
+//     "optionsSuccessStatus": 200,})); // Use this after the variable declaration
+app.use(cors());
+
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
@@ -68,6 +73,22 @@ var Account = require('./app/models/users');
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
+
+
+//allow OPTIONS on all resources
+//app.options('*', cors());
+
+// app.all('/', function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//     res.header("Access-Control-Allow-Headers","*");
+//     res.header('Access-Control-Allow-Credentials', true);
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//     next()
+// });
+
+//routes ===========
+app.use('/', index);
 
 ///////////////////////
 // chat routes
@@ -100,8 +121,7 @@ app.post('/authenticate', (req, res) => {
     res.status(authData.status).send(authData.body);
 });
 
-//routes ===========
-app.use('/', index);
+
 app.use('/api/auth', auth);
 
 

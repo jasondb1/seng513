@@ -10,8 +10,10 @@ export class ConfigService {
   public static isAdmin: boolean = false;
   isAuthenticated: boolean = false;
   currentUser: string = "";
-  messagingUrl: string = 'http://localhost:5200/authenticate';
-  baseUrl: string = "http://localhost:3000";
+  // messagingUrl: string = 'http://localhost:5200/authenticate';
+  // baseUrl: string = "http://localhost:3000";
+  messagingUrl: string = '';
+  baseUrl: string = "";
 
 
   constructor() {
