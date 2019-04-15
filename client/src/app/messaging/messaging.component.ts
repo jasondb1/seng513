@@ -174,7 +174,7 @@ export class MessagingComponent implements OnInit {
           })
           .then(currentUser => {
             this.currentUser = currentUser;
-            this.connectToRoom('19388641');
+            this.connectToRoom('19391085');
             this.getJoinableRooms();
           });
       })
