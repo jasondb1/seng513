@@ -58,7 +58,7 @@ export class AdminEmployeeComponent implements OnInit {
     this.dataService.getEmployees()
       .subscribe(
         (res: any[]) => {
-          //console.log(res);
+
           this.users = res;
         },
         (err) => {
@@ -101,7 +101,6 @@ export class AdminEmployeeComponent implements OnInit {
             $("#status").html(status).attr('class', 'alert alert-danger');
           },
           () => {
-            //console.log("[Deletion complete]");
             this.updateTable();
           });
       }

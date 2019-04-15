@@ -58,7 +58,13 @@ export class TableService {
       //add items in each object
       for (let key of keys) {
         html += '<td>';
+        if (key === "totalCost") {
+          html += '$';;
+        }
         html += data_json[i][key];
+        if (key === "totalCost") {
+          html += '.00';;
+        }
         html += '</td>';
       }
 

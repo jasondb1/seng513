@@ -68,16 +68,11 @@ router.get('/:user/', async (req, res) => {
     if (usr.admin !== true) {
         filter = {"employees": ObjectId(usr._id)};
     }
-
-    // filter = {"employees": ObjectId(usr._id)};
-    // console.log(filter);
-
     Project.find(filter, (err, projects) => {
 
         if (err) {
             console.log("Error loading project data:" + err);
         } else {
-            //console.log(projects);
             res.send(projects);
         }
     });
@@ -171,8 +166,6 @@ router.put('/editInvoice', async (req, res) => {
 // Add invoice
 router.put('/addInvoice', async (req, res) => {
 
-    //console.log(req.body);
-
     const project = await Project.findByIdAndUpdate(req.body.projectId,
         {
             $push: {
@@ -198,9 +191,6 @@ router.put('/addInvoice', async (req, res) => {
                 res.status(400).json(message);
             }
         });
-
-    //console.log(project);
-    //res.send(project);
 
 });
 
@@ -267,9 +257,6 @@ router.put('/editPurchaseOrder', async (req, res) => {
 //delete po
 router.delete('/po/:id', async function (req, res) {
 
-    // console.log('delete invoice');
-    // console.log(req.params.id);
-
     filter = {"purchaseOrder._id": ObjectId(req.params.id)};
 
     Project.updateOne(filter,
@@ -291,9 +278,6 @@ router.delete('/po/:id', async function (req, res) {
 ///////////////////////////
 //add task
 router.put('/addTask',  async (req, res) => {
-
-    console.log('add task');
-    console.log(req.body);
 
     await Project.findByIdAndUpdate(req.body.projectId,
         {
@@ -353,9 +337,6 @@ router.put('/editTask', async (req, res) => {
 ////////////////////////////
 //delete po
 router.delete('/task/:id', async function (req, res) {
-
-    // console.log('delete invoice');
-    // console.log(req.params.id);
 
     filter = {"task._id": ObjectId(req.params.id)};
 

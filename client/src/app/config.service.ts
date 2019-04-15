@@ -15,7 +15,6 @@ export class ConfigService {
 
 
   constructor() {
-    //console.log("[ConfigService instance initialized]" + this.displayChat);
 
   }
 }

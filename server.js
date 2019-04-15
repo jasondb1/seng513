@@ -69,14 +69,6 @@ passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
-// app.use( (req, res, next) => {
-//     console.log('debug');
-//     console.log(req.session.id);
-//    console.log(req.session.name);
-//    console.log(req.session);
-// next();
-// });
-
 ///////////////////////
 // chat routes
 app.post('/users', (req, res) => {
